@@ -1,0 +1,9 @@
+scenario	trace_file	match_count	first_line	first_record
+HotspotCongestion	/home/changle/SA/SimAI/results/HotspotCongestion/trace.txt	0		
+LatencyIncrease	/home/changle/SA/SimAI/results/LatencyIncrease/trace.txt	0		
+LinkSlowdown	/home/changle/SA/SimAI/results/LinkSlowdown/trace.txt	0		
+Normal	/home/changle/SA/SimAI/results/Normal/trace.txt	0		
+PFCIngressCongestion	/home/changle/SA/SimAI/results/PFCIngressCongestion/trace.txt	1561403	16743	4235 n:48 17:3 9052 Enqu ecn:0 0b000401 0b000701 10000 100 U 0 0 3 9052(9000)
+RandomLoss	/home/changle/SA/SimAI/results/RandomLoss/trace.txt	0		
+SingleLinkError	/home/changle/SA/SimAI/results/SingleLinkError/trace.txt	868324	485	4235 n:48 17:3 9052 Enqu ecn:0 0b000401 0b000701 10000 100 U 0 0 3 9052(9000)
+SlowNode	/home/changle/SA/SimAI/results/SlowNode/trace.txt	0		

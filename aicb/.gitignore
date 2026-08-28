@@ -1,0 +1,7 @@
+*__pycache__*
+*local*
+.ipynb_checkpoints
+.pytest_cache
+/results/workload/**/*.txt
+/results/workload/**/*.csv
+/results/workload/**/*.tr

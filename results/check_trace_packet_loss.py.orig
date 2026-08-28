@@ -1,0 +1,536 @@
+#!/usr/bin/env python3
+"""从 ns-3 trace 中找出未被接收的发送事件，并按时间写入 CSV。"""
+
+from __future__ import annotations
+
+import argparse
+import csv
+import sys
+import time
+from collections import defaultdict
+from dataclasses import dataclass, field
+from pathlib import Path
+from typing import Dict, List, Optional, Sequence, Set, Tuple
+
+
+@dataclass(frozen=True)
+class PacketKey:
+    src_rank: int
+    dst_rank: int
+    src_ip: str
+    dst_ip: str
+    src_port: str
+    dst_port: str
+    packet_type: str
+    details: Tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class SendEvent:
+    timestamp: str
+    timestamp_value: int
+    line_number: int
+    port_queue: str
+    queue_length: str
+    ecn: str
+
+
+@dataclass
+class PacketHistory:
+    sends: List[SendEvent] = field(default_factory=list)
+    receives: List[Tuple[int, int]] = field(default_factory=list)
+
+
+@dataclass(frozen=True)
+class LossEvent:
+    key: PacketKey
+    send: SendEvent
+    same_packet_send_count: int
+    same_packet_receive_count: int
+    same_packet_loss_count: int
+
+
+Histories = Dict[PacketKey, PacketHistory]
+
+
+class PacketLossAnalyzer:
+    """消费结构化事件并累计丢包匹配所需的数据。"""
+
+    def __init__(
+        self,
+        sender_filter: Optional[Set[int]],
+        packet_types: Optional[Set[str]],
+    ) -> None:
+        self.sender_filter = sender_filter
+        self.packet_types = packet_types
+        self.histories: Histories = defaultdict(PacketHistory)
+
+    def consume(self, event: TraceEvent) -> None:
+        if (
+            self.packet_types is not None
+            and event.packet_type not in self.packet_types
+        ):
+            return
+        if (
+            self.sender_filter is not None
+            and event.src_rank not in self.sender_filter
+        ):
+            return
+
+        is_send = event.action == "Dequ" and event.event_rank == event.src_rank
+        is_receive = event.action == "Recv" and event.event_rank == event.dst_rank
+        if not is_send and not is_receive:
+            return
+
+        key = PacketKey(
+            src_rank=event.src_rank,
+            dst_rank=event.dst_rank,
+            src_ip=event.src_ip,
+            dst_ip=event.dst_ip,
+            src_port=event.src_port,
+            dst_port=event.dst_port,
+            packet_type=event.packet_type,
+            details=event.details,
+        )
+        history = self.histories[key]
+        if is_send:
+            history.sends.append(
+                SendEvent(
+                    timestamp=event.timestamp,
+                    timestamp_value=event.timestamp_value,
+                    line_number=event.line_number,
+                    port_queue=event.port_queue,
+                    queue_length=event.queue_length,
+                    ecn=event.ecn,
+                )
+            )
+        else:
+            history.receives.append(
+                (event.timestamp_value, event.line_number)
+            )
+
+    def finish(self, seen_ranks: Set[int]) -> Tuple[Histories, int, int]:
+        observable: Histories = {}
+        unobservable_sends = 0
+        relevant_events = 0
+        for key, history in self.histories.items():
+            if key.src_rank not in seen_ranks or key.dst_rank not in seen_ranks:
+                unobservable_sends += len(history.sends)
+                continue
+            observable[key] = history
+            relevant_events += len(history.sends) + len(history.receives)
+        return observable, relevant_events, unobservable_sends
+
+
+def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description=(
+            "核对 trace 中的 Dequ/Recv 事件。未指定 rank 时统计全部发送方；"
+            "指定 rank 时只统计这些 rank 发出的丢包。"
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=(
+            "示例：\n"
+            "  %(prog)s trace.txt\n"
+            "  %(prog)s trace.txt 0\n"
+            "  %(prog)s trace.txt 0 24 --output lost.csv"
+        ),
+    )
+    parser.add_argument("trace", type=Path, help="待检查的 trace.txt 路径")
+    parser.add_argument(
+        "ranks",
+        type=int,
+        nargs="*",
+        metavar="RANK",
+        help="可选的发送方 rank；不指定时统计全部 rank",
+    )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        help="CSV 输出路径；默认在 trace 旁生成 <trace名>_packet_loss.csv",
+    )
+    parser.add_argument(
+        "--packet-types",
+        help="只核对这些包类型，逗号分隔，例如 U,A；默认核对全部类型",
+    )
+    parser.add_argument(
+        "--max-display",
+        type=int,
+        default=20,
+        help="终端最多显示多少次丢包；0 表示全部显示",
+    )
+    parser.add_argument(
+        "--fail-on-loss",
+        action="store_true",
+        help="发现丢包时返回退出码 1，便于自动检查",
+    )
+    return parser.parse_args(argv)
+
+
+def parse_packet_types(value: Optional[str]) -> Optional[Set[str]]:
+    if value is None:
+        return None
+    result = {item.strip() for item in value.split(",") if item.strip()}
+    if not result:
+        raise ValueError("--packet-types 不能为空")
+    return result
+
+
+def address_rank(address: str) -> int:
+    """解析形如 0b001801 的地址；末尾两位是主机地址，前面是 rank。"""
+    value = address.lower()
+    if not value.startswith("0b") or len(value) <= 4:
+        raise ValueError(address)
+    return int(value[2:-2], 16)
+
+
+def discover_ranks(trace: Path) -> Set[int]:
+    ranks: Set[int] = set()
+    with trace.open("r", encoding="utf-8", errors="replace") as handle:
+        for line in handle:
+            fields = line.split(maxsplit=2)
+            if len(fields) < 2 or not fields[1].startswith("n:"):
+                continue
+            try:
+                ranks.add(int(fields[1][2:]))
+            except ValueError:
+                continue
+    return ranks
+
+
+def scan_trace(
+    trace: Path,
+    seen_ranks: Set[int],
+    sender_filter: Optional[Set[int]],
+    packet_types: Optional[Set[str]],
+) -> Tuple[Histories, int, int, int]:
+    histories: Histories = defaultdict(PacketHistory)
+    malformed_lines = 0
+    relevant_events = 0
+    unobservable_sends = 0
+
+    with trace.open("r", encoding="utf-8", errors="replace") as handle:
+        for line_number, line in enumerate(handle, 1):
+            fields = line.split()
+            if len(fields) < 11:
+                if fields:
+                    malformed_lines += 1
+                continue
+
+            node_token = fields[1]
+            if not node_token.startswith("n:"):
+                malformed_lines += 1
+                continue
+            try:
+                event_rank = int(node_token[2:])
+                timestamp_value = int(fields[0])
+                src_rank = address_rank(fields[6])
+                dst_rank = address_rank(fields[7])
+            except ValueError:
+                malformed_lines += 1
+                continue
+
+            packet_type = fields[10]
+            if packet_types is not None and packet_type not in packet_types:
+                continue
+            if sender_filter is not None and src_rank not in sender_filter:
+                continue
+
+            action = fields[4]
+            is_send = action == "Dequ" and event_rank == src_rank
+            is_receive = action == "Recv" and event_rank == dst_rank
+            if not is_send and not is_receive:
+                continue
+
+            # 只有收发双方 rank 都被 trace 记录时，才能可靠判断是否丢包。
+            if src_rank not in seen_ranks or dst_rank not in seen_ranks:
+                if is_send:
+                    unobservable_sends += 1
+                continue
+
+            key = PacketKey(
+                src_rank=src_rank,
+                dst_rank=dst_rank,
+                src_ip=fields[6].lower(),
+                dst_ip=fields[7].lower(),
+                src_port=fields[8],
+                dst_port=fields[9],
+                packet_type=packet_type,
+                # ECN 可能在途中改变，因此不纳入包身份。
+                details=tuple(fields[11:]),
+            )
+            history = histories[key]
+            if is_send:
+                history.sends.append(
+                    SendEvent(
+                        timestamp=fields[0],
+                        timestamp_value=timestamp_value,
+                        line_number=line_number,
+                        port_queue=fields[2],
+                        queue_length=fields[3],
+                        ecn=fields[5],
+                    )
+                )
+            else:
+                history.receives.append((timestamp_value, line_number))
+            relevant_events += 1
+
+    return dict(histories), malformed_lines, relevant_events, unobservable_sends
+
+
+def find_losses(histories: Histories) -> Tuple[List[LossEvent], int]:
+    losses: List[LossEvent] = []
+    unexpected_receives = 0
+
+    for key, history in histories.items():
+        # 同一包可能重传。每个 Recv 与其之前最近一次尚未匹配的 Dequ 配对，
+        # 因而“首次发送丢失、第二次发送成功”会把首次发送列为丢包事件。
+        timeline = []
+        for send in history.sends:
+            timeline.append((send.timestamp_value, send.line_number, 0, send))
+        for timestamp_value, line_number in history.receives:
+            timeline.append((timestamp_value, line_number, 1, None))
+        timeline.sort(key=lambda item: (item[0], item[1], item[2]))
+
+        unmatched_sends: List[SendEvent] = []
+        for _, _, event_kind, send in timeline:
+            if event_kind == 0:
+                assert send is not None
+                unmatched_sends.append(send)
+            elif unmatched_sends:
+                unmatched_sends.pop()
+            else:
+                unexpected_receives += 1
+
+        send_count = len(history.sends)
+        receive_count = len(history.receives)
+        loss_count = len(unmatched_sends)
+        for send in unmatched_sends:
+            losses.append(
+                LossEvent(
+                    key=key,
+                    send=send,
+                    same_packet_send_count=send_count,
+                    same_packet_receive_count=receive_count,
+                    same_packet_loss_count=loss_count,
+                )
+            )
+
+    losses.sort(
+        key=lambda loss: (
+            loss.send.timestamp_value,
+            loss.send.line_number,
+            loss.key.src_rank,
+            loss.key.dst_rank,
+        )
+    )
+    return losses, unexpected_receives
+
+
+def write_csv(output: Path, losses: List[LossEvent]) -> None:
+    output.parent.mkdir(parents=True, exist_ok=True)
+    with output.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.writer(handle)
+        writer.writerow(
+            [
+                "send_time",
+                "send_line",
+                "src_rank",
+                "dst_rank",
+                "src_ip",
+                "dst_ip",
+                "src_port",
+                "dst_port",
+                "packet_type",
+                "packet_fields",
+                "ecn_at_send",
+                "node_port_queue",
+                "queue_length",
+                "same_packet_send_count",
+                "same_packet_receive_count",
+                "same_packet_loss_count",
+            ]
+        )
+        for loss in losses:
+            writer.writerow(
+                [
+                    loss.send.timestamp,
+                    loss.send.line_number,
+                    loss.key.src_rank,
+                    loss.key.dst_rank,
+                    loss.key.src_ip,
+                    loss.key.dst_ip,
+                    loss.key.src_port,
+                    loss.key.dst_port,
+                    loss.key.packet_type,
+                    " ".join(loss.key.details),
+                    loss.send.ecn,
+                    loss.send.port_queue,
+                    loss.send.queue_length,
+                    loss.same_packet_send_count,
+                    loss.same_packet_receive_count,
+                    loss.same_packet_loss_count,
+                ]
+            )
+
+
+def print_report(
+    trace: Path,
+    output: Path,
+    seen_ranks: Set[int],
+    selected_senders: List[int],
+    histories: Histories,
+    losses: List[LossEvent],
+    malformed_lines: int,
+    unobservable_sends: int,
+    unexpected_receives: int,
+    max_display: int,
+) -> None:
+    print(f"Trace: {trace}")
+    print(f"Trace 中的 rank 数量: {len(seen_ranks)}")
+    print(f"发送方范围: {','.join(str(rank) for rank in selected_senders)}")
+    print()
+
+    loss_count_by_sender: Dict[int, int] = defaultdict(int)
+    for loss in losses:
+        loss_count_by_sender[loss.key.src_rank] += 1
+
+    for rank in selected_senders:
+        sender_histories = [
+            history for key, history in histories.items() if key.src_rank == rank
+        ]
+        sent = sum(len(history.sends) for history in sender_histories)
+        received = sum(len(history.receives) for history in sender_histories)
+        print(
+            f"rank {rank}: 发送 {sent}, 接收 {received}, "
+            f"丢包事件 {loss_count_by_sender[rank]}"
+        )
+
+    print()
+    print(f"合计丢包事件: {len(losses)}")
+    if unobservable_sends:
+        print(
+            f"提示: 忽略 {unobservable_sends} 次发送，因为对应接收方 rank 未出现在 trace 中。"
+        )
+    if unexpected_receives:
+        print(
+            f"警告: {unexpected_receives} 次接收找不到更早的对应发送，"
+            "请检查 trace 是否被截断或时间是否有序。"
+        )
+    if malformed_lines:
+        print(f"提示: 跳过 {malformed_lines} 行无法解析的非空记录。")
+
+    if losses:
+        shown = losses if max_display == 0 else losses[:max_display]
+        print("\n按发送时间排序的丢包事件：")
+        for loss in shown:
+            print(
+                f"- t={loss.send.timestamp} L{loss.send.line_number} "
+                f"{loss.key.src_rank}->{loss.key.dst_rank} "
+                f"{loss.key.packet_type} port {loss.key.src_port}->{loss.key.dst_port} "
+                f"fields=[{' '.join(loss.key.details)}]"
+            )
+        if len(shown) < len(losses):
+            print(f"... 还有 {len(losses) - len(shown)} 条，完整内容见 CSV。")
+
+    print(f"\nCSV 已写入: {output}")
+
+
+def finish_analysis(
+    trace: Path,
+    output: Path,
+    seen_ranks: Set[int],
+    selected_senders: List[int],
+    analyzer: PacketLossAnalyzer,
+    malformed_lines: int,
+    max_display: int,
+    fail_on_loss: bool,
+) -> int:
+    phase_start = time.perf_counter()
+    histories, relevant_events, unobservable_sends = analyzer.finish(seen_ranks)
+    losses, unexpected_receives = find_losses(histories)
+    match_seconds = time.perf_counter() - phase_start
+
+    phase_start = time.perf_counter()
+    write_csv(output, losses)
+    csv_seconds = time.perf_counter() - phase_start
+    print_report(
+        trace,
+        output,
+        seen_ranks,
+        selected_senders,
+        histories,
+        losses,
+        malformed_lines,
+        unobservable_sends,
+        unexpected_receives,
+        max_display,
+    )
+    print("\n耗时统计：")
+    print(f"  丢包匹配: {match_seconds:.3f} 秒")
+    print(f"  CSV 写入: {csv_seconds:.3f} 秒")
+    if relevant_events == 0:
+        print(
+            "警告: 没有找到收发双方都被记录的 Dequ/Recv 事件。",
+            file=sys.stderr,
+        )
+    return 1 if fail_on_loss and losses else 0
+
+
+def main(argv: Optional[Sequence[str]] = None) -> int:
+    total_start = time.perf_counter()
+    args = parse_args(argv)
+    if args.max_display < 0:
+        print("错误: --max-display 不能小于 0。", file=sys.stderr)
+        return 2
+    if not args.trace.is_file():
+        print(f"错误: trace 文件不存在: {args.trace}", file=sys.stderr)
+        return 2
+    if any(rank < 0 for rank in args.ranks):
+        print("错误: rank 不能为负数。", file=sys.stderr)
+        return 2
+
+    try:
+        packet_types = parse_packet_types(args.packet_types)
+    except ValueError as error:
+        print(f"错误: {error}", file=sys.stderr)
+        return 2
+
+    requested_ranks = sorted(set(args.ranks))
+    sender_filter = set(requested_ranks) if requested_ranks else None
+    analyzer = PacketLossAnalyzer(sender_filter, packet_types)
+    reader = TraceEventReader(args.trace)
+    parse_start = time.perf_counter()
+    for event in reader:
+        analyzer.consume(event)
+    parse_seconds = time.perf_counter() - parse_start
+
+    if not reader.seen_ranks:
+        print("错误: trace 中没有找到任何 n:<rank> 事件。", file=sys.stderr)
+        return 2
+    missing_ranks = sorted(set(requested_ranks) - reader.seen_ranks)
+    if missing_ranks:
+        print(f"错误: trace 中没有 rank 事件: {missing_ranks}", file=sys.stderr)
+        return 2
+
+    selected_senders = requested_ranks or sorted(reader.seen_ranks)
+    output = args.output or args.trace.with_name(
+        f"{args.trace.stem}_packet_loss.csv"
+    )
+    status = finish_analysis(
+        trace=args.trace,
+        output=output,
+        seen_ranks=reader.seen_ranks,
+        selected_senders=selected_senders,
+        analyzer=analyzer,
+        malformed_lines=reader.malformed_lines,
+        max_display=args.max_display,
+        fail_on_loss=args.fail_on_loss,
+    )
+    print(f"  共享事件解析: {parse_seconds:.3f} 秒")
+    print(f"  处理总耗时: {time.perf_counter() - total_start:.3f} 秒")
+    return status
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -1,0 +1,37 @@
+```gitignore
+# VS Code
+.vscode/
+
+# Build directories
+astra-sim-alibabacloud/build/simai_analytical/build/
+astra-sim-alibabacloud/build/astra_ns3/build/
+
+# External dependencies
+astra-sim-alibabacloud/extern/
+
+# Compiled binaries
+bin/
+
+# Python cache
+results/__pycache__/
+__pycache__/
+*.pyc
+
+# Simulation result files
+/results/**/*.txt
+/results/**/*.csv
+/results/**/*.tr
+/results/**/*.tsv
+
+# Test logs
+test/log/
+
+# Log files
+*.log
+
+# Temporary files
+.cur*
+
+# macOS
+.DS_Store
+```

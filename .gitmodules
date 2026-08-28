@@ -1,0 +1,12 @@
+[submodule "SimCCL"]
+	path = SimCCL
+	url = https://github.com/changle1021-tech/SimCCL
+	branch = master
+[submodule "aicb"]
+	path = aicb
+	url = https://github.com/changle1021-tech/aicb
+	branch = master
+[submodule "ns-3-alibabacloud"]
+	path = ns-3-alibabacloud
+	url = https://github.com/changle1021-tech/ns-3-alibabacloud
+	branch = master
