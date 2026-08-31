@@ -50,28 +50,80 @@ class TPTimePredictor:
             assert os.path.isdir(self.workload_path), f"Workload path exists but is not a directory: {self.workload_path}"
         
         # self.workload_path = '/disk2/futianhao/software3/sim-ai-inference-n/simulator_output/tmp_simai_workload'
-        self.cache: Dict[int, float] = {}
+        self.cache: Dict[tuple, float] = {}
+
+    def _get_all_reduce_shape(self, batch: Batch):
+        """Return the unpadded token count, byte size, and cache key."""
+        # The compute predictor rounds token counts to multiples of eight to
+        # match its profiling buckets.  TP collectives communicate the actual
+        # activation tensor, so applying that rounding here overstates decode
+        # traffic (for example, BS=1 Qwen-72B is 16 KiB, not 128 KiB).
+        num_tokens_in_batch = batch.total_num_tokens
+        all_reduce_bytes = self.hidden_size * num_tokens_in_batch * self.tensor_size
+        cache_key = (self.hidden_size, num_tokens_in_batch, self.tensor_size)
+        return num_tokens_in_batch, all_reduce_bytes, cache_key
+
+    def _get_effective_all_reduce_latency(
+        self, all_reduce_bytes: int, simulated_latency_ms: float
+    ) -> float:
+        """Select the collective implementation used by the serving runtime.
+
+        SimAI's current flow model represents NCCL collectives.  SGLang uses
+        its intra-node custom all-reduce by default for eligible small
+        messages.  Decode BS=1 for Qwen-72B TP=4 is a 16 KiB collective, so
+        charging the NCCL latency for all 160 collectives per token adds a
+        nearly constant TPOT error.  Keep SimAI for larger collectives and use
+        the calibrated custom-kernel latency only for the supported H100-DGX
+        TP=4 small-message path.
+        """
+        if not getattr(
+            self.predictor_config, "simai_sglang_custom_allreduce", False
+        ):
+            return simulated_latency_ms
+
+        if (
+            self.replica_config.network_device != "h100_dgx"
+            or self.replica_config.tensor_parallel_size != 4
+        ):
+            return simulated_latency_ms
+
+        max_bytes = getattr(
+            self.predictor_config,
+            "simai_sglang_custom_allreduce_max_bytes",
+            0,
+        )
+        custom_latency_ms = getattr(
+            self.predictor_config,
+            "simai_sglang_custom_allreduce_latency_ms",
+            0.0,
+        )
+        if (
+            all_reduce_bytes <= 0
+            or all_reduce_bytes > max_bytes
+            or custom_latency_ms <= 0
+        ):
+            return simulated_latency_ms
+
+        # Never replace an already faster simulated collective with the
+        # calibrated custom-kernel value.
+        return min(simulated_latency_ms, custom_latency_ms)
 
 
     # > 重写 增加两个功能 复用相同的workload 和 相同command的结果
     # > rewrite: add two features to reuse same workloads and results of same commands
     def get_execution_time(self, batch: Batch):
         self.workload.flush()
-        num_tokens_in_batch = batch._total_num_tokens_rounded
-        all_reduce_bytes = self.hidden_size * num_tokens_in_batch * self.tensor_size
-        
-        # 使用包含所有相关参数的元组作为缓存键，而不是仅仅使用all_reduce_bytes
-        # Use a tuple containing all relevant parameters as cache key instead of just all_reduce_bytes
-        cache_key = (self.hidden_size, num_tokens_in_batch, self.tensor_size)
+        num_tokens_in_batch, all_reduce_bytes, cache_key = (
+            self._get_all_reduce_shape(batch)
+        )
         
         # 如果结果已经在缓存中，直接返回
         # If result is already in cache, return directly
         
         if cache_key in self.cache:
-            return (self.cache[cache_key]
-                + self.predictor_config.nccl_cpu_launch_overhead_ms
-                + self.predictor_config.nccl_cpu_skew_overhead_per_device_ms
-                * self.replica_config.tensor_parallel_size**1.25)
+            return self._get_effective_all_reduce_latency(
+                all_reduce_bytes, self.cache[cache_key]
+            )
         
         # 为workload和命令生成唯一标识符
         # 基于WorkItem的所有相关参数生成哈希值
@@ -162,13 +214,13 @@ class TPTimePredictor:
             
             self.cache[cache_key] = latency
         
-        return (self.cache[cache_key]
-            # TODO: chentong whether we need these?
-            # can these parameters be integreted into simai?
-            + self.predictor_config.nccl_cpu_launch_overhead_ms
-            + self.predictor_config.nccl_cpu_skew_overhead_per_device_ms
-            * self.replica_config.tensor_parallel_size**1.25)
-        
+        # SimAI reports the complete collective latency.  Do not add Vidur's
+        # per-collective CPU launch/skew estimates on top: those are intended
+        # for the profile-based backend and overcount CUDA-graph decode runs.
+        return self._get_effective_all_reduce_latency(
+            all_reduce_bytes, self.cache[cache_key]
+        )
+
     # > 重写 增加两个功能 复用相同的workload 和 相同command的结果
     # > rewrite: add two features to reuse same workloads and results of same commands
     def get_execution_time_by_simai_analytical(self, batch: Batch):
@@ -182,20 +234,16 @@ class TPTimePredictor:
         Returns: float: 预测的执行时间（毫秒），如果出错则返回-1
         """
         self.workload.flush()
-        num_tokens_in_batch = batch._total_num_tokens_rounded
-        all_reduce_bytes = self.hidden_size * num_tokens_in_batch * self.tensor_size
-        
-        # 使用包含所有相关参数的元组作为缓存键，而不是仅仅使用all_reduce_bytes
-        # Use a tuple containing all relevant parameters as cache key instead of just all_reduce_bytes
-        cache_key = (self.hidden_size, num_tokens_in_batch, self.tensor_size)
+        num_tokens_in_batch, all_reduce_bytes, cache_key = (
+            self._get_all_reduce_shape(batch)
+        )
         
         # 如果结果已经在缓存中，直接返回
         # If result is already in cache, return directly
         if cache_key in self.cache:
-            return (self.cache[cache_key]
-                + self.predictor_config.nccl_cpu_launch_overhead_ms
-                + self.predictor_config.nccl_cpu_skew_overhead_per_device_ms
-                * self.replica_config.tensor_parallel_size**1.25)
+            return self._get_effective_all_reduce_latency(
+                all_reduce_bytes, self.cache[cache_key]
+            )
         
         
         # TODO(tianhao909): add layer0 str(1) "ALLREDUCE" etc. to hash computation, currently hardcoded
@@ -311,13 +359,8 @@ class TPTimePredictor:
             # Store result in cache for future requests with same parameters
             self.cache[cache_key] = latency
 
-        
-        # 返回最终预测的执行时间，包括缓存的延迟和额外的开销
-        # Return final predicted execution time, including cached latency and additional overhead
-        return (self.cache[cache_key]
-            # TODO: chentong whether we need these?
-            # can these parameters be integreted into simai?
-            + self.predictor_config.nccl_cpu_launch_overhead_ms
-            + self.predictor_config.nccl_cpu_skew_overhead_per_device_ms
-            * self.replica_config.tensor_parallel_size**1.25)
-        
+        # As with the simulation backend, the analytical result is already the
+        # complete collective latency for this model.
+        return self._get_effective_all_reduce_latency(
+            all_reduce_bytes, self.cache[cache_key]
+        )

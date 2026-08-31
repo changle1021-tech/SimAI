@@ -33240,3 +33240,633 @@
 [2026-08-21 14:00:44] [插值] seq=512, 使用邻居插值, 总插值=1
 [2026-08-21 14:00:44] 统计: hits=1, interp=1, calls=0, entries=3
 [2026-08-21 14:00:44] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 10:40:44] 从磁盘加载了 2 条缓存记录
+[2026-08-31 10:40:44] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 10:40:47] 从磁盘加载了 2 条缓存记录
+[2026-08-31 10:40:47] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 10:40:47] 从磁盘加载了 2 条缓存记录
+[2026-08-31 10:40:47] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 10:40:47] 从磁盘加载了 2 条缓存记录
+[2026-08-31 10:40:47] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 10:40:47] 从磁盘加载了 2 条缓存记录
+[2026-08-31 10:40:47] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 10:40:47] 从磁盘加载了 2 条缓存记录
+[2026-08-31 10:40:47] 从磁盘加载了 2 条缓存记录
+[2026-08-31 10:40:47] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 10:40:47] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 10:40:47] 从磁盘加载了 2 条缓存记录
+[2026-08-31 10:40:47] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 10:40:47] 从磁盘加载了 2 条缓存记录
+[2026-08-31 10:40:47] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 10:40:47] 从磁盘加载了 2 条缓存记录
+[2026-08-31 10:40:47] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 10:40:48] 从磁盘加载了 2 条缓存记录
+[2026-08-31 10:40:48] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 10:40:48] 从磁盘加载了 2 条缓存记录
+[2026-08-31 10:40:48] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 10:40:48] 从磁盘加载了 2 条缓存记录
+[2026-08-31 10:40:48] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 10:46:00] 从磁盘加载了 2 条缓存记录
+[2026-08-31 10:46:00] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 10:46:01] 从磁盘加载了 2 条缓存记录
+[2026-08-31 10:46:01] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 10:46:01] 从磁盘加载了 2 条缓存记录
+[2026-08-31 10:46:01] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 10:46:01] 从磁盘加载了 2 条缓存记录
+[2026-08-31 10:46:01] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 10:46:01] 从磁盘加载了 2 条缓存记录
+[2026-08-31 10:46:01] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 10:46:01] 从磁盘加载了 2 条缓存记录
+[2026-08-31 10:46:01] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 10:46:01] 从磁盘加载了 2 条缓存记录
+[2026-08-31 10:46:01] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 10:46:01] 从磁盘加载了 2 条缓存记录
+[2026-08-31 10:46:01] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 10:46:01] 从磁盘加载了 2 条缓存记录
+[2026-08-31 10:46:01] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 10:46:01] 从磁盘加载了 2 条缓存记录
+[2026-08-31 10:46:01] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 10:46:01] 从磁盘加载了 2 条缓存记录
+[2026-08-31 10:46:02] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 10:46:02] 从磁盘加载了 2 条缓存记录
+[2026-08-31 10:46:02] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 10:46:02] 从磁盘加载了 2 条缓存记录
+[2026-08-31 10:46:02] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:04:43] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:04:43] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:04:49] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:04:49] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:04:50] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:04:50] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:04:50] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:04:50] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:04:50] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:04:50] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:04:50] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:04:50] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:04:50] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:04:50] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:04:50] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:04:50] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:04:50] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:04:50] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:04:50] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:04:50] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:04:50] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:04:50] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:04:51] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:04:51] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:04:51] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:04:51] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:10:09] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:10:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:10:21] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:10:21] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:10:22] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:10:22] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:11:35] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 11:11:35] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 11:15:43] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:15:43] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:15:50] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:15:50] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:15:50] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:15:50] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:15:50] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:15:50] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:15:51] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:15:51] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:15:51] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:15:51] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:15:51] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:15:51] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:15:51] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:15:51] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:15:51] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:15:51] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:15:51] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:15:51] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:15:51] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:15:51] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:15:51] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:15:51] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:15:51] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:15:51] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:31:44] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:31:44] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:31:47] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:31:47] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:31:47] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:31:47] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:31:47] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:31:47] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:31:47] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:31:47] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:31:47] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:31:47] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:31:47] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:31:47] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:31:47] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:31:47] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:31:48] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:31:48] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:31:48] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:31:48] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:31:48] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:31:48] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:31:48] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:31:48] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:31:48] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:31:48] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:47:31] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:47:31] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:47:35] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:47:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:47:35] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:47:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:47:35] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:47:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:47:35] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:47:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:47:35] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:47:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:47:35] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:47:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:47:35] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:47:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:47:35] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:47:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:47:35] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:47:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:47:35] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:47:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:47:35] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:47:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:47:35] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:47:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:49:04] 从磁盘加载了 2 条缓存记录
+[2026-08-31 11:49:04] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 11:49:49] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 11:49:49] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 12:03:01] 从磁盘加载了 2 条缓存记录
+[2026-08-31 12:03:01] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 15:06:56] 从磁盘加载了 2 条缓存记录
+[2026-08-31 15:06:56] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 15:07:01] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 15:07:01] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 15:29:22] 从磁盘加载了 2 条缓存记录
+[2026-08-31 15:29:22] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 15:29:29] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 15:29:29] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 15:45:22] 从磁盘加载了 2 条缓存记录
+[2026-08-31 15:45:22] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 15:45:26] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 15:45:26] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 16:10:35] 从磁盘加载了 2 条缓存记录
+[2026-08-31 16:10:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 16:11:27] 从磁盘加载了 2 条缓存记录
+[2026-08-31 16:11:27] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 16:15:43] 从磁盘加载了 2 条缓存记录
+[2026-08-31 16:15:43] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 16:15:46] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 16:15:46] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 16:33:12] 从磁盘加载了 2 条缓存记录
+[2026-08-31 16:33:12] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 16:33:15] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 16:33:15] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 16:46:37] 从磁盘加载了 2 条缓存记录
+[2026-08-31 16:46:37] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 16:53:29] 从磁盘加载了 2 条缓存记录
+[2026-08-31 16:53:29] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 16:53:52] 从磁盘加载了 2 条缓存记录
+[2026-08-31 16:53:52] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 16:53:54] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 16:53:54] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 16:54:47] 从磁盘加载了 2 条缓存记录
+[2026-08-31 16:54:47] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 16:54:49] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 16:54:49] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 16:56:52] 从磁盘加载了 2 条缓存记录
+[2026-08-31 16:56:52] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 16:57:05] 从磁盘加载了 2 条缓存记录
+[2026-08-31 16:57:05] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 16:57:14] 从磁盘加载了 2 条缓存记录
+[2026-08-31 16:57:14] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 17:01:55] 从磁盘加载了 2 条缓存记录
+[2026-08-31 17:01:55] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 17:03:00] 从磁盘加载了 2 条缓存记录
+[2026-08-31 17:03:00] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 17:03:03] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 17:03:03] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 17:06:37] 从磁盘加载了 2 条缓存记录
+[2026-08-31 17:06:37] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 17:06:41] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 17:06:41] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 17:09:32] 从磁盘加载了 2 条缓存记录
+[2026-08-31 17:09:32] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 17:13:29] 从磁盘加载了 2 条缓存记录
+[2026-08-31 17:13:29] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 17:16:16] 从磁盘加载了 2 条缓存记录
+[2026-08-31 17:16:16] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 17:38:44] 从磁盘加载了 2 条缓存记录
+[2026-08-31 17:38:44] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 17:40:46] 从磁盘加载了 2 条缓存记录
+[2026-08-31 17:40:46] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 18:40:22] 从磁盘加载了 2 条缓存记录
+[2026-08-31 18:40:22] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 18:40:29] 从磁盘加载了 2 条缓存记录
+[2026-08-31 18:40:29] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 18:40:31] 从磁盘加载了 2 条缓存记录
+[2026-08-31 18:40:31] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 18:40:31] 从磁盘加载了 2 条缓存记录
+[2026-08-31 18:40:31] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 18:40:31] 从磁盘加载了 2 条缓存记录
+[2026-08-31 18:40:31] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 18:40:31] 从磁盘加载了 2 条缓存记录
+[2026-08-31 18:40:31] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 18:40:31] 从磁盘加载了 2 条缓存记录
+[2026-08-31 18:40:31] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 18:40:31] 从磁盘加载了 2 条缓存记录
+[2026-08-31 18:40:31] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 18:40:31] 从磁盘加载了 2 条缓存记录
+[2026-08-31 18:40:31] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 18:40:31] 从磁盘加载了 2 条缓存记录
+[2026-08-31 18:40:31] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 18:40:31] 从磁盘加载了 2 条缓存记录
+[2026-08-31 18:40:31] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 18:40:31] 从磁盘加载了 2 条缓存记录
+[2026-08-31 18:40:31] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 18:40:31] 从磁盘加载了 2 条缓存记录
+[2026-08-31 18:40:31] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 18:40:31] 从磁盘加载了 2 条缓存记录
+[2026-08-31 18:40:31] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 18:48:35] 从磁盘加载了 2 条缓存记录
+[2026-08-31 18:48:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 18:49:37] 从磁盘加载了 2 条缓存记录
+[2026-08-31 18:49:37] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:01:11] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:01:11] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:02:33] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:02:33] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:02:36] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:02:36] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:02:36] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:02:36] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:02:36] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:02:36] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:02:36] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:02:36] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:02:36] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:02:36] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:02:36] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:02:36] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:02:36] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:02:36] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:02:36] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:02:36] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:02:36] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:02:36] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:02:36] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:02:36] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:02:36] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:02:36] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:02:36] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:02:36] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:16:28] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:16:28] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:17:49] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 19:17:49] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 19:21:07] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:21:07] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:21:10] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 19:21:10] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 19:21:41] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:21:41] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:21:43] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 19:21:43] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 19:22:02] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:22:02] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:25:23] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:25:23] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:25:24] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:25:24] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:26:31] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 19:26:31] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 19:29:48] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:29:48] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:29:52] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 19:29:52] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 19:31:46] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:31:46] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:31:49] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 19:31:49] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 19:33:00] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:33:00] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:33:02] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 19:33:02] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 19:33:23] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:33:23] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:34:18] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:34:18] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:35:39] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:35:39] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:35:42] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:35:42] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:35:42] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:35:42] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:35:42] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:35:42] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:35:42] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:35:42] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:35:42] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:35:42] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:35:42] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:35:42] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:35:42] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:35:42] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:35:42] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:35:42] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:35:42] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:35:42] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:35:42] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:35:42] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:35:42] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:35:42] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:35:43] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:35:43] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:36:28] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:36:28] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:36:30] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:36:30] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:36:30] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:36:30] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:36:30] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:36:30] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:36:30] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:36:30] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:36:30] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:36:30] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:36:30] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:36:30] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:36:30] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:36:30] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:36:30] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:36:30] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:36:30] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:36:30] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:36:30] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:36:30] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:36:30] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:36:30] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:36:31] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:36:31] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:44:53] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 19:44:53] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 19:50:12] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:50:12] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:50:18] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 19:50:18] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 19:51:33] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:51:33] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:56:11] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:56:11] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:57:26] 从磁盘加载了 2 条缓存记录
+[2026-08-31 19:57:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 19:58:12] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 19:58:12] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 20:00:15] 从磁盘加载了 2 条缓存记录
+[2026-08-31 20:00:15] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 20:00:59] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 20:00:59] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 20:36:10] 从磁盘加载了 2 条缓存记录
+[2026-08-31 20:36:10] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 20:37:19] 从磁盘加载了 2 条缓存记录
+[2026-08-31 20:37:19] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 20:38:01] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 20:38:01] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 21:55:33] 从磁盘加载了 2 条缓存记录
+[2026-08-31 21:55:33] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 21:55:38] 从磁盘加载了 2 条缓存记录
+[2026-08-31 21:55:38] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 21:55:38] 从磁盘加载了 2 条缓存记录
+[2026-08-31 21:55:38] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 21:55:38] 从磁盘加载了 2 条缓存记录
+[2026-08-31 21:55:38] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 21:55:38] 从磁盘加载了 2 条缓存记录
+[2026-08-31 21:55:38] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 21:55:38] 从磁盘加载了 2 条缓存记录
+[2026-08-31 21:55:38] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 21:55:38] 从磁盘加载了 2 条缓存记录
+[2026-08-31 21:55:38] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 21:55:38] 从磁盘加载了 2 条缓存记录
+[2026-08-31 21:55:38] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 21:55:38] 从磁盘加载了 2 条缓存记录
+[2026-08-31 21:55:38] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 21:55:38] 从磁盘加载了 2 条缓存记录
+[2026-08-31 21:55:38] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 21:55:38] 从磁盘加载了 2 条缓存记录
+[2026-08-31 21:55:38] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 21:55:38] 从磁盘加载了 2 条缓存记录
+[2026-08-31 21:55:38] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 21:55:38] 从磁盘加载了 2 条缓存记录
+[2026-08-31 21:55:38] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:10:09] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 22:10:09] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 22:14:33] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:14:33] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:15:24] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 22:15:24] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 22:17:50] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:17:50] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:17:52] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:17:52] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:17:52] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:17:52] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:17:52] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:17:52] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:17:52] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:17:52] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:17:52] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:17:52] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:17:52] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:17:52] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:17:52] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:17:52] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:17:52] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:17:52] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:17:52] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:17:52] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:17:52] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:17:52] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:17:52] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:17:52] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:17:53] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:17:53] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:19:20] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:19:20] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:19:22] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:19:22] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:19:22] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:19:22] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:19:22] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:19:22] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:19:22] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:19:22] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:19:22] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:19:22] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:19:22] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:19:22] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:19:22] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:19:22] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:19:22] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:19:22] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:19:22] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:19:22] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:19:22] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:19:22] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:19:22] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:19:22] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:19:22] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:19:22] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:36:06] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 22:36:06] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 22:37:40] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:37:40] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:38:33] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 22:38:33] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 22:38:47] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:38:47] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:39:32] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 22:39:32] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 22:59:05] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:59:05] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:59:08] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:59:08] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:59:08] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:59:08] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:59:08] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:59:08] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:59:08] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:59:08] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:59:08] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:59:08] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:59:08] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:59:08] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:59:08] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:59:08] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:59:08] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:59:08] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:59:08] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:59:08] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:59:08] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:59:08] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:59:08] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:59:08] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 22:59:08] 从磁盘加载了 2 条缓存记录
+[2026-08-31 22:59:08] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 23:13:34] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 23:13:34] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 23:16:16] 从磁盘加载了 2 条缓存记录
+[2026-08-31 23:16:16] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 23:17:10] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 23:17:10] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 23:18:12] 从磁盘加载了 2 条缓存记录
+[2026-08-31 23:18:12] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 23:19:08] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 23:19:08] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 23:20:14] 从磁盘加载了 2 条缓存记录
+[2026-08-31 23:20:14] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 23:21:07] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 23:21:07] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 23:23:05] 从磁盘加载了 2 条缓存记录
+[2026-08-31 23:23:05] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 23:23:53] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 23:23:53] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 23:24:59] 从磁盘加载了 2 条缓存记录
+[2026-08-31 23:24:59] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 23:25:55] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 23:25:55] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 23:27:34] 从磁盘加载了 2 条缓存记录
+[2026-08-31 23:27:34] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 23:28:33] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-08-31 23:28:33] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-08-31 23:47:12] 从磁盘加载了 2 条缓存记录
+[2026-08-31 23:47:12] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 23:47:16] 从磁盘加载了 2 条缓存记录
+[2026-08-31 23:47:16] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 23:47:16] 从磁盘加载了 2 条缓存记录
+[2026-08-31 23:47:16] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 23:47:16] 从磁盘加载了 2 条缓存记录
+[2026-08-31 23:47:16] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 23:47:16] 从磁盘加载了 2 条缓存记录
+[2026-08-31 23:47:16] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 23:47:16] 从磁盘加载了 2 条缓存记录
+[2026-08-31 23:47:16] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 23:47:16] 从磁盘加载了 2 条缓存记录
+[2026-08-31 23:47:16] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 23:47:16] 从磁盘加载了 2 条缓存记录
+[2026-08-31 23:47:16] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 23:47:16] 从磁盘加载了 2 条缓存记录
+[2026-08-31 23:47:16] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 23:47:16] 从磁盘加载了 2 条缓存记录
+[2026-08-31 23:47:16] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 23:47:16] 从磁盘加载了 2 条缓存记录
+[2026-08-31 23:47:16] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 23:47:16] 从磁盘加载了 2 条缓存记录
+[2026-08-31 23:47:16] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-08-31 23:47:16] 从磁盘加载了 2 条缓存记录
+[2026-08-31 23:47:16] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-01 00:06:05] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-09-01 00:06:05] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-01 00:08:39] 从磁盘加载了 2 条缓存记录
+[2026-09-01 00:08:39] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-01 00:09:32] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-09-01 00:09:32] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-01 00:11:01] 从磁盘加载了 2 条缓存记录
+[2026-09-01 00:11:01] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-01 00:11:59] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-09-01 00:11:59] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-01 00:12:58] 从磁盘加载了 2 条缓存记录
+[2026-09-01 00:12:58] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-01 00:13:47] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-09-01 00:13:47] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-01 00:24:50] 从磁盘加载了 2 条缓存记录
+[2026-09-01 00:24:50] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-01 00:24:51] 从磁盘加载了 2 条缓存记录
+[2026-09-01 00:24:51] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-01 00:25:30] 从磁盘加载了 2 条缓存记录
+[2026-09-01 00:25:30] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-01 00:26:17] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-09-01 00:26:17] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-01 00:28:53] 从磁盘加载了 2 条缓存记录
+[2026-09-01 00:28:53] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-01 00:29:20] 从磁盘加载了 2 条缓存记录
+[2026-09-01 00:29:20] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-01 00:30:05] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-09-01 00:30:05] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-01 00:30:06] 从磁盘加载了 2 条缓存记录
+[2026-09-01 00:30:06] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-01 00:30:54] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-09-01 00:30:54] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-01 00:30:56] 从磁盘加载了 2 条缓存记录
+[2026-09-01 00:30:56] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-01 00:31:44] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-09-01 00:31:44] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-01 00:31:46] 从磁盘加载了 2 条缓存记录
+[2026-09-01 00:31:46] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-01 00:32:32] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-09-01 00:32:32] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-01 00:32:34] 从磁盘加载了 2 条缓存记录
+[2026-09-01 00:32:34] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-01 00:33:20] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-09-01 00:33:20] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-01 00:33:22] 从磁盘加载了 2 条缓存记录
+[2026-09-01 00:33:22] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-01 00:34:07] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-09-01 00:34:07] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-01 00:34:09] 从磁盘加载了 2 条缓存记录
+[2026-09-01 00:34:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-01 00:34:58] 统计: hits=0, interp=0, calls=0, entries=2
+[2026-09-01 00:34:58] 查表索引已保存到 /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-01 00:37:03] 从磁盘加载了 2 条缓存记录
+[2026-09-01 00:37:03] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SA/SimAI/vidur-alibabacloud/data/aicb_workload/cache

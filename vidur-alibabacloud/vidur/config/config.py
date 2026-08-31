@@ -686,11 +686,15 @@ class BaseExecutionTimePredictorConfig(BasePolyConfig):
     )
     nccl_cpu_launch_overhead_ms: float = field(
         default=0.02,
-        metadata={"help": "NCCL CPU launch overhead in ms."},
+        metadata={
+            "help": "NCCL CPU launch overhead in ms for the Vidur profiling backend."
+        },
     )
     nccl_cpu_skew_overhead_per_device_ms: float = field(
         default=0.0,
-        metadata={"help": "NCCL CPU skew overhead per device in ms."},
+        metadata={
+            "help": "NCCL CPU skew overhead per device in ms for the Vidur profiling backend."
+        },
     )
     num_training_job_threads: int = field(
         default=-1,
@@ -725,6 +729,27 @@ class BaseExecutionTimePredictorConfig(BasePolyConfig):
         # default="../SimAI/astra-sim-alibabacloud/inputs/config/SimAI.conf",
         default="../astra-sim-alibabacloud/inputs/config/SimAI.conf",
         metadata={"help": "Path to the simai config file."},
+    )
+    simai_sglang_custom_allreduce: bool = field(
+        default=True,
+        metadata={
+            "help": "Model SGLang's intra-node custom all-reduce for small "
+            "messages when using the SimAI communication backend."
+        },
+    )
+    simai_sglang_custom_allreduce_max_bytes: int = field(
+        default=64 * 1024,
+        metadata={
+            "help": "Largest all-reduce message covered by the SGLang custom "
+            "all-reduce latency model."
+        },
+    )
+    simai_sglang_custom_allreduce_latency_ms: float = field(
+        default=0.0125,
+        metadata={
+            "help": "Small-message SGLang custom all-reduce latency in ms for "
+            "an intra-node H100 DGX TP=4 group."
+        },
     )
     aicb_force_bs1: bool = field(
         default=False,

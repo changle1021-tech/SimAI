@@ -1272,8 +1272,8 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
         # don't use round up to the nearest multiple of 8 here, because we want to
         # predict the execution time for the exact number of tokens
         num_tokens = sum(batch.num_tokens)
-
-        return self._predictions["attn_kv_cache_save"][(num_tokens,)]
+        return 0
+        # return self._predictions["attn_kv_cache_save"][(num_tokens,)]
 
     def _get_attention_decode_execution_time(self, batch: Batch) -> float:
         (
