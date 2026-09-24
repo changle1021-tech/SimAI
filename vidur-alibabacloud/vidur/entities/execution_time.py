@@ -1307,7 +1307,8 @@ class ExecutionTime(BaseEntity):
                 
 
             self._current_layer_id = None  # Clean up
-            return (total_block_time + self.pipeline_parallel_communication_time) * 1e-3
+            # AICB layer times are seconds; PP communication is milliseconds.
+            return total_block_time + self.pipeline_parallel_communication_time * 1e-3
             
             # total_execution_time = 0.0
             # for layer_id in range(self._num_layers_per_pipeline_stage):

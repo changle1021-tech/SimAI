@@ -1,0 +1,63 @@
+diff --git a/sarathi/model_executor/parallel_utils/pipeline_parallel/mappings.py b/sarathi/model_executor/parallel_utils/pipeline_parallel/mappings.py
+--- a/sarathi/model_executor/parallel_utils/pipeline_parallel/mappings.py
++++ b/sarathi/model_executor/parallel_utils/pipeline_parallel/mappings.py
+@@ -1,41 +1,51 @@
+ import torch
+ 
+ from sarathi.metrics.constants import OperationMetrics
+ from sarathi.metrics.cuda_timer import CudaTimer
+ from sarathi.model_executor.parallel_utils.parallel_state import (
+     get_pipeline_model_parallel_group,
+     get_pipeline_model_parallel_next_rank,
+     get_pipeline_model_parallel_prev_rank,
+ )
+ 
+ 
++def _run_p2p(op, tensor: torch.Tensor, peer: int) -> None:
++    """Run one P2P op through the CUDA-graph-compatible batched API."""
++    group = get_pipeline_model_parallel_group()
++    works = torch.distributed.batch_isend_irecv(
++        [torch.distributed.P2POp(op, tensor, peer, group)]
++    )
++    for work in works:
++        work.wait()
++
++
+ def send(hidden_states: torch.tensor):
+     """Send hidden states to the next pipeline stage."""
+     # Bypass the function if we are using only 1 stage.
+     if get_pipeline_model_parallel_group().size() == 1:
+         return hidden_states
+ 
+     with CudaTimer(OperationMetrics.NCCL_SEND):
+         # Send the tensor.
+-        torch.distributed.send(
+-            tensor=hidden_states,
+-            dst=get_pipeline_model_parallel_next_rank(),
+-            group=get_pipeline_model_parallel_group(),
++        _run_p2p(
++            torch.distributed.isend,
++            hidden_states,
++            get_pipeline_model_parallel_next_rank(),
+         )
+ 
+ 
+ def recv(hidden_states: torch.tensor):
+     """Receive hidden states from the previous pipeline stage."""
+     # Bypass the function if we are using only 1 stage.
+     if get_pipeline_model_parallel_group().size() == 1:
+         return hidden_states
+ 
+     # Receive the tensor.
+     with CudaTimer(OperationMetrics.NCCL_RECV):
+-        torch.distributed.recv(
+-            tensor=hidden_states,
+-            src=get_pipeline_model_parallel_prev_rank(),
+-            group=get_pipeline_model_parallel_group(),
++        _run_p2p(
++            torch.distributed.irecv,
++            hidden_states,
++            get_pipeline_model_parallel_prev_rank(),
+         )
+ 
+     return hidden_states

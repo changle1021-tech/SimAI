@@ -56,6 +56,23 @@ class BaseExecutionTimePredictor(ABC):
                 self._get_pipeline_parallel_communication_time(batch)
             )
 
+        # CPU overhead is measured per batch, not per pipeline stage.
+        is_first_stage = pipeline_stage == 0
+        is_last_stage = (
+            pipeline_stage == self._replica_config.num_pipeline_stages - 1
+        )
+        schedule_time = self._get_schedule_time(batch) if is_first_stage else 0.0
+        prepare_inputs_e2e_time = (
+            self._get_prepare_inputs_e2e_time(batch) if is_first_stage else 0.0
+        )
+        ray_comm_time = self._get_ray_comm_time(batch) if is_first_stage else 0.0
+        sampler_e2e_time = (
+            self._get_sampler_e2e_time(batch) if is_last_stage else 0.0
+        )
+        process_model_outputs_time = (
+            self._get_process_model_outputs_time(batch) if is_last_stage else 0.0
+        )
+
         if self._replica_config.tensor_parallel_size == 1:
             tensor_parallel_communication_time = 0
         else:
@@ -105,13 +122,17 @@ class BaseExecutionTimePredictor(ABC):
             
             # Determine current batch phase: prefill or decode
             # 判断当前 batch 的 phase: prefill or decode
-            batch_prefill_replica_id = batch.requests[0].prefill_replica_id
-            batch_replica_id = batch.replica_id
-            
-            if batch_prefill_replica_id == batch_replica_id:
+            # Determine the phase from the actual tokens in this batch.
+            if batch.num_prefill_tokens > 0:
+                if batch.num_decode_tokens > 0:
+                    raise ValueError(
+                        "AICB requires separate prefill and decode batches."
+                    )
                 replica_config.phase = "prefill"
-            else:
+            elif batch.num_decode_tokens > 0:
                 replica_config.phase = "decode"
+            else:
+                raise ValueError("AICB received a batch with no tokens.")
             
             # ============================================================
             # [PD-Aware] Set correct TP/PP/WS/EP per phase
@@ -212,11 +233,11 @@ class BaseExecutionTimePredictor(ABC):
                 self._get_add_layer_act_execution_time(batch),
                 tensor_parallel_communication_time,
                 pipeline_parallel_communication_time,
-                self._get_schedule_time(batch),
-                self._get_sampler_e2e_time(batch),
-                self._get_prepare_inputs_e2e_time(batch),
-                self._get_process_model_outputs_time(batch),
-                self._get_ray_comm_time(batch),
+                schedule_time,
+                sampler_e2e_time,
+                prepare_inputs_e2e_time,
+                process_model_outputs_time,
+                ray_comm_time,
                 self._config,
                 replica_config,
                 self.replica_scheduler_config
@@ -240,11 +261,11 @@ class BaseExecutionTimePredictor(ABC):
                 self._get_add_layer_act_execution_time(batch),
                 tensor_parallel_communication_time,
                 pipeline_parallel_communication_time,
-                self._get_schedule_time(batch),
-                self._get_sampler_e2e_time(batch),
-                self._get_prepare_inputs_e2e_time(batch),
-                self._get_process_model_outputs_time(batch),
-                self._get_ray_comm_time(batch),
+                schedule_time,
+                sampler_e2e_time,
+                prepare_inputs_e2e_time,
+                process_model_outputs_time,
+                ray_comm_time,
                 self._config,
                 self._replica_config,
                 self.replica_scheduler_config
