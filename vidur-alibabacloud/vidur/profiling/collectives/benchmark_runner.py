@@ -14,9 +14,13 @@ logger = init_logger(__name__)
 
 @ray.remote(num_gpus=1)
 class BenchmarkRunner:
-    def __init__(self, gpu_id: int, max_gpus_per_node: int, head_ip: str) -> None:
+    def __init__(
+        self, gpu_id: int, max_gpus_per_node: int, head_ip: str,
+        num_profile_rounds: Optional[int] = None,
+    ) -> None:
         self._gpu_id = gpu_id
         self._max_devices_per_node = max_gpus_per_node
+        self._num_profile_rounds = num_profile_rounds
         self._set_cuda_visible_devices()
         self._last_num_workers_per_node = None
         self._last_num_workers = None
@@ -71,6 +75,7 @@ class BenchmarkRunner:
             collectives_input.collective,
             collectives_input.num_workers_per_node,
             self._max_devices_per_node,
+            num_profile_rounds=self._num_profile_rounds,
         )
         stats = wrapper.profile()
         del wrapper

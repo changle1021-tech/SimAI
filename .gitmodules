@@ -1,12 +1,12 @@
 [submodule "SimCCL"]
 	path = SimCCL
-	url = https://github.com/aliyun/SimCCL
-	branch = master
+	url = https://github.com/changle1021-tech/SimCCL.git
 [submodule "aicb"]
 	path = aicb
-	url = https://github.com/aliyun/aicb
-	branch = master
+	url = https://github.com/changle1021-tech/aicb.git
 [submodule "ns-3-alibabacloud"]
 	path = ns-3-alibabacloud
-	url = https://github.com/aliyun/ns-3-alibabacloud
-	branch = master
+	url = https://github.com/changle1021-tech/ns-3-alibabacloud.git
+[submodule "DeepGEMM"]
+	path = DeepGEMM
+	url = https://github.com/deepseek-ai/DeepGEMM.git

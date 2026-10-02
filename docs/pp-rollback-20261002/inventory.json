@@ -1,0 +1,719 @@
+{
+  "repos": [
+    {
+      "path": "/home/turbo_ops/changle/SimAI",
+      "name": "SimAI",
+      "head": "646b2a61945d16d8790786336fc32681cc914180",
+      "branch": "master",
+      "status": " ? DeepGEMM\n ? aicb\n M vidur-alibabacloud/data/aicb_workload/logs/aicb_cache_log.txt\n M vidur-alibabacloud/docs/profiling.md\n M vidur-alibabacloud/show_latest_vidur_result.py\n M vidur-alibabacloud/vidur/config/config.py\n M vidur-alibabacloud/vidur/entities/execution_time.py\n M vidur-alibabacloud/vidur/entities/replica.py\n M vidur-alibabacloud/vidur/events/replica_stage_schedule_event.py\n M vidur-alibabacloud/vidur/execution_time_predictor/base_execution_time_predictor.py\n M vidur-alibabacloud/vidur/execution_time_predictor/sklearn_execution_time_predictor.py\n M vidur-alibabacloud/vidur/profiling/collectives/benchmark_runner.py\n M vidur-alibabacloud/vidur/profiling/collectives/collectives_wrapper.py\n M vidur-alibabacloud/vidur/profiling/collectives/main.py\n M vidur-alibabacloud/vidur/scheduler/replica_stage_scheduler/replica_stage_schduler.py\n M vidur-alibabacloud/vidur/utils/param_counter.py\n?? vidur-alibabacloud/benchmark_runs/\n?? vidur-alibabacloud/configs/\n?? vidur-alibabacloud/docs/pp_cpu_profiling.md\n?? vidur-alibabacloud/scripts/\n?? vidur-alibabacloud/tests/\n?? vidur-alibabacloud/vidur/profiling/collectives/VLLM_051_COMM_PROFILING.md\n?? vidur-alibabacloud/vidur/profiling/collectives/vllm_051_comm_profile.py\n?? vidur-alibabacloud/vidur/profiling/cpu_overhead/dispatch_profile_contract.py\n?? vidur-alibabacloud/vidur/profiling/cpu_overhead/eager_dispatch_trace.py\n?? vidur-alibabacloud/vidur/profiling/cpu_overhead/http_profile_arguments.py\n?? vidur-alibabacloud/vidur/profiling/cpu_overhead/native_attention_geometry.py\n?? vidur-alibabacloud/vidur/profiling/cpu_overhead/pp_profile_contract.py\n?? vidur-alibabacloud/vidur/profiling/cpu_overhead/profile_native_collectives.py\n?? vidur-alibabacloud/vidur/profiling/cpu_overhead/vllm_051_attention_profile.py\n?? vidur-alibabacloud/vidur/profiling/cpu_overhead/vllm_051_cpu_overhead.py\n?? vidur-alibabacloud/vidur/profiling/cpu_overhead/vllm_051_http_cpu_profile.py\n?? vidur-alibabacloud/vidur/profiling/cpu_overhead/vllm_051_http_profile_client.py\n?? vidur-alibabacloud/vidur/profiling/cpu_overhead/vllm_051_http_profile_server.py\n?? vidur-alibabacloud/vidur/profiling/cpu_overhead/vllm_051_mlp_profile.py\n?? vidur-alibabacloud/vidur/profiling/cpu_overhead/vllm_051_pp_cpu_profile.py\n?? vidur-alibabacloud/vidur/profiling/cpu_overhead/vllm_051_pp_worker.py\n?? vidur-alibabacloud/vidur/profiling/cpu_overhead/vllm_051_profile_common.py\n?? vidur-alibabacloud/vidur/utils/decoder_graph_profile.py\n?? vidur-alibabacloud/vidur/utils/eager_dispatch_program.py\n?? vidur-alibabacloud/vidur/utils/native_collective_profile.py\n?? vidur-alibabacloud/vidur/utils/runtime_layout.py\n",
+      "gitlinks": [
+        "160000 c9f8b34dcdacc20aa746b786f983492c51072870 0\tDeepGEMM",
+        "160000 fd7cd57d16f9bd42e3ccb70911c977e18ec294b9 0\tSimCCL",
+        "160000 23eec3c48ca2d2d93dd888a4c7b22ab4421e782f 0\taicb",
+        "160000 3e0c7c1bfbbe9f77890ddcf5e5b9c79fc6dd7437 0\tns-3-alibabacloud"
+      ],
+      "gitmodules": "[submodule \"SimCCL\"]\n\tpath = SimCCL\n\turl = https://github.com/aliyun/SimCCL\n\tbranch = master\n[submodule \"aicb\"]\n\tpath = aicb\n\turl = https://github.com/aliyun/aicb\n\tbranch = master\n[submodule \"ns-3-alibabacloud\"]\n\tpath = ns-3-alibabacloud\n\turl = https://github.com/aliyun/ns-3-alibabacloud\n\tbranch = master\n",
+      "untracked_count": 90,
+      "untracked_bytes": 338332,
+      "largest_untracked": [
+        {
+          "path": "vidur-alibabacloud/vidur/profiling/cpu_overhead/vllm_051_cpu_overhead.py",
+          "bytes": 22714
+        },
+        {
+          "path": "vidur-alibabacloud/vidur/profiling/collectives/vllm_051_comm_profile.py",
+          "bytes": 22382
+        },
+        {
+          "path": "vidur-alibabacloud/vidur/profiling/cpu_overhead/vllm_051_attention_profile.py",
+          "bytes": 21627
+        },
+        {
+          "path": "vidur-alibabacloud/tests/test_runtime_layout_fidelity.py",
+          "bytes": 17757
+        },
+        {
+          "path": "vidur-alibabacloud/vidur/profiling/cpu_overhead/vllm_051_pp_cpu_profile.py",
+          "bytes": 17722
+        },
+        {
+          "path": "vidur-alibabacloud/tests/test_send_recv_profiling.py",
+          "bytes": 15836
+        },
+        {
+          "path": "vidur-alibabacloud/vidur/profiling/cpu_overhead/vllm_051_profile_common.py",
+          "bytes": 11537
+        },
+        {
+          "path": "vidur-alibabacloud/vidur/profiling/cpu_overhead/vllm_051_mlp_profile.py",
+          "bytes": 11536
+        },
+        {
+          "path": "vidur-alibabacloud/vidur/profiling/cpu_overhead/vllm_051_pp_worker.py",
+          "bytes": 11172
+        },
+        {
+          "path": "vidur-alibabacloud/vidur/profiling/cpu_overhead/vllm_051_http_profile_server.py",
+          "bytes": 8504
+        },
+        {
+          "path": "vidur-alibabacloud/vidur/profiling/cpu_overhead/vllm_051_http_profile_client.py",
+          "bytes": 7727
+        },
+        {
+          "path": "vidur-alibabacloud/vidur/profiling/collectives/VLLM_051_COMM_PROFILING.md",
+          "bytes": 6848
+        },
+        {
+          "path": "vidur-alibabacloud/scripts/profile_native_decoder_graph_vllm051.py",
+          "bytes": 6763
+        },
+        {
+          "path": "vidur-alibabacloud/vidur/profiling/cpu_overhead/dispatch_profile_contract.py",
+          "bytes": 6455
+        },
+        {
+          "path": "vidur-alibabacloud/scripts/run_vllm051_profiled_simulation.py",
+          "bytes": 6341
+        },
+        {
+          "path": "vidur-alibabacloud/tests/test_eager_dispatch_program.py",
+          "bytes": 5862
+        },
+        {
+          "path": "vidur-alibabacloud/benchmark_runs/single_node_pp_fixed_20261001/runs/2026-10-01_20-18-27-449516/config.json",
+          "bytes": 5820
+        },
+        {
+          "path": "vidur-alibabacloud/tests/test_pp_cpu_profile.py",
+          "bytes": 5250
+        },
+        {
+          "path": "vidur-alibabacloud/benchmark_runs/2026-09-30_09-24-07-009173/config.json",
+          "bytes": 5049
+        },
+        {
+          "path": "vidur-alibabacloud/benchmark_runs/2026-09-30_09-29-56-396146/config.json",
+          "bytes": 5049
+        },
+        {
+          "path": "vidur-alibabacloud/benchmark_runs/2026-09-30_10-07-10-561446/config.json",
+          "bytes": 5049
+        },
+        {
+          "path": "vidur-alibabacloud/benchmark_runs/2026-09-30_11-02-47-501414/config.json",
+          "bytes": 5049
+        },
+        {
+          "path": "vidur-alibabacloud/benchmark_runs/2026-09-30_13-49-24-042568/config.json",
+          "bytes": 5049
+        },
+        {
+          "path": "vidur-alibabacloud/benchmark_runs/2026-09-30_14-10-00-114782/config.json",
+          "bytes": 5049
+        },
+        {
+          "path": "vidur-alibabacloud/benchmark_runs/2026-09-30_14-19-03-372588/config.json",
+          "bytes": 5049
+        },
+        {
+          "path": "vidur-alibabacloud/benchmark_runs/2026-09-30_14-42-14-743375/config.json",
+          "bytes": 5049
+        },
+        {
+          "path": "vidur-alibabacloud/benchmark_runs/2026-09-30_14-55-18-611992/config.json",
+          "bytes": 5049
+        },
+        {
+          "path": "vidur-alibabacloud/benchmark_runs/2026-09-30_16-05-29-167400/config.json",
+          "bytes": 5049
+        },
+        {
+          "path": "vidur-alibabacloud/benchmark_runs/2026-09-30_16-40-22-022292/config.json",
+          "bytes": 5049
+        },
+        {
+          "path": "vidur-alibabacloud/configs/vllm051_single_node_pp/l2_tp2pp2.json",
+          "bytes": 4998
+        },
+        {
+          "path": "vidur-alibabacloud/configs/vllm051_single_node_pp/l2_tp1pp2.json",
+          "bytes": 4992
+        },
+        {
+          "path": "vidur-alibabacloud/configs/vllm051_single_node_pp/l2_tp1pp3.json",
+          "bytes": 4977
+        },
+        {
+          "path": "vidur-alibabacloud/vidur/profiling/cpu_overhead/profile_native_collectives.py",
+          "bytes": 4965
+        },
+        {
+          "path": "vidur-alibabacloud/configs/vllm051_single_node_pp/l3_tp1pp2.json",
+          "bytes": 4939
+        },
+        {
+          "path": "vidur-alibabacloud/vidur/profiling/cpu_overhead/eager_dispatch_trace.py",
+          "bytes": 4727
+        },
+        {
+          "path": "vidur-alibabacloud/tests/test_dispatch_profile_contract.py",
+          "bytes": 4348
+        },
+        {
+          "path": "vidur-alibabacloud/tests/test_pp_profile_contract.py",
+          "bytes": 4156
+        },
+        {
+          "path": "vidur-alibabacloud/tests/test_collectives_csv_schema.py",
+          "bytes": 3885
+        },
+        {
+          "path": "vidur-alibabacloud/vidur/profiling/cpu_overhead/pp_profile_contract.py",
+          "bytes": 3783
+        },
+        {
+          "path": "vidur-alibabacloud/vidur/utils/decoder_graph_profile.py",
+          "bytes": 3558
+        }
+      ],
+      "identity_name": "101",
+      "identity_email": "101@example.com"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/aicb",
+      "name": "aicb",
+      "head": "23eec3c48ca2d2d93dd888a4c7b22ab4421e782f",
+      "branch": "",
+      "status": "?? logs/\n?? results/aiob_outputs/\n?? results/workload/\n?? src/\n",
+      "gitlinks": [],
+      "gitmodules": null,
+      "untracked_count": 452,
+      "untracked_bytes": 793484,
+      "largest_untracked": [
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size4-tp2-pp1-ep4-bs1-seq16384-prefill.csv",
+          "bytes": 2648
+        },
+        {
+          "path": "logs/prefill_generation/seq1024.log",
+          "bytes": 2597
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size4-tp2-pp1-ep4-bs1-seq4096-prefill.csv",
+          "bytes": 2564
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size4-tp2-pp1-ep4-bs1-seq8192-prefill.csv",
+          "bytes": 2564
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size4-tp2-pp1-ep4-bs1-seq2048-prefill.csv",
+          "bytes": 2456
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size4-tp2-pp1-ep4-bs1-seq1024-prefill.csv",
+          "bytes": 2420
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size4-tp2-pp1-ep4-bs1-seq512-prefill.csv",
+          "bytes": 2420
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq16384-prefill.csv",
+          "bytes": 2372
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size8-tp1-pp1-ep8-bs1-seq16384-prefill.csv",
+          "bytes": 2372
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size8-tp1-pp1-ep8-bs1-seq32768-prefill.csv",
+          "bytes": 2372
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq10752-prefill.csv",
+          "bytes": 2312
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq11264-prefill.csv",
+          "bytes": 2312
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq11776-prefill.csv",
+          "bytes": 2312
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq12288-prefill.csv",
+          "bytes": 2312
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq12800-prefill.csv",
+          "bytes": 2312
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq13312-prefill.csv",
+          "bytes": 2312
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq13824-prefill.csv",
+          "bytes": 2312
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq14336-prefill.csv",
+          "bytes": 2312
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq14848-prefill.csv",
+          "bytes": 2312
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq15360-prefill.csv",
+          "bytes": 2312
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq15872-prefill.csv",
+          "bytes": 2312
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size8-tp1-pp1-ep8-bs1-seq11264-prefill.csv",
+          "bytes": 2312
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size8-tp1-pp1-ep8-bs1-seq11776-prefill.csv",
+          "bytes": 2312
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size8-tp1-pp1-ep8-bs1-seq12288-prefill.csv",
+          "bytes": 2312
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size8-tp1-pp1-ep8-bs1-seq12800-prefill.csv",
+          "bytes": 2312
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size8-tp1-pp1-ep8-bs1-seq13312-prefill.csv",
+          "bytes": 2312
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size8-tp1-pp1-ep8-bs1-seq13824-prefill.csv",
+          "bytes": 2312
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size8-tp1-pp1-ep8-bs1-seq14336-prefill.csv",
+          "bytes": 2312
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size8-tp1-pp1-ep8-bs1-seq14848-prefill.csv",
+          "bytes": 2312
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size8-tp1-pp1-ep8-bs1-seq15360-prefill.csv",
+          "bytes": 2312
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size8-tp1-pp1-ep8-bs1-seq15872-prefill.csv",
+          "bytes": 2312
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq10240-prefill.csv",
+          "bytes": 2264
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq7680-prefill.csv",
+          "bytes": 2264
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq8192-prefill.csv",
+          "bytes": 2264
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq8704-prefill.csv",
+          "bytes": 2264
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq9216-prefill.csv",
+          "bytes": 2264
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq9728-prefill.csv",
+          "bytes": 2264
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size8-tp1-pp1-ep8-bs1-seq10240-prefill.csv",
+          "bytes": 2264
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size8-tp1-pp1-ep8-bs1-seq10752-prefill.csv",
+          "bytes": 2264
+        },
+        {
+          "path": "results/workload/vidur-Qwen3-Next-80B-world_size8-tp1-pp1-ep8-bs1-seq7680-prefill.csv",
+          "bytes": 2264
+        }
+      ],
+      "identity_name": "101",
+      "identity_email": "101@example.com"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/SimCCL",
+      "name": "SimCCL",
+      "head": "fd7cd57d16f9bd42e3ccb70911c977e18ec294b9",
+      "branch": "",
+      "status": "",
+      "gitlinks": [],
+      "gitmodules": null,
+      "untracked_count": 0,
+      "untracked_bytes": 0,
+      "largest_untracked": [],
+      "identity_name": "101",
+      "identity_email": "101@example.com"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/ns-3-alibabacloud",
+      "name": "ns-3-alibabacloud",
+      "head": "3e0c7c1bfbbe9f77890ddcf5e5b9c79fc6dd7437",
+      "branch": "",
+      "status": "",
+      "gitlinks": [],
+      "gitmodules": null,
+      "untracked_count": 0,
+      "untracked_bytes": 0,
+      "largest_untracked": [],
+      "identity_name": "101",
+      "identity_email": "101@example.com"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/DeepGEMM",
+      "name": "DeepGEMM",
+      "head": "c9f8b34dcdacc20aa746b786f983492c51072870",
+      "branch": "",
+      "status": "?? stubs/\n",
+      "gitlinks": [
+        "160000 f3fde58372d33e9a5650ba7b80fc48b3b49d40c8 0\tthird-party/cutlass",
+        "160000 553ec11ec06fbe0beebfbb45f9dc3c9eabd83d28 0\tthird-party/fmt"
+      ],
+      "gitmodules": "[submodule \"third-party/cutlass\"]\n\tpath = third-party/cutlass\n\turl = https://github.com/NVIDIA/cutlass.git\n[submodule \"third-party/fmt\"]\n\tpath = third-party/fmt\n\turl = https://github.com/fmtlib/fmt.git\n",
+      "untracked_count": 1,
+      "untracked_bytes": 11718,
+      "largest_untracked": [
+        {
+          "path": "stubs/_C.pyi",
+          "bytes": 11718
+        }
+      ],
+      "identity_name": "101",
+      "identity_email": "101@example.com"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/DeepGEMM/third-party/cutlass",
+      "name": "cutlass",
+      "head": "f3fde58372d33e9a5650ba7b80fc48b3b49d40c8",
+      "branch": "",
+      "status": "",
+      "gitlinks": [],
+      "gitmodules": "",
+      "untracked_count": 0,
+      "untracked_bytes": 0,
+      "largest_untracked": [],
+      "identity_name": "101",
+      "identity_email": "101@example.com"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/DeepGEMM/third-party/fmt",
+      "name": "fmt",
+      "head": "553ec11ec06fbe0beebfbb45f9dc3c9eabd83d28",
+      "branch": "",
+      "status": "",
+      "gitlinks": [],
+      "gitmodules": null,
+      "untracked_count": 0,
+      "untracked_bytes": 0,
+      "largest_untracked": [],
+      "identity_name": "101",
+      "identity_email": "101@example.com"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/aicb/src/sarathi",
+      "name": "sarathi-serve",
+      "head": "d057e06f48fc60019ec5c3d23b1450b8b26b8fbc",
+      "branch": "",
+      "status": "",
+      "gitlinks": [],
+      "gitmodules": "",
+      "untracked_count": 0,
+      "untracked_bytes": 0,
+      "largest_untracked": [],
+      "identity_name": "101",
+      "identity_email": "101@example.com"
+    }
+  ],
+  "vidur_files": {
+    "scripts/run_vllm051_profiled_simulation.py": {
+      "bytes": 6341,
+      "sha256": "14c46f5973f88bc7a917faec15705d4ba07cf926f4cbe1a0c6f2a77e92de522f"
+    },
+    "scripts/profile_native_decoder_graph_vllm051.py": {
+      "bytes": 6763,
+      "sha256": "0ed20d4637a6abe0f123bcfed6df75a9354df4f81623dfa353ae3dfe4aecb70f"
+    },
+    "tests/test_eager_dispatch_program.py": {
+      "bytes": 5862,
+      "sha256": "4d5bde2b0654467cf64eb4e7ca672f1d88bd83581b73129e77cd7b171eafdbb1"
+    },
+    "tests/test_pp_profile_contract.py": {
+      "bytes": 4156,
+      "sha256": "e922b8d463213c4007d068ebf2aa1c53be9c39339cbed1e1998ff9cf33a1f1ee"
+    },
+    "tests/test_pp_cpu_profile.py": {
+      "bytes": 5250,
+      "sha256": "9f4c5118418529cabcfd9e26d2ca2020516bfc912a14a263f5bae0afe1831733"
+    },
+    "tests/test_runtime_layout_fidelity.py": {
+      "bytes": 17757,
+      "sha256": "55a852f14ad957851e092afccb5423db196319c90a30c027dbb63df9ce3fef24"
+    },
+    "tests/test_collectives_csv_schema.py": {
+      "bytes": 3885,
+      "sha256": "5a35a7d380573a8eaeadadfd4486aa2f59c67940071e63e3a363076c8db3fb53"
+    },
+    "tests/test_dispatch_profile_contract.py": {
+      "bytes": 4348,
+      "sha256": "134f62c8c386cc863d639840af46426ca8ba6af85a6b6871943aa2048ea193e0"
+    },
+    "tests/test_send_recv_profiling.py": {
+      "bytes": 15836,
+      "sha256": "59b3512389af5bc6bb5db09cf591cc4e19279f50cb163b843591705a97cee548"
+    },
+    "configs/vllm051_single_node_pp/l2_tp2pp2.json": {
+      "bytes": 4998,
+      "sha256": "31256cb70b2d754afb9eb765f59bdd2161468ecf082e1d742b046a258c47a55b"
+    },
+    "configs/vllm051_single_node_pp/l3_tp1pp2.json": {
+      "bytes": 4939,
+      "sha256": "f1ab2900167b700ed622a477bd1c7f1382b00e09c6415dab28d5ed1f829d6210"
+    },
+    "configs/vllm051_single_node_pp/l2_tp1pp3.json": {
+      "bytes": 4977,
+      "sha256": "5b1a0740f13a5c31c641f97ba7ed39cf6ca694adbe5a180e99abcf15f6127834"
+    },
+    "configs/vllm051_single_node_pp/l2_tp1pp2.json": {
+      "bytes": 4992,
+      "sha256": "0fc94f6cdb9ef276903f2c93656d4adc48733732ddef960876e936234c5efa92"
+    },
+    "docs/metrics.md": {
+      "bytes": 5275,
+      "sha256": "6f7fe2744a1280f28476ae28e84dab22fe6bc0e36d69f90972c1bc493f70f2b7"
+    },
+    "docs/pp_cpu_profiling.md": {
+      "bytes": 3522,
+      "sha256": "152ac6b25f3c151122cb431b6768dc44df58765bb584d750a46e01da32568124"
+    },
+    "docs/profiling.md": {
+      "bytes": 8486,
+      "sha256": "86f990d28b98addc42a3214834b039aa001c1b0c3542eadcd95f73076a20455d"
+    },
+    "vidur/profiling/cpu_overhead/vllm_051_pp_cpu_profile.py": {
+      "bytes": 17722,
+      "sha256": "10bd5a9964349061382d8d69d40b5a14f171988e4712b9d7e933a0402a08c02b"
+    },
+    "vidur/profiling/cpu_overhead/vllm_051_http_profile_server.py": {
+      "bytes": 8504,
+      "sha256": "7c0d828516f58b18da6f96e403938c750308f9cdc5575f278f522329a47dea44"
+    },
+    "vidur/profiling/cpu_overhead/pp_profile_contract.py": {
+      "bytes": 3783,
+      "sha256": "f5f79da31c56a190cae5a17c345115a572206eaba2f4d0eb43202e5ea8dc9fa8"
+    },
+    "vidur/profiling/cpu_overhead/vllm_051_cpu_overhead.py": {
+      "bytes": 22714,
+      "sha256": "e85f8fa2f4c02c26bf7bcf2185e9f500f792200a2137c9cd2041641effd66f1b"
+    },
+    "vidur/profiling/cpu_overhead/vllm_051_profile_common.py": {
+      "bytes": 11537,
+      "sha256": "ca287f0034a2fb0b577173b8b766ec317cd2353ef231e4849d12b60e015be46b"
+    },
+    "vidur/profiling/cpu_overhead/profile_native_collectives.py": {
+      "bytes": 4965,
+      "sha256": "f869d5ab05272fb7ea195f4097b8aa2b05db8573b1ad987d9521db4dfa4ece16"
+    },
+    "vidur/profiling/cpu_overhead/eager_dispatch_trace.py": {
+      "bytes": 4727,
+      "sha256": "8f37156060c1c5e1ca58066eff59b2d0d7f773bb56f9edfac643ab32642f8c72"
+    },
+    "vidur/profiling/cpu_overhead/vllm_051_attention_profile.py": {
+      "bytes": 21627,
+      "sha256": "d06927347c98e1f1879fd647c4171eeedad72ab892d9e8a1a69188c90f7dd949"
+    },
+    "vidur/profiling/cpu_overhead/vllm_051_http_cpu_profile.py": {
+      "bytes": 2958,
+      "sha256": "fe990278822bcfa25fde502fde4db73de965363f7a367e83f0be51842bdee73c"
+    },
+    "vidur/profiling/cpu_overhead/dispatch_profile_contract.py": {
+      "bytes": 6455,
+      "sha256": "2074e61e401c37a2751921f414a5dcecb649b84273cb2544f21c982a2af4f9cb"
+    },
+    "vidur/profiling/cpu_overhead/__init__.py": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "vidur/profiling/cpu_overhead/main.py": {
+      "bytes": 3908,
+      "sha256": "db222733a1eaf12e765982a33c121670bd1585d215ae3386a3bacf77f2e4194b"
+    },
+    "vidur/profiling/cpu_overhead/benchmark_runner.py": {
+      "bytes": 4937,
+      "sha256": "ee02acc80eec447265855889dc5f9142206dac8579d862ba7ed911ad3dec47db"
+    },
+    "vidur/profiling/cpu_overhead/vllm_051_pp_worker.py": {
+      "bytes": 11172,
+      "sha256": "cc055d8d1a612df10ab5c58850183db38462d5956ba263485d9aad3ee953ce28"
+    },
+    "vidur/profiling/cpu_overhead/vllm_051_mlp_profile.py": {
+      "bytes": 11536,
+      "sha256": "df687de80e6932f1b8808ee896b96c535920c1a07001361e6f4beb0703ddcccb"
+    },
+    "vidur/profiling/cpu_overhead/vllm_051_http_profile_client.py": {
+      "bytes": 7727,
+      "sha256": "8049de3213eecdae64348ca9ed6d8f94f24ab7606dd188958315a65b90e79799"
+    },
+    "vidur/profiling/cpu_overhead/http_profile_arguments.py": {
+      "bytes": 2736,
+      "sha256": "0c999d3f893a71e72ee9ebf6bf9f3d6f9fbe9d6efa06b5cff4bf519b0261a04b"
+    },
+    "vidur/profiling/cpu_overhead/native_attention_geometry.py": {
+      "bytes": 523,
+      "sha256": "6c7d4eb4a882621fe9365fc7c11d6e85125fb3357e1beaa03831b2a300e3bfce"
+    },
+    "vidur/utils/random.py": {
+      "bytes": 162,
+      "sha256": "dd3bcf2fc5d1c26549e5a6006b53427a5e981758dc9d2f42c427d0ea1d66c12c"
+    },
+    "vidur/utils/runtime_layout.py": {
+      "bytes": 1619,
+      "sha256": "22ff81274dfd142732ad99c526214a45734878efcf1f4fbee0bbfcbdc65932d7"
+    },
+    "vidur/utils/param_counter.py": {
+      "bytes": 34592,
+      "sha256": "988efcc344b331ded67f91e43ead0a84cf38d3f24bfe9feeeea971498d2668d6"
+    },
+    "vidur/utils/eager_dispatch_program.py": {
+      "bytes": 2327,
+      "sha256": "ce166c1ae734cde5710843f27bf14ec7ee9989ef336a1b4332efa81325a147b7"
+    },
+    "vidur/utils/zipf_generator.py": {
+      "bytes": 1357,
+      "sha256": "1e6e2b8746fdab28a71dce5121501a88ce4c6784f2ca39082120871a9cefbc1e"
+    },
+    "vidur/utils/__init__.py": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "vidur/utils/decoder_graph_profile.py": {
+      "bytes": 3558,
+      "sha256": "46bd04a5900c930f233ea4f8e2367e683146c84c09ce75012bbf3930d9c8bd99"
+    },
+    "vidur/utils/base_registry.py": {
+      "bytes": 2141,
+      "sha256": "9892a9aea03c2278c878373faa30b8ddf31f577ec7616da9e5e8c26a705fea3a"
+    },
+    "vidur/utils/event_queue.py": {
+      "bytes": 366,
+      "sha256": "d016aa2828bf9354715b9d917d1bce48898ce22c90d7ad30e921b9227d1f0e47"
+    },
+    "vidur/utils/native_collective_profile.py": {
+      "bytes": 1493,
+      "sha256": "b88a23038bb47bd2187daceadaea58315d399ef7d05000b018f0caba86900020"
+    },
+    "vidur/utils/mfu_calculator.py": {
+      "bytes": 7038,
+      "sha256": "216f45dcdba9383526053c72caa7995617ce41ce073bd84c8a7cf7a19f2fec57"
+    }
+  },
+  "external_files": {
+    "vllm_051_pp_cpu_profile.py": {
+      "bytes": 10308,
+      "sha256": "5c03b8db4c75115d39f4c0a83855493b4cc76a04df54470bc98020820eb89969"
+    },
+    "pp_profile_contract.py": {
+      "bytes": 1768,
+      "sha256": "3f51504a1fa524f250b3a167d72cf398deb6caa5fbbcc24d845a1a1f7e66689a"
+    },
+    "vllm_051_cpu_overhead.py": {
+      "bytes": 228,
+      "sha256": "5a8d233497f7440fd3f440743e8eab9db0b5907e27ba531b4e9a9320222cab9d"
+    },
+    "cpu_overheads.csv": {
+      "bytes": 13808,
+      "sha256": "9c43b6c56c7a2baeb6773367dab9cdaac3bc8b03b484e2527ec973ec055ffb40"
+    },
+    "vllm_051_pp_worker.py": {
+      "bytes": 4865,
+      "sha256": "8b7464c5492c61ee4197d231af452f24eff79112d6731e696cd03f16ead51a58"
+    },
+    "cpu_overheads_vllm051_tp2_bs1-8_ray_synced.csv": {
+      "bytes": 3037,
+      "sha256": "fce1a44c657774136f427584eb1dfcaca6287242844d536b2c4fe3b3c03711f4"
+    },
+    "single_node_pp_20261001/vllm_051_pp_cpu_profile.py": {
+      "bytes": 17722,
+      "sha256": "10bd5a9964349061382d8d69d40b5a14f171988e4712b9d7e933a0402a08c02b"
+    },
+    "single_node_pp_20261001/vllm_051_http_profile_server.py": {
+      "bytes": 8504,
+      "sha256": "7c0d828516f58b18da6f96e403938c750308f9cdc5575f278f522329a47dea44"
+    },
+    "single_node_pp_20261001/pp_profile_contract.py": {
+      "bytes": 3783,
+      "sha256": "f5f79da31c56a190cae5a17c345115a572206eaba2f4d0eb43202e5ea8dc9fa8"
+    },
+    "single_node_pp_20261001/vllm_051_cpu_overhead.py": {
+      "bytes": 22714,
+      "sha256": "e85f8fa2f4c02c26bf7bcf2185e9f500f792200a2137c9cd2041641effd66f1b"
+    },
+    "single_node_pp_20261001/vllm_051_profile_common.py": {
+      "bytes": 11537,
+      "sha256": "ca287f0034a2fb0b577173b8b766ec317cd2353ef231e4849d12b60e015be46b"
+    },
+    "single_node_pp_20261001/profile_native_collectives.py": {
+      "bytes": 4965,
+      "sha256": "f869d5ab05272fb7ea195f4097b8aa2b05db8573b1ad987d9521db4dfa4ece16"
+    },
+    "single_node_pp_20261001/eager_dispatch_trace.py": {
+      "bytes": 4727,
+      "sha256": "8f37156060c1c5e1ca58066eff59b2d0d7f773bb56f9edfac643ab32642f8c72"
+    },
+    "single_node_pp_20261001/vllm_051_attention_profile.py": {
+      "bytes": 21627,
+      "sha256": "d06927347c98e1f1879fd647c4171eeedad72ab892d9e8a1a69188c90f7dd949"
+    },
+    "single_node_pp_20261001/vllm_051_http_cpu_profile.py": {
+      "bytes": 2958,
+      "sha256": "fe990278822bcfa25fde502fde4db73de965363f7a367e83f0be51842bdee73c"
+    },
+    "single_node_pp_20261001/dispatch_profile_contract.py": {
+      "bytes": 6455,
+      "sha256": "2074e61e401c37a2751921f414a5dcecb649b84273cb2544f21c982a2af4f9cb"
+    },
+    "single_node_pp_20261001/vllm_051_pp_worker.py": {
+      "bytes": 11172,
+      "sha256": "cc055d8d1a612df10ab5c58850183db38462d5956ba263485d9aad3ee953ce28"
+    },
+    "single_node_pp_20261001/vllm_051_mlp_profile.py": {
+      "bytes": 11536,
+      "sha256": "df687de80e6932f1b8808ee896b96c535920c1a07001361e6f4beb0703ddcccb"
+    },
+    "single_node_pp_20261001/vllm_051_http_profile_client.py": {
+      "bytes": 7727,
+      "sha256": "8049de3213eecdae64348ca9ed6d8f94f24ab7606dd188958315a65b90e79799"
+    },
+    "single_node_pp_20261001/http_profile_arguments.py": {
+      "bytes": 2736,
+      "sha256": "0c999d3f893a71e72ee9ebf6bf9f3d6f9fbe9d6efa06b5cff4bf519b0261a04b"
+    },
+    "single_node_pp_20261001/native_attention_geometry.py": {
+      "bytes": 523,
+      "sha256": "6c7d4eb4a882621fe9365fc7c11d6e85125fb3357e1beaa03831b2a300e3bfce"
+    }
+  }
+}

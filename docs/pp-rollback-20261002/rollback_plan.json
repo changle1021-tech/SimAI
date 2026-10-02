@@ -1,0 +1,422 @@
+{
+  "root": "/home/turbo_ops/changle/SimAI",
+  "repository": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud",
+  "restore": [
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/config/config.py",
+      "relative_path": "vidur/config/config.py",
+      "before_sha256": "2d450f5b959ae08fa1733eecae99c025020ad09a6a38bd5c4643b7a6c3fdc3b0",
+      "source": "/home/turbo_ops/changle/Files/analysis/pp2_residual_20261001/single_node_q9_deploy_backup/repo/vidur/config/config.py",
+      "restore_sha256": "d153dc4b990def04059fe676a5bd5f8488cb7668cba4307d4683a1504c07285e"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/entities/execution_time.py",
+      "relative_path": "vidur/entities/execution_time.py",
+      "before_sha256": "a3bcc469f7df330455b2f8deb37d1ae14d79f7beac681402820ab1925df79ac8",
+      "source": "/home/turbo_ops/changle/Files/analysis/pp2_residual_20261001/single_node_q9_deploy_backup/repo/vidur/entities/execution_time.py",
+      "restore_sha256": "9e7f54bd55e521af27c5797188575df05c375f822bb335bdef9919c49c40e3af"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/entities/replica.py",
+      "relative_path": "vidur/entities/replica.py",
+      "before_sha256": "3059cbe1e37140f03a6a308d027ed165486d11265a87c2db60ad2935ad7f756d",
+      "source": "/home/turbo_ops/changle/Files/analysis/pp2_residual_20261001/single_node_q9_deploy_backup/repo/vidur/entities/replica.py",
+      "restore_sha256": "8522beb3907190e2066d277fa59d6b13280929868df51b5c309cb183d4779276"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/events/replica_stage_schedule_event.py",
+      "relative_path": "vidur/events/replica_stage_schedule_event.py",
+      "before_sha256": "5375ff1a72eb8663d490cd889112cd3d4ecf25603931c68482f45b23df4e8df7",
+      "source": "/home/turbo_ops/changle/Files/analysis/pp2_residual_20261001/single_node_q9_deploy_backup/repo/vidur/events/replica_stage_schedule_event.py",
+      "restore_sha256": "6ed4c6ef1ff9fdded1691a1826b80757585c0d33e1b0f842a2e9d4a538a6e265"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/execution_time_predictor/base_execution_time_predictor.py",
+      "relative_path": "vidur/execution_time_predictor/base_execution_time_predictor.py",
+      "before_sha256": "0d168322d2b703bf8c4bf91aff05233cb27a9b7370d66489fa73754318b89339",
+      "source": "/home/turbo_ops/changle/Files/analysis/pp2_fix_20260930/backups/base_execution_time_predictor.py",
+      "restore_sha256": "7132b5a695d293f42cd550af1360126c62e4c67a348199cb69b49ab1388fda8d"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/execution_time_predictor/sklearn_execution_time_predictor.py",
+      "relative_path": "vidur/execution_time_predictor/sklearn_execution_time_predictor.py",
+      "before_sha256": "4008a34e6e175fd3353cbc5060f94026fb1c811f557c8fcaa8371742419c1d46",
+      "source": "/home/turbo_ops/changle/Files/analysis/pp2_fix_20260930/backups/sklearn_execution_time_predictor.py",
+      "restore_sha256": "d9bfa95eb32b16ce8a1f55b751b0b34e26062a43077eceaf52f6b899ff119533"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/scheduler/replica_stage_scheduler/replica_stage_schduler.py",
+      "relative_path": "vidur/scheduler/replica_stage_scheduler/replica_stage_schduler.py",
+      "before_sha256": "6cc25941dc3d63138e6be95355af5cba680a91a198aad98873820973361341c2",
+      "source": "/home/turbo_ops/changle/Files/analysis/pp2_residual_20261001/single_node_q9_deploy_backup/repo/vidur/scheduler/replica_stage_scheduler/replica_stage_schduler.py",
+      "restore_sha256": "42b788c60405da902080531835eaec30d3b6746b927beb5dae064f4829f59b7e"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/utils/param_counter.py",
+      "relative_path": "vidur/utils/param_counter.py",
+      "before_sha256": "988efcc344b331ded67f91e43ead0a84cf38d3f24bfe9feeeea971498d2668d6",
+      "source": "/home/turbo_ops/changle/Files/analysis/pp2_residual_20261001/single_node_q9_deploy_backup/repo/vidur/utils/param_counter.py",
+      "restore_sha256": "bda6e4132db8b9c2b307d77a3f9260bd8341bd0dd03fce12b0be9914ff09287d"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/profiling/cpu_overhead/vllm_051_cpu_overhead.py",
+      "relative_path": "vidur/profiling/cpu_overhead/vllm_051_cpu_overhead.py",
+      "before_sha256": "e85f8fa2f4c02c26bf7bcf2185e9f500f792200a2137c9cd2041641effd66f1b",
+      "source": "/home/turbo_ops/changle/Files/analysis/pp2_fix_20260930/backups/vllm_051_cpu_overhead.py",
+      "restore_sha256": "34909cd05d3db37398e7a4fcebbbbdb5e2eb6c505caff8dd8ae9475b6690906c"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/tests/test_send_recv_profiling.py",
+      "relative_path": "tests/test_send_recv_profiling.py",
+      "before_sha256": "59b3512389af5bc6bb5db09cf591cc4e19279f50cb163b843591705a97cee548",
+      "source": "/home/turbo_ops/changle/Files/analysis/pp2_residual_20261001/single_node_q9_deploy_backup/repo/tests/test_send_recv_profiling.py",
+      "restore_sha256": "a4afc84d1441cfad14f1eba4805272a7d0b0eba79dac5fbd3fae1d4216a34127"
+    },
+    {
+      "path": "/home/turbo_ops/changle/Files/vidur_cpu_overhead/vllm_051_cpu_overhead.py",
+      "relative_path": "external/vllm_051_cpu_overhead.py",
+      "before_sha256": "5a8d233497f7440fd3f440743e8eab9db0b5907e27ba531b4e9a9320222cab9d",
+      "source": "/home/turbo_ops/changle/Files/analysis/pp2_fix_20260930/backups/vllm_051_cpu_overhead.py",
+      "restore_sha256": "34909cd05d3db37398e7a4fcebbbbdb5e2eb6c505caff8dd8ae9475b6690906c",
+      "sudo": true
+    },
+    {
+      "path": "/home/turbo_ops/changle/Files/vidur_cpu_overhead/cpu_overheads.csv",
+      "relative_path": "external/cpu_overheads.csv",
+      "before_sha256": "9c43b6c56c7a2baeb6773367dab9cdaac3bc8b03b484e2527ec973ec055ffb40",
+      "source": "/home/turbo_ops/changle/Files/analysis/pp2_fix_20260930/backups/cpu_overheads.csv",
+      "restore_sha256": "a8b605579e07928b686c47b647620a3c7165db34ebf71cfbed25371dc5f8360e",
+      "sudo": true
+    }
+  ],
+  "remove": [
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/configs/vllm051_single_node_pp/l2_tp1pp2.json",
+      "relative_path": "configs/vllm051_single_node_pp/l2_tp1pp2.json",
+      "before_sha256": "0fc94f6cdb9ef276903f2c93656d4adc48733732ddef960876e936234c5efa92"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/configs/vllm051_single_node_pp/l2_tp1pp3.json",
+      "relative_path": "configs/vllm051_single_node_pp/l2_tp1pp3.json",
+      "before_sha256": "5b1a0740f13a5c31c641f97ba7ed39cf6ca694adbe5a180e99abcf15f6127834"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/configs/vllm051_single_node_pp/l2_tp2pp2.json",
+      "relative_path": "configs/vllm051_single_node_pp/l2_tp2pp2.json",
+      "before_sha256": "31256cb70b2d754afb9eb765f59bdd2161468ecf082e1d742b046a258c47a55b"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/configs/vllm051_single_node_pp/l3_tp1pp2.json",
+      "relative_path": "configs/vllm051_single_node_pp/l3_tp1pp2.json",
+      "before_sha256": "f1ab2900167b700ed622a477bd1c7f1382b00e09c6415dab28d5ed1f829d6210"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/data/profiling/vllm051_single_node_pp_20261001/attention_physical_layout.csv",
+      "relative_path": "data/profiling/vllm051_single_node_pp_20261001/attention_physical_layout.csv",
+      "before_sha256": "9d9efece833658de40a6602f065945566d89eb0496ec18a56c997bd73ea912f6"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/data/profiling/vllm051_single_node_pp_20261001/llama3_attention.csv",
+      "relative_path": "data/profiling/vllm051_single_node_pp_20261001/llama3_attention.csv",
+      "before_sha256": "ad22dd2b5f428e417635b0c729ad01723cc431da2dc77161fc71d91286ce4d74"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/data/profiling/vllm051_single_node_pp_20261001/llama3_decoder.csv",
+      "relative_path": "data/profiling/vllm051_single_node_pp_20261001/llama3_decoder.csv",
+      "before_sha256": "eee71d6bc777d5f432684c50bbc80c57ea0c80197c80bb516d6c87605536ff25"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/data/profiling/vllm051_single_node_pp_20261001/llama3_mlp.csv",
+      "relative_path": "data/profiling/vllm051_single_node_pp_20261001/llama3_mlp.csv",
+      "before_sha256": "e87fefa6dbcccbfe1ae8e28029829956840f12d0638d8f25abdaf8a75674c455"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/data/profiling/vllm051_single_node_pp_20261001/mlp_native_operators.csv",
+      "relative_path": "data/profiling/vllm051_single_node_pp_20261001/mlp_native_operators.csv",
+      "before_sha256": "71e97f78a23408cbbea05b83df7cb276054317cc81ce3e823530ad653989b71f"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/data/profiling/vllm051_single_node_pp_20261001/native_collectives_single_node.csv",
+      "relative_path": "data/profiling/vllm051_single_node_pp_20261001/native_collectives_single_node.csv",
+      "before_sha256": "a9e6693292f5f7c296aa6a1f70cd96941fd254b19ba37ea1f77b3f158289ead1"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/data/profiling/vllm051_single_node_pp_20261001/native_decoder_graph_combined_q8.csv",
+      "relative_path": "data/profiling/vllm051_single_node_pp_20261001/native_decoder_graph_combined_q8.csv",
+      "before_sha256": "00728aaa0af0f3b66f81f0fd18e6d85e8dafbc495e33399330d2944862783d61"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/data/profiling/vllm051_single_node_pp_20261001/single_l2_tp1pp2_q7_cpu_program.csv",
+      "relative_path": "data/profiling/vllm051_single_node_pp_20261001/single_l2_tp1pp2_q7_cpu_program.csv",
+      "before_sha256": "4ab1ae7002dc637030959085f474f57d9bb312b54fb1ccd08dda953b187fb09c"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/data/profiling/vllm051_single_node_pp_20261001/single_l2_tp1pp3_v2_cpu_program.csv",
+      "relative_path": "data/profiling/vllm051_single_node_pp_20261001/single_l2_tp1pp3_v2_cpu_program.csv",
+      "before_sha256": "a1551196335b810954082c27fc70cc55cf0554574b3f0a9aaef0b90b56abe894"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/data/profiling/vllm051_single_node_pp_20261001/single_l2_tp2pp2_q7_cpu_program.csv",
+      "relative_path": "data/profiling/vllm051_single_node_pp_20261001/single_l2_tp2pp2_q7_cpu_program.csv",
+      "before_sha256": "2b22f4eb5054e0b760bc5acbb90b621dd470b6efc5669e62fb2adcf923cab9de"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/data/profiling/vllm051_single_node_pp_20261001/single_l3_tp1pp2_v2_cpu_program.csv",
+      "relative_path": "data/profiling/vllm051_single_node_pp_20261001/single_l3_tp1pp2_v2_cpu_program.csv",
+      "before_sha256": "3b02b5f0db66bc3e992a0a3a8ac9423abaed54a177557e8ec169db46c8b73dc0"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/scripts/profile_native_decoder_graph_vllm051.py",
+      "relative_path": "scripts/profile_native_decoder_graph_vllm051.py",
+      "before_sha256": "0ed20d4637a6abe0f123bcfed6df75a9354df4f81623dfa353ae3dfe4aecb70f"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/scripts/run_vllm051_profiled_simulation.py",
+      "relative_path": "scripts/run_vllm051_profiled_simulation.py",
+      "before_sha256": "14c46f5973f88bc7a917faec15705d4ba07cf926f4cbe1a0c6f2a77e92de522f"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/tests/test_dispatch_profile_contract.py",
+      "relative_path": "tests/test_dispatch_profile_contract.py",
+      "before_sha256": "134f62c8c386cc863d639840af46426ca8ba6af85a6b6871943aa2048ea193e0"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/tests/test_eager_dispatch_program.py",
+      "relative_path": "tests/test_eager_dispatch_program.py",
+      "before_sha256": "4d5bde2b0654467cf64eb4e7ca672f1d88bd83581b73129e77cd7b171eafdbb1"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/tests/test_pp_cpu_profile.py",
+      "relative_path": "tests/test_pp_cpu_profile.py",
+      "before_sha256": "9f4c5118418529cabcfd9e26d2ca2020516bfc912a14a263f5bae0afe1831733"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/tests/test_pp_profile_contract.py",
+      "relative_path": "tests/test_pp_profile_contract.py",
+      "before_sha256": "e922b8d463213c4007d068ebf2aa1c53be9c39339cbed1e1998ff9cf33a1f1ee"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/tests/test_runtime_layout_fidelity.py",
+      "relative_path": "tests/test_runtime_layout_fidelity.py",
+      "before_sha256": "55a852f14ad957851e092afccb5423db196319c90a30c027dbb63df9ce3fef24"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/profiling/cpu_overhead/dispatch_profile_contract.py",
+      "relative_path": "vidur/profiling/cpu_overhead/dispatch_profile_contract.py",
+      "before_sha256": "2074e61e401c37a2751921f414a5dcecb649b84273cb2544f21c982a2af4f9cb"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/profiling/cpu_overhead/eager_dispatch_trace.py",
+      "relative_path": "vidur/profiling/cpu_overhead/eager_dispatch_trace.py",
+      "before_sha256": "8f37156060c1c5e1ca58066eff59b2d0d7f773bb56f9edfac643ab32642f8c72"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/profiling/cpu_overhead/http_profile_arguments.py",
+      "relative_path": "vidur/profiling/cpu_overhead/http_profile_arguments.py",
+      "before_sha256": "0c999d3f893a71e72ee9ebf6bf9f3d6f9fbe9d6efa06b5cff4bf519b0261a04b"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/profiling/cpu_overhead/native_attention_geometry.py",
+      "relative_path": "vidur/profiling/cpu_overhead/native_attention_geometry.py",
+      "before_sha256": "6c7d4eb4a882621fe9365fc7c11d6e85125fb3357e1beaa03831b2a300e3bfce"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/profiling/cpu_overhead/pp_profile_contract.py",
+      "relative_path": "vidur/profiling/cpu_overhead/pp_profile_contract.py",
+      "before_sha256": "f5f79da31c56a190cae5a17c345115a572206eaba2f4d0eb43202e5ea8dc9fa8"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/profiling/cpu_overhead/profile_native_collectives.py",
+      "relative_path": "vidur/profiling/cpu_overhead/profile_native_collectives.py",
+      "before_sha256": "f869d5ab05272fb7ea195f4097b8aa2b05db8573b1ad987d9521db4dfa4ece16"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/profiling/cpu_overhead/vllm_051_attention_profile.py",
+      "relative_path": "vidur/profiling/cpu_overhead/vllm_051_attention_profile.py",
+      "before_sha256": "d06927347c98e1f1879fd647c4171eeedad72ab892d9e8a1a69188c90f7dd949"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/profiling/cpu_overhead/vllm_051_http_cpu_profile.py",
+      "relative_path": "vidur/profiling/cpu_overhead/vllm_051_http_cpu_profile.py",
+      "before_sha256": "fe990278822bcfa25fde502fde4db73de965363f7a367e83f0be51842bdee73c"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/profiling/cpu_overhead/vllm_051_http_profile_client.py",
+      "relative_path": "vidur/profiling/cpu_overhead/vllm_051_http_profile_client.py",
+      "before_sha256": "8049de3213eecdae64348ca9ed6d8f94f24ab7606dd188958315a65b90e79799"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/profiling/cpu_overhead/vllm_051_http_profile_server.py",
+      "relative_path": "vidur/profiling/cpu_overhead/vllm_051_http_profile_server.py",
+      "before_sha256": "7c0d828516f58b18da6f96e403938c750308f9cdc5575f278f522329a47dea44"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/profiling/cpu_overhead/vllm_051_mlp_profile.py",
+      "relative_path": "vidur/profiling/cpu_overhead/vllm_051_mlp_profile.py",
+      "before_sha256": "df687de80e6932f1b8808ee896b96c535920c1a07001361e6f4beb0703ddcccb"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/profiling/cpu_overhead/vllm_051_pp_cpu_profile.py",
+      "relative_path": "vidur/profiling/cpu_overhead/vllm_051_pp_cpu_profile.py",
+      "before_sha256": "10bd5a9964349061382d8d69d40b5a14f171988e4712b9d7e933a0402a08c02b"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/profiling/cpu_overhead/vllm_051_pp_worker.py",
+      "relative_path": "vidur/profiling/cpu_overhead/vllm_051_pp_worker.py",
+      "before_sha256": "cc055d8d1a612df10ab5c58850183db38462d5956ba263485d9aad3ee953ce28"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/profiling/cpu_overhead/vllm_051_profile_common.py",
+      "relative_path": "vidur/profiling/cpu_overhead/vllm_051_profile_common.py",
+      "before_sha256": "ca287f0034a2fb0b577173b8b766ec317cd2353ef231e4849d12b60e015be46b"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/utils/decoder_graph_profile.py",
+      "relative_path": "vidur/utils/decoder_graph_profile.py",
+      "before_sha256": "46bd04a5900c930f233ea4f8e2367e683146c84c09ce75012bbf3930d9c8bd99"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/utils/eager_dispatch_program.py",
+      "relative_path": "vidur/utils/eager_dispatch_program.py",
+      "before_sha256": "ce166c1ae734cde5710843f27bf14ec7ee9989ef336a1b4332efa81325a147b7"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/utils/native_collective_profile.py",
+      "relative_path": "vidur/utils/native_collective_profile.py",
+      "before_sha256": "b88a23038bb47bd2187daceadaea58315d399ef7d05000b018f0caba86900020"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/utils/runtime_layout.py",
+      "relative_path": "vidur/utils/runtime_layout.py",
+      "before_sha256": "22ff81274dfd142732ad99c526214a45734878efcf1f4fbee0bbfcbdc65932d7"
+    },
+    {
+      "path": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/docs/pp_cpu_profiling.md",
+      "relative_path": "docs/pp_cpu_profiling.md",
+      "before_sha256": "152ac6b25f3c151122cb431b6768dc44df58765bb584d750a46e01da32568124"
+    },
+    {
+      "path": "/home/turbo_ops/changle/Files/vidur_cpu_overhead/vllm_051_pp_cpu_profile.py",
+      "relative_path": "external/vllm_051_pp_cpu_profile.py",
+      "before_sha256": "5c03b8db4c75115d39f4c0a83855493b4cc76a04df54470bc98020820eb89969",
+      "sudo": true
+    },
+    {
+      "path": "/home/turbo_ops/changle/Files/vidur_cpu_overhead/pp_profile_contract.py",
+      "relative_path": "external/pp_profile_contract.py",
+      "before_sha256": "3f51504a1fa524f250b3a167d72cf398deb6caa5fbbcc24d845a1a1f7e66689a",
+      "sudo": true
+    },
+    {
+      "path": "/home/turbo_ops/changle/Files/vidur_cpu_overhead/vllm_051_pp_worker.py",
+      "relative_path": "external/vllm_051_pp_worker.py",
+      "before_sha256": "8b7464c5492c61ee4197d231af452f24eff79112d6731e696cd03f16ead51a58",
+      "sudo": true
+    },
+    {
+      "path": "/home/turbo_ops/changle/Files/vidur_cpu_overhead/single_node_pp_20261001/vllm_051_pp_cpu_profile.py",
+      "relative_path": "external/single_node_pp_20261001/vllm_051_pp_cpu_profile.py",
+      "before_sha256": "10bd5a9964349061382d8d69d40b5a14f171988e4712b9d7e933a0402a08c02b",
+      "sudo": true
+    },
+    {
+      "path": "/home/turbo_ops/changle/Files/vidur_cpu_overhead/single_node_pp_20261001/vllm_051_http_profile_server.py",
+      "relative_path": "external/single_node_pp_20261001/vllm_051_http_profile_server.py",
+      "before_sha256": "7c0d828516f58b18da6f96e403938c750308f9cdc5575f278f522329a47dea44",
+      "sudo": true
+    },
+    {
+      "path": "/home/turbo_ops/changle/Files/vidur_cpu_overhead/single_node_pp_20261001/pp_profile_contract.py",
+      "relative_path": "external/single_node_pp_20261001/pp_profile_contract.py",
+      "before_sha256": "f5f79da31c56a190cae5a17c345115a572206eaba2f4d0eb43202e5ea8dc9fa8",
+      "sudo": true
+    },
+    {
+      "path": "/home/turbo_ops/changle/Files/vidur_cpu_overhead/single_node_pp_20261001/vllm_051_cpu_overhead.py",
+      "relative_path": "external/single_node_pp_20261001/vllm_051_cpu_overhead.py",
+      "before_sha256": "e85f8fa2f4c02c26bf7bcf2185e9f500f792200a2137c9cd2041641effd66f1b",
+      "sudo": true
+    },
+    {
+      "path": "/home/turbo_ops/changle/Files/vidur_cpu_overhead/single_node_pp_20261001/vllm_051_profile_common.py",
+      "relative_path": "external/single_node_pp_20261001/vllm_051_profile_common.py",
+      "before_sha256": "ca287f0034a2fb0b577173b8b766ec317cd2353ef231e4849d12b60e015be46b",
+      "sudo": true
+    },
+    {
+      "path": "/home/turbo_ops/changle/Files/vidur_cpu_overhead/single_node_pp_20261001/profile_native_collectives.py",
+      "relative_path": "external/single_node_pp_20261001/profile_native_collectives.py",
+      "before_sha256": "f869d5ab05272fb7ea195f4097b8aa2b05db8573b1ad987d9521db4dfa4ece16",
+      "sudo": true
+    },
+    {
+      "path": "/home/turbo_ops/changle/Files/vidur_cpu_overhead/single_node_pp_20261001/eager_dispatch_trace.py",
+      "relative_path": "external/single_node_pp_20261001/eager_dispatch_trace.py",
+      "before_sha256": "8f37156060c1c5e1ca58066eff59b2d0d7f773bb56f9edfac643ab32642f8c72",
+      "sudo": true
+    },
+    {
+      "path": "/home/turbo_ops/changle/Files/vidur_cpu_overhead/single_node_pp_20261001/vllm_051_attention_profile.py",
+      "relative_path": "external/single_node_pp_20261001/vllm_051_attention_profile.py",
+      "before_sha256": "d06927347c98e1f1879fd647c4171eeedad72ab892d9e8a1a69188c90f7dd949",
+      "sudo": true
+    },
+    {
+      "path": "/home/turbo_ops/changle/Files/vidur_cpu_overhead/single_node_pp_20261001/vllm_051_http_cpu_profile.py",
+      "relative_path": "external/single_node_pp_20261001/vllm_051_http_cpu_profile.py",
+      "before_sha256": "fe990278822bcfa25fde502fde4db73de965363f7a367e83f0be51842bdee73c",
+      "sudo": true
+    },
+    {
+      "path": "/home/turbo_ops/changle/Files/vidur_cpu_overhead/single_node_pp_20261001/dispatch_profile_contract.py",
+      "relative_path": "external/single_node_pp_20261001/dispatch_profile_contract.py",
+      "before_sha256": "2074e61e401c37a2751921f414a5dcecb649b84273cb2544f21c982a2af4f9cb",
+      "sudo": true
+    },
+    {
+      "path": "/home/turbo_ops/changle/Files/vidur_cpu_overhead/single_node_pp_20261001/vllm_051_pp_worker.py",
+      "relative_path": "external/single_node_pp_20261001/vllm_051_pp_worker.py",
+      "before_sha256": "cc055d8d1a612df10ab5c58850183db38462d5956ba263485d9aad3ee953ce28",
+      "sudo": true
+    },
+    {
+      "path": "/home/turbo_ops/changle/Files/vidur_cpu_overhead/single_node_pp_20261001/vllm_051_mlp_profile.py",
+      "relative_path": "external/single_node_pp_20261001/vllm_051_mlp_profile.py",
+      "before_sha256": "df687de80e6932f1b8808ee896b96c535920c1a07001361e6f4beb0703ddcccb",
+      "sudo": true
+    },
+    {
+      "path": "/home/turbo_ops/changle/Files/vidur_cpu_overhead/single_node_pp_20261001/vllm_051_http_profile_client.py",
+      "relative_path": "external/single_node_pp_20261001/vllm_051_http_profile_client.py",
+      "before_sha256": "8049de3213eecdae64348ca9ed6d8f94f24ab7606dd188958315a65b90e79799",
+      "sudo": true
+    },
+    {
+      "path": "/home/turbo_ops/changle/Files/vidur_cpu_overhead/single_node_pp_20261001/http_profile_arguments.py",
+      "relative_path": "external/single_node_pp_20261001/http_profile_arguments.py",
+      "before_sha256": "0c999d3f893a71e72ee9ebf6bf9f3d6f9fbe9d6efa06b5cff4bf519b0261a04b",
+      "sudo": true
+    },
+    {
+      "path": "/home/turbo_ops/changle/Files/vidur_cpu_overhead/single_node_pp_20261001/native_attention_geometry.py",
+      "relative_path": "external/single_node_pp_20261001/native_attention_geometry.py",
+      "before_sha256": "6c7d4eb4a882621fe9365fc7c11d6e85125fb3357e1beaa03831b2a300e3bfce",
+      "sudo": true
+    }
+  ],
+  "preserve_original_tp_predictor_sha256": "d9bfa95eb32b16ce8a1f55b751b0b34e26062a43077eceaf52f6b899ff119533",
+  "preserve_original_cpu_table_sha256": "a8b605579e07928b686c47b647620a3c7165db34ebf71cfbed25371dc5f8360e",
+  "basis": "First PP-before backups plus Q9 SHA-guarded deployment originals, excluding preexisting TP collectives and tests.",
+  "preserve_paths": [
+    "vidur/profiling/collectives",
+    "docs/profiling.md",
+    "show_latest_vidur_result.py",
+    "tests/test_collectives_csv_schema.py",
+    "data/profiling/compute",
+    "data/profiling/network",
+    "aicb",
+    "SimCCL",
+    "ns-3-alibabacloud",
+    "DeepGEMM"
+  ]
+}

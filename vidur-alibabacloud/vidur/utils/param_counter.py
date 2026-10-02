@@ -1,6 +1,7 @@
 from math import ceil
 
 from vidur.config import ReplicaConfig
+from vidur.utils.runtime_layout import pipeline_layer_bounds
 from vidur.logger import init_logger
 import os
 import json
@@ -18,10 +19,8 @@ class ParamCounter:
             self._model_config.num_q_heads % self._replica_config.tensor_parallel_size
             == 0
         )
-        assert (
-            self._model_config.num_layers % self._replica_config.num_pipeline_stages
-            == 0
-        )
+        if not 1 <= self._replica_config.num_pipeline_stages <= self._model_config.num_layers:
+            raise ValueError("Pipeline stages must be between one and the number of layers")
         assert (
             self._model_config.embedding_dim % self._replica_config.tensor_parallel_size
             == 0
@@ -308,8 +307,8 @@ class ParamCounter:
             # try:
             
             pipeline_stage_id = getattr(self, '_pipeline_stage_id', 0)
-            start_layer = pipeline_stage_id * self._num_layers_per_pipeline_stage
-            end_layer = start_layer + self._num_layers_per_pipeline_stage
+            start_layer, end_layer = pipeline_layer_bounds(
+                self._model_config.num_layers, pipeline_stage_id, self._replica_config.num_pipeline_stages)
             logger.debug(f"pipeline_stage_id={pipeline_stage_id} num_layers_per_pipeline_stage={self._num_layers_per_pipeline_stage} start_layer={start_layer} end_layer={end_layer}")
             
             params_per_gpu = 0
@@ -357,7 +356,10 @@ class ParamCounter:
             #     return num_parameters_per_layer * self._num_layers_per_pipeline_stage
         else:
             num_parameters_per_layer = self.get_num_parameters_per_layer()
-            return num_parameters_per_layer * self._num_layers_per_pipeline_stage
+            stage = getattr(self, '_pipeline_stage_id', self._replica_config.num_pipeline_stages - 1)
+            start, end = pipeline_layer_bounds(self._model_config.num_layers, stage,
+                                               self._replica_config.num_pipeline_stages)
+            return num_parameters_per_layer * (end - start)
 
     def get_attn_params_size(self, config, use_fp8):
         if config.attn_type == "MHA/GQA":  # MHA or GQA attention type / MHA或GQA注意力类型

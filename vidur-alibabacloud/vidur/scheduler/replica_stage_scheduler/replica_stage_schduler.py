@@ -36,7 +36,7 @@ class ReplicaStageScheduler:
         self._is_busy = False
 
     # sw： p batch：time；      flow：time；     d batch： time
-    def on_schedule(self) -> Tuple[Batch, BatchStage, ExecutionTime]:
+    def on_schedule(self, current_time=None) -> Tuple[Batch, BatchStage, ExecutionTime]:
         if self._is_busy or not self._batch_queue:
             return None, None, None
 
@@ -49,6 +49,7 @@ class ReplicaStageScheduler:
         execution_time = self._execution_time_predictor.get_execution_time(
             batch,
             self._stage_id,
+            current_time=current_time,
         )
         
 

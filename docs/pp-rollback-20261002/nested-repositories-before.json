@@ -1,0 +1,32 @@
+[
+  {
+    "name": "DeepGEMM",
+    "path": "DeepGEMM",
+    "head": "c9f8b34dcdacc20aa746b786f983492c51072870",
+    "status": "?? stubs/",
+    "source_url": "https://github.com/deepseek-ai/DeepGEMM.git",
+    "archived_commit": "c70ce7a851c520d702dfb37c3e47dc007b5fd23b",
+    "bundle_sha256": "9bbc43a4dcff7a3018081007045c4fb2266ef9b2b86fc4a03ae2ffa1d3d89633"
+  },
+  {
+    "name": "cutlass",
+    "path": "DeepGEMM/third-party/cutlass",
+    "head": "f3fde58372d33e9a5650ba7b80fc48b3b49d40c8",
+    "status": "",
+    "source_url": "https://github.com/NVIDIA/cutlass.git"
+  },
+  {
+    "name": "fmt",
+    "path": "DeepGEMM/third-party/fmt",
+    "head": "553ec11ec06fbe0beebfbb45f9dc3c9eabd83d28",
+    "status": "",
+    "source_url": "https://github.com/fmtlib/fmt.git"
+  },
+  {
+    "name": "sarathi-serve",
+    "path": "aicb/src/sarathi",
+    "head": "d057e06f48fc60019ec5c3d23b1450b8b26b8fbc",
+    "status": "",
+    "source_url": "ssh://git@github.com/microsoft/sarathi-serve.git"
+  }
+]

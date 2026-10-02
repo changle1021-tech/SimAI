@@ -441,6 +441,12 @@ class ExecutionTime(BaseEntity):
         predictor_config: BaseExecutionTimePredictorConfig,
         replica_config: ReplicaConfig,
         replica_scheduler_config: BaseReplicaSchedulerConfig,
+        engine_bookkeeping_time: float = 0.0,
+        model_boundary_time: float = 0.0,
+        graph_input_staging_time: float = 0.0,
+        decoder_graph_execution_time = None,
+        eager_forward_execution_time = None,
+        pipeline_protocol_time: float = 0.0,
     ) -> None:
         self._id = ExecutionTime.generate_id()
 
@@ -467,6 +473,12 @@ class ExecutionTime(BaseEntity):
         self._pipeline_parallel_communication_time = (
             pipeline_parallel_communication_time
         )
+        self._eager_forward_execution_time = eager_forward_execution_time
+        self._pipeline_protocol_time = pipeline_protocol_time
+        self._decoder_graph_execution_time = decoder_graph_execution_time
+        self._graph_input_staging_time = graph_input_staging_time
+        self._model_boundary_time = model_boundary_time
+        self._engine_bookkeeping_time = engine_bookkeeping_time
         self._schedule_time = schedule_time
         self._sampler_e2e_time = sampler_e2e_time
         self._prepare_inputs_e2e_time = prepare_inputs_e2e_time
@@ -1191,7 +1203,10 @@ class ExecutionTime(BaseEntity):
 
     def _get_cpu_overhead(self) -> float:
         return (
-            self._schedule_time
+            self._pipeline_protocol_time
+            + self._graph_input_staging_time
+            + self._engine_bookkeeping_time
+            + self._schedule_time
             + self._sampler_e2e_time
             + self._prepare_inputs_e2e_time
             + self._process_model_outputs_time
@@ -1284,6 +1299,16 @@ class ExecutionTime(BaseEntity):
 
     @property
     def model_time(self) -> float:
+        if getattr(self, '_eager_forward_execution_time', None) is not None:
+            # CPU launch tape and independently profiled GPU primitives already
+            # contain layer, boundary and TP operations. Add PP transport once.
+            return (self._eager_forward_execution_time + self.pipeline_parallel_communication_time) * 1e-3
+        if self._decoder_graph_execution_time is not None:
+            # Replace the sum of isolated operator timings by the measured GPU
+            # DAG span. This primitive excludes all communication and endpoints.
+            return (self._decoder_graph_execution_time
+                    + 2 * self._tensor_parallel_communication_time * self._num_layers_per_pipeline_stage
+                    + self.pipeline_parallel_communication_time + self._model_boundary_time) * 1e-3
         # 对于特定模型，需要逐层计算执行时间
         # For specific models, the execution time needs to be calculated layer by layer.
         if self._replica_config.model_name in ['deepseek-671B', 'qwen3-moe-235B', 'qwen3-next-80B'] and self._config.backend == 'aicb':
@@ -1330,7 +1355,7 @@ class ExecutionTime(BaseEntity):
             )
             # return in seconds
             return (
-                pipeline_stage_execution_time + self.pipeline_parallel_communication_time
+                pipeline_stage_execution_time + self.pipeline_parallel_communication_time + self._model_boundary_time
             ) * 1e-3
 
     @property

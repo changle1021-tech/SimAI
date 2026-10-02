@@ -11,6 +11,7 @@ from vidur.config import (
     SimulationConfig,
 )
 from vidur.entities import Batch, ExecutionTime
+from vidur.utils.runtime_layout import pipeline_layer_bounds
 
 logger = init_logger(__name__)
 
@@ -37,24 +38,47 @@ class BaseExecutionTimePredictor(ABC):
         self._num_layers_per_pipeline_stage = (
             self._model_config.num_layers // self._replica_config.num_pipeline_stages
         )
-        self._tp_time_predictor = TPTimePredictor(
-            self._model_config,
-            self._replica_config,
-            self._config
+        self._tp_time_predictor = (
+            TPTimePredictor(self._model_config, self._replica_config, self._config)
+            if self._config.backend in {"simai_simulation", "simai_analytical"}
+            else None
         )
         # > add
         self.replica_scheduler_config = replica_scheduler_config
         self.simulation_config = simulation_config
 
-    def get_execution_time(self, batch: Batch, pipeline_stage: int) -> ExecutionTime:
+    def _get_decoder_graph_execution_time(self, batch: Batch, pipeline_stage: int):
+        return None
+
+    def _get_graph_input_staging_time(self, batch: Batch, pipeline_stage: int) -> float:
+        return 0.0
+
+    def _get_model_boundary_time(self, batch: Batch, pipeline_stage: int) -> float:
+        return 0.0
+
+    def _get_engine_bookkeeping_time(self, batch: Batch) -> float:
+        return 0.0
+
+    def _get_eager_forward_execution_time(self, batch: Batch, pipeline_stage: int):
+        return None
+
+    def _get_pipeline_protocol_time(self, batch: Batch, pipeline_stage: int, current_time):
+        return None
+
+    def get_execution_time(self, batch: Batch, pipeline_stage: int, current_time=None) -> ExecutionTime:
+        start_layer, end_layer = pipeline_layer_bounds(
+            self._model_config.num_layers, pipeline_stage, self._replica_config.num_pipeline_stages)
+        stage_layers = end_layer - start_layer
         if pipeline_stage == self._replica_config.num_pipeline_stages - 1:
             pipeline_parallel_communication_time = 0
         else:
             pipeline_parallel_communication_time = (
                 # 这里PP没有考虑async io
                 # PP does not consider async IO here
-                self._get_pipeline_parallel_communication_time(batch)
+                self._get_pipeline_parallel_communication_time(batch, pipeline_stage=pipeline_stage)
             )
+
+        protocol_time = self._get_pipeline_protocol_time(batch, pipeline_stage, current_time)
 
         # CPU overhead is measured per batch, not per pipeline stage.
         is_first_stage = pipeline_stage == 0
@@ -63,9 +87,9 @@ class BaseExecutionTimePredictor(ABC):
         )
         schedule_time = self._get_schedule_time(batch) if is_first_stage else 0.0
         prepare_inputs_e2e_time = (
-            self._get_prepare_inputs_e2e_time(batch) if is_first_stage else 0.0
+            self._get_prepare_inputs_e2e_time(batch) if is_first_stage and protocol_time is None else 0.0
         )
-        ray_comm_time = self._get_ray_comm_time(batch) if is_first_stage else 0.0
+        ray_comm_time = self._get_ray_comm_time(batch) if is_first_stage and protocol_time is None else 0.0
         sampler_e2e_time = (
             self._get_sampler_e2e_time(batch) if is_last_stage else 0.0
         )
@@ -89,7 +113,7 @@ class BaseExecutionTimePredictor(ABC):
                 # If simai backend returns -1, fall back to vidur's lookup table method
                 # 如果 simai 后端返回 -1，则调用 vidur 的查表方法 
                 if tensor_parallel_communication_time == -1:
-                    tensor_parallel_communication_time = self._get_tensor_parallel_communication_time(batch)
+                    tensor_parallel_communication_time = self._get_tensor_parallel_communication_time(batch, pipeline_stage=pipeline_stage)
                     
             # elif self._config.simai_analytical_enable:
             elif self._config.backend == "simai_analytical":
@@ -99,7 +123,7 @@ class BaseExecutionTimePredictor(ABC):
                 # If simai backend returns -1, fall back to vidur's lookup table method
                 # 如果 simai 后端返回 -1，则调用 vidur 的查表方法 
                 if tensor_parallel_communication_time == -1:
-                    tensor_parallel_communication_time = self._get_tensor_parallel_communication_time(batch)
+                    tensor_parallel_communication_time = self._get_tensor_parallel_communication_time(batch, pipeline_stage=pipeline_stage)
             
             elif self._config.backend == "aicb":
                 # TODO(tianhao909): add TP communication support for AICB backend
@@ -107,7 +131,7 @@ class BaseExecutionTimePredictor(ABC):
                 tensor_parallel_communication_time = 0
             else:
                 assert self._config.backend == "vidur", "backend must be one of: simai_simulation, simai_analytical, aicb, vidur"
-                tensor_parallel_communication_time = self._get_tensor_parallel_communication_time(batch)
+                tensor_parallel_communication_time = self._get_tensor_parallel_communication_time(batch, pipeline_stage=pipeline_stage)
 
         if self._config.backend == "aicb":
             # ============================================================
@@ -217,8 +241,8 @@ class BaseExecutionTimePredictor(ABC):
             replica_config.seq_len = seq
             
 
-            return ExecutionTime(
-                self._num_layers_per_pipeline_stage,
+            result = ExecutionTime(
+                stage_layers,
                 self._get_attention_rope_execution_time(batch),
                 self._get_attention_kv_cache_save_execution_time(batch),
                 self._get_attention_decode_execution_time(batch),
@@ -240,13 +264,19 @@ class BaseExecutionTimePredictor(ABC):
                 ray_comm_time,
                 self._config,
                 replica_config,
-                self.replica_scheduler_config
+                self.replica_scheduler_config,
+                engine_bookkeeping_time=(self._get_engine_bookkeeping_time(batch) if is_first_stage else 0.0),
+                model_boundary_time=self._get_model_boundary_time(batch, pipeline_stage),
+                decoder_graph_execution_time=self._get_decoder_graph_execution_time(batch, pipeline_stage),
+                graph_input_staging_time=self._get_graph_input_staging_time(batch, pipeline_stage),
+                pipeline_protocol_time=protocol_time or 0.0,
+                eager_forward_execution_time=self._get_eager_forward_execution_time(batch, pipeline_stage)
                 # self._model_config
             )
 
         else:
-            return ExecutionTime(
-                self._num_layers_per_pipeline_stage,
+            result = ExecutionTime(
+                stage_layers,
                 self._get_attention_rope_execution_time(batch),
                 self._get_attention_kv_cache_save_execution_time(batch),
                 self._get_attention_decode_execution_time(batch),
@@ -268,10 +298,22 @@ class BaseExecutionTimePredictor(ABC):
                 ray_comm_time,
                 self._config,
                 self._replica_config,
-                self.replica_scheduler_config
+                self.replica_scheduler_config,
+                engine_bookkeeping_time=(self._get_engine_bookkeeping_time(batch) if is_first_stage else 0.0),
+                model_boundary_time=self._get_model_boundary_time(batch, pipeline_stage),
+                decoder_graph_execution_time=self._get_decoder_graph_execution_time(batch, pipeline_stage),
+                graph_input_staging_time=self._get_graph_input_staging_time(batch, pipeline_stage),
+                pipeline_protocol_time=protocol_time or 0.0,
+                eager_forward_execution_time=self._get_eager_forward_execution_time(batch, pipeline_stage)
                 
                 # self._model_config
             )
+
+        if protocol_time is not None:
+            batch._pipeline_protocol_elapsed_ms = getattr(batch, '_pipeline_protocol_elapsed_ms', 0.0) + result.total_time * 1000
+            if current_time is not None:
+                self._pipeline_worker_available_at[pipeline_stage] = current_time + result.total_time
+        return result
 
     @abstractmethod
     def _get_attention_layer_pre_proj_execution_time(self, batch: Batch) -> float:
@@ -310,11 +352,11 @@ class BaseExecutionTimePredictor(ABC):
         pass
 
     @abstractmethod
-    def _get_tensor_parallel_communication_time(self, batch: Batch) -> float:
+    def _get_tensor_parallel_communication_time(self, batch: Batch, pipeline_stage: int = 0) -> float:
         pass
 
     @abstractmethod
-    def _get_pipeline_parallel_communication_time(self, batch: Batch) -> float:
+    def _get_pipeline_parallel_communication_time(self, batch: Batch, pipeline_stage: int = 0) -> float:
         pass
 
     @abstractmethod

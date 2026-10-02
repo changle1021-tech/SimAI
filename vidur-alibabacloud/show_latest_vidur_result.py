@@ -110,7 +110,7 @@ def metric_line(label: str, values_ms: list[float]) -> str:
         f"{label}: mean={fmean(values_ms):.3f} ms, "
         f"P50={percentile(values_ms, 50):.3f}, "
         f"P90={percentile(values_ms, 90):.3f}, "
-        f"P99={percentile(values_ms, 99):.3f}"
+        f"P95={percentile(values_ms, 95):.3f}"
     )
 
 
