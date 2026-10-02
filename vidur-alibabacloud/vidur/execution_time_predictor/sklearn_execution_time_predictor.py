@@ -1,5 +1,4 @@
 import hashlib
-import json
 import os
 import pickle
 from abc import abstractmethod
@@ -24,7 +23,6 @@ from vidur.entities import Batch
 from vidur.execution_time_predictor.base_execution_time_predictor import (
     BaseExecutionTimePredictor,
 )
-from vidur.utils.runtime_layout import configured_rank_nodes, pipeline_layer_bounds
 from vidur.logger import init_logger
 
 logger = init_logger(__name__)
@@ -72,9 +70,11 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
             * self._replica_config.tensor_parallel_size
         )
         devices_per_node = self._replica_config.node_config.num_devices_per_node
-        self._rank_node_map = configured_rank_nodes(
-            num_workers, devices_per_node, getattr(self._replica_config, "rank_node_map", None))
-        self._is_multi_node = len(set(self._rank_node_map)) > 1
+        assert (
+            num_workers < devices_per_node or num_workers % devices_per_node == 0
+        ), "Number of workers should be less than devices per node or a multiple of devices per node"
+
+        self._is_multi_node = num_workers > devices_per_node
 
         (
             self._compute_input_file,       # mlp
@@ -84,20 +84,6 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
             self._cpu_overhead_input_file,
         ) = self._get_input_files()
         self._model_training_hashes = {}
-        self._native_tp_collectives = {}
-        self._decoder_graph_profile = None
-        if self._config.decoder_graph_input_file is not None:
-            if self._config.backend != "vidur" or self._config.decode_attention_execution_mode != "cuda_graph":
-                raise ValueError("Native decoder CUDA graph profiles require the Vidur CUDA graph runtime")
-            from vidur.utils.decoder_graph_profile import DecoderGraphProfile
-            capacity = self._config.cuda_graph_max_seq_len or min(
-                self._config.prediction_max_tokens_per_request, self._model_config.max_position_embeddings)
-            self._decoder_graph_profile = DecoderGraphProfile(
-                self._config.decoder_graph_input_file, self._model_config.get_name(),
-                dict(n_embd=self._model_config.embedding_dim, n_q_head=self._model_config.num_q_heads,
-                     n_kv_head=self._model_config.num_kv_heads, n_expanded_embd=self._model_config.mlp_hidden_dim),
-                self._replica_config.tensor_parallel_size, capacity, self._block_size,
-                device=self._replica_config.device)
 
         # print(f"> Debug: start self._models = self._train_models() \
             # and self._predictions = self._predict_from_models()")
@@ -263,61 +249,15 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
             f"tp_workers={self._replica_config.tensor_parallel_size}"
         )
         
-        self._attention_layout_aware = "decode_block_table_capacity" in filtered_df
-        if self._attention_layout_aware:
-            mode = self._config.decode_attention_execution_mode
-            if mode not in {"cuda_graph", "eager"}:
-                raise ValueError("Unknown decode attention execution mode")
-            capacity = self._config.cuda_graph_max_seq_len
-            if capacity is None:
-                capacity = min(self._config.prediction_max_tokens_per_request,
-                               self._model_config.max_position_embeddings)
-            self._attention_graph_capacity = capacity
-            required = {"decode_layout", "physical_batch_size"}
-            if not required <= set(filtered_df.columns):
-                raise ValueError("Attention layout profile is incomplete")
-            is_prefill = filtered_df["is_prefill"]
-            matched = filtered_df["decode_layout"].eq(mode)
-            if mode == "cuda_graph":
-                matched &= filtered_df["decode_block_table_capacity"].eq(capacity)
-            filtered_df = filtered_df[is_prefill | matched].copy()
-            if filtered_df[~filtered_df["is_prefill"]].empty:
-                raise ValueError(f"No attention profile for decode layout={mode}, capacity={capacity}")
-            if mode == "cuda_graph":
-                decode = filtered_df[~filtered_df["is_prefill"]]
-                expected = decode["batch_size"].map(lambda b: b if b <= 2 else 4 if b <= 4 else ((b + 7) // 8) * 8)
-                if not decode["physical_batch_size"].eq(expected).all():
-                    raise ValueError("Attention profile graph padding differs from the runtime layout")
         return filtered_df
 
-    def _load_all_reduce_df(self, file_path: str, pipeline_stage: int = 0) -> pd.DataFrame:
-        tp = self._replica_config.tensor_parallel_size
-        nodes = self._rank_node_map[pipeline_stage * tp:(pipeline_stage + 1) * tp]
-        aliases = {}
-        placement = [aliases.setdefault(n, len(aliases)) for n in nodes]
+    def _load_all_reduce_df(self, file_path: str) -> pd.DataFrame:
         df = self._read_input_file(file_path)
-        selected = df[(df["num_workers"] == tp) & df["collective"].eq("all_reduce")].copy()
-        if "rank_node_map" in selected:
-            encoded = json.dumps(placement, separators=(",", ":"))
-            selected = selected[selected["rank_node_map"].map(
-                lambda x: json.dumps(json.loads(x), separators=(",", ":"))) == encoded]
-        else:
-            counts = [nodes.count(n) for n in set(nodes)]
-            if len(set(counts)) != 1:
-                raise ValueError("Uneven cross-node TP groups require an explicit rank_node_map in collective profiles")
-            selected = selected[selected["devices_per_node"] == counts[0]]
-        if len(set(nodes)) > 1:
-            transport = getattr(self._config, "network_transport", None)
-            if not transport or "network_transport" not in selected or "rank_node_map" not in selected:
-                raise ValueError("Cross-node TP profiles require explicit rank_node_map and verified network_transport; legacy node counts do not identify the network")
-            selected = selected[selected["network_transport"].eq(transport)]
-        if selected.empty:
-            raise ValueError(f"No all-reduce profile for TP={tp}, stage={pipeline_stage}, group placement={placement}")
-        if "profile_kind" in selected:
-            native=selected["profile_kind"].eq("native_collective_v1")
-            if native.any() and not native.all():
-                raise ValueError("Native collective profiles cannot be mixed with legacy timing semantics")
-        return selected
+        return df[
+            (df["num_workers"] == self._replica_config.tensor_parallel_size)
+            & (df["devices_per_node"] == self._replica_config.tensor_parallel_size)
+            & (df["collective"] == "all_reduce")
+        ]
 
     def _load_send_recv_df(self, file_path: str) -> pd.DataFrame:
         if self._is_multi_node:
@@ -334,114 +274,14 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
 
     def _load_cpu_overhead_df(self, file_path: str) -> pd.DataFrame:
         df = self._read_input_file(file_path)
-        pp = self._replica_config.num_pipeline_stages
-        if "pipeline_parallel_degree" not in df:
-            if pp != 1:
-                raise ValueError(
-                    f"PP={pp} requires a CPU profile with pipeline_parallel_degree; "
-                    "legacy CPU tables were collected at PP=1"
-                )
-            df["pipeline_parallel_degree"] = 1
-        degrees = pd.to_numeric(df["pipeline_parallel_degree"], errors="raise")
-        filtered = df[
+        filtered_df = df[
             (df["model_name"] == self._model_config.get_name())
-            & (df["tensor_parallel_degree"] == self._replica_config.tensor_parallel_size)
-            & (degrees == pp)
-        ].copy()
-        expected_nodes = getattr(self, "_rank_node_map", [0] * (self._replica_config.tensor_parallel_size * pp))
-        if "rank_node_map" in filtered:
-            encoded = json.dumps(expected_nodes, separators=(",", ":"))
-            legacy = json.dumps([0] * len(expected_nodes), separators=(",", ":"))
-            maps = filtered["rank_node_map"].fillna(legacy).map(
-                lambda value: json.dumps(json.loads(value), separators=(",", ":")))
-            filtered = filtered[maps == encoded].copy()
-        elif len(set(expected_nodes)) > 1:
-            raise ValueError("Cross-node CPU profiling must include actual rank_node_map; single-node data cannot be reused")
-        if len(set(expected_nodes)) > 1:
-            transport = getattr(getattr(self, "_config", None), "network_transport", None)
-            if not transport or "network_transport" not in filtered:
-                raise ValueError("Cross-node CPU profiles require verified network_transport; socket and IB measurements cannot be mixed")
-            filtered = filtered[filtered["network_transport"].eq(transport)].copy()
-        if "profile_loop_mode" in filtered:
-            desired_loop = self._config.execution_loop_mode
-            filtered = filtered[filtered["profile_loop_mode"].fillna("direct").eq(desired_loop)].copy()
-        elif getattr(getattr(self, "_config", None), "execution_loop_mode", "direct") != "direct":
-            raise ValueError("Serving-loop CPU simulation requires a serving-loop profile; inner-step data omits background scheduling")
-        if "enforce_eager" in filtered:
-            eager = self._config.decode_attention_execution_mode == "eager"
-            modes = filtered["enforce_eager"].map(lambda x: str(x).lower() == "true")
-            filtered = filtered[modes == eager].copy()
-        if "profile_schema_version" in filtered:
-            versions = pd.to_numeric(filtered["profile_schema_version"], errors="coerce").fillna(1)
-            filtered = filtered[versions == versions.max()].copy()
-        if filtered.empty:
-            raise ValueError(f"No CPU profile for model={self._model_config.get_name()}, "
-                             f"TP={self._replica_config.tensor_parallel_size}, PP={pp}, rank_node_map={expected_nodes}")
-        phase_profile = (
-            "prefill_tokens_per_request" in filtered
-            and filtered["prefill_tokens_per_request"].notna().all()
-        )
-        self._cpu_profile_feature_cols = ["batch_size"]
-        self._cpu_profile_prefill_sizes = [0]
-        self._has_pp_handoff_profile = False
-        self._pp_handoff_model_names = []
-        self._graph_staging_model_names = []
-        stage_names = [f"graph_input_staging_stage_{i}" for i in range(pp)]
-        if all(name + "_mean" in filtered and filtered[name + "_mean"].notna().all() for name in stage_names):
-            self._graph_staging_model_names = stage_names
-        self._has_engine_bookkeeping_profile = (
-            "engine_bookkeeping_mean" in filtered
-            and filtered["engine_bookkeeping_mean"].notna().all())
-        if phase_profile:
-            self._cpu_profile_feature_cols.append("prefill_tokens_per_request")
-            self._cpu_profile_prefill_sizes = sorted(
-                filtered["prefill_tokens_per_request"].unique().tolist())
-            if "phase" not in filtered or set(filtered["phase"]) != {"prefill", "decode"}:
-                raise ValueError("CPU phase profile must include both prefill and decode")
-            if pp > 1:
-                if ("pp_handoff_e2e_mean" not in filtered
-                        or filtered["pp_handoff_e2e_mean"].isna().any()):
-                    raise ValueError("PP phase profile is missing complete handoff timings")
-                self._has_pp_handoff_profile = True
-                names = [f"pp_handoff_boundary_{i}" for i in range(pp - 1)]
-                if all(name + "_mean" in filtered and filtered[name + "_mean"].notna().all() for name in names):
-                    self._pp_handoff_model_names = names
-                elif pp > 2:
-                    raise ValueError("PP>2 requires per-boundary profiles; aggregate handoff cannot describe mixed local and cross-node links")
-        elif pp > 1:
-            raise ValueError("PP CPU profiles require separate prefill/decode timings")
-        self._cpu_observed_points = {}
-        self._pipeline_protocol_model_names = []
-        self._eager_dispatch_programs = []
-        if ("profile_schema_version" in filtered and filtered["profile_schema_version"].min() >= 8
-                and len(set(expected_nodes)) == 1):
-            names = ["pipeline_result_return", "executor_pre_dispatch"] + [
-                f"pipeline_{kind}_stage_{i}" for kind in ["input_work", "input_dispatch", "post_receive"]
-                for i in range(pp)]
-            if any(name + "_mean" not in filtered or filtered[name + "_mean"].isna().any() for name in names):
-                raise ValueError("Incomplete named pipeline protocol profile")
-            self._pipeline_protocol_model_names = names
-            prefill = filtered[filtered["phase"].eq("prefill")]
-            for stage in range(pp):
-                column = f"eager_dispatch_program_stage_{stage}"
-                if column not in prefill or prefill[column].isna().any():
-                    raise ValueError("Missing eager CPU launch program")
-                points = {}
-                for _, row in prefill.iterrows():
-                    key = (int(row["batch_size"]), float(row["prefill_tokens_per_request"]))
-                    program = json.loads(row[column])
-                    if key in points:
-                        raise ValueError("Duplicate eager CPU program point; aggregate repetitions during collection")
-                    points[key] = program
-                self._eager_dispatch_programs.append(points)
-        if phase_profile and "profile_schema_version" in filtered and filtered["profile_schema_version"].min() >= 5:
-            for column in filtered:
-                if column.endswith("_mean") and filtered[column].notna().all():
-                    points = filtered.groupby(self._cpu_profile_feature_cols)[column].mean()
-                    self._cpu_observed_points[column[:-5]] = {
-                        key if isinstance(key, tuple) else (key,): float(value)
-                        for key, value in points.items()}
-        return filtered
+            & (
+                df["tensor_parallel_degree"]
+                == self._replica_config.tensor_parallel_size
+            )
+        ]
+        return filtered_df
 
     def _read_input_file(self, file_path: str) -> pd.DataFrame:
         df = pd.read_csv(file_path)
@@ -532,28 +372,7 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
     def _get_model_hash(
         self, model_name: str, df: pd.DataFrame = None, target_col: str = None
     ) -> str:
-        config = dict(self.to_dict())
-        timing_name = model_name.split("_phase_", 1)[0]
-        cpu_name = (timing_name in {"schedule", "sampler_e2e", "prepare_inputs_e2e",
-                    "process_model_outputs", "ray_comm_time", "pp_handoff_e2e", "engine_bookkeeping"}
-                    or timing_name.startswith(("pp_handoff_boundary_", "graph_input_staging_stage_", "pipeline_", "executor_pre_dispatch")))
-        if not cpu_name:
-            config.pop("cpu_overhead_input_file", None)
-        if not cpu_name and timing_name not in {"all_reduce", "send_recv"} and not timing_name.startswith("all_reduce_stage_"):
-            config.pop("network_transport", None)
-        if timing_name not in {"all_reduce", "send_recv"} and not timing_name.startswith("all_reduce_stage_"):
-            config.pop("all_reduce_input_file", None)
-            config.pop("send_recv_input_file", None)
-        config_str = str(config)
-        if timing_name in {"schedule", "sampler_e2e", "prepare_inputs_e2e",
-                          "process_model_outputs", "ray_comm_time", "pp_handoff_e2e", "engine_bookkeeping"} or timing_name.startswith(("pp_handoff_boundary_", "graph_input_staging_stage_", "pipeline_", "executor_pre_dispatch")):
-            config_str += f"_cpu_schema=5_pp={self._replica_config.num_pipeline_stages}_placement={getattr(self, '_rank_node_map', None)}"
-
-        if model_name in {"attn_decode", "attn_prefill", "attn_kv_cache_save"} and getattr(self, "_attention_layout_aware", False):
-            config_str += f"_attention_layout={self._config.decode_attention_execution_mode}_capacity={self._attention_graph_capacity}"
-
-        if model_name == "all_reduce" or model_name.startswith("all_reduce_stage_"):
-            config_str += f"_tp_group_placement={self._rank_node_map}"
+        config_str = str(self.to_dict())
 
         if df is None:
             combined_str = f"{config_str}_{model_name}"
@@ -747,17 +566,9 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
             "mlp_act",
             "input_layernorm",
             "post_attention_layernorm",
-            "attn_rope",
+            # "attn_rope",
             "add",
-            "emb",
         ]
-
-        for boundary in ["first_layernorm", "final_layernorm"]:
-            if f"time_stats.{boundary}.median" in compute_df:
-                model_names.append(boundary)
-
-        if self._model_config.rope_theta is None:
-            model_names.remove("attn_rope")
 
         for model_name in model_names:
             logger.debug(
@@ -787,7 +598,7 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
                 target_col=f"time_stats.{model_name}.median",
             )
 
-        if self._replica_config.num_pipeline_stages > 1 and not getattr(self, "_has_pp_handoff_profile", False):
+        if self._replica_config.num_pipeline_stages > 1:
             send_recv_df = self._load_send_recv_df(self._send_recv_input_file)
             send_recv_df = self._get_send_recv_df_with_derived_features(send_recv_df)
 
@@ -799,57 +610,49 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
             )
 
         if self._replica_config.tensor_parallel_size > 1:
-            tp = self._replica_config.tensor_parallel_size
-            patterns = []
-            for stage in range(self._replica_config.num_pipeline_stages):
-                aliases = {}
-                group = self._rank_node_map[stage * tp:(stage + 1) * tp]
-                patterns.append(tuple(aliases.setdefault(n, len(aliases)) for n in group))
-            uniform = len(set(patterns)) == 1
-            self._tp_group_model_names = ["all_reduce"] * len(patterns) if uniform else [
-                f"all_reduce_stage_{i}" for i in range(len(patterns))]
-            for stage, name in enumerate(self._tp_group_model_names):
-                if name in models:
-                    continue
-                all_reduce_df = self._load_all_reduce_df(self._all_reduce_input_file, pipeline_stage=stage)
-                if "profile_kind" in all_reduce_df and all_reduce_df["profile_kind"].eq("native_collective_v1").all():
-                    from vidur.utils.native_collective_profile import NativeCollectiveProfile
-                    self._native_tp_collectives[stage] = NativeCollectiveProfile(
-                        all_reduce_df.to_dict("records"), self._model_config.embedding_dim,
-                        device=self._replica_config.device)
-                    continue
-                all_reduce_df = self._get_all_reduce_df_with_derived_features(all_reduce_df)
-                models[name] = self._train_model(
-                    model_name=name, df=all_reduce_df, feature_cols=["num_tokens"],
-                    target_col="time_stats.all_reduce.mean")
+            all_reduce_df = self._load_all_reduce_df(self._all_reduce_input_file)
+            all_reduce_df = self._get_all_reduce_df_with_derived_features(all_reduce_df)
+
+            models["all_reduce"] = self._train_model(
+                model_name="all_reduce",
+                df=all_reduce_df,
+                feature_cols=["num_tokens"],
+                target_col="time_stats.all_reduce.mean",
+            )
 
         return models
 
     def _train_cpu_overhead_models(self) -> Dict[str, BaseEstimator]:
         if self._config.skip_cpu_overhead_modeling:
             return {}
-        df = self._get_cpu_overhead_df_with_derived_features(
-            self._load_cpu_overhead_df(self._cpu_overhead_input_file))
-        names = ["schedule", "sampler_e2e", "prepare_inputs_e2e",
-                 "process_model_outputs", "ray_comm_time"]
-        if self._has_pp_handoff_profile:
-            names.extend(self._pp_handoff_model_names or ["pp_handoff_e2e"])
-        if self._has_engine_bookkeeping_profile:
-            names.append("engine_bookkeeping")
-        names.extend(self._graph_staging_model_names)
-        names.extend(getattr(self, "_pipeline_protocol_model_names", []))
-        enhanced = len(self._cpu_profile_feature_cols) > 1
-        self._cpu_phase_models = enhanced
+
         models = {}
-        for name in names:
-            for phase in (["prefill", "decode"] if enhanced else [None]):
-                part = df[df["phase"] == phase].copy() if phase else df
-                model_name = f"{name}_phase_{phase}" if phase else name
-                if phase and len(part) < 2:
-                    raise ValueError("Each CPU phase needs at least two profiling points for regression")
-                models[model_name] = self._train_model(
-                    model_name=model_name, df=part, feature_cols=self._cpu_profile_feature_cols,
-                    target_col=name + ("_mean" if enhanced or name == "ray_comm_time" else "_median"))
+        model_names = [
+            "schedule",
+            "sampler_e2e",
+            "prepare_inputs_e2e",
+            "process_model_outputs",
+            "ray_comm_time",
+        ]
+
+        cpu_overhead_df = self._load_cpu_overhead_df(self._cpu_overhead_input_file)
+        cpu_overhead_df = self._get_cpu_overhead_df_with_derived_features(
+            cpu_overhead_df
+        )
+
+        for model_name in model_names:
+            if model_name == "ray_comm_time":
+                target_col = "ray_comm_time_mean"
+            else:
+                target_col = f"{model_name}_median"
+
+            models[model_name] = self._train_model(
+                model_name=model_name,
+                df=cpu_overhead_df,
+                feature_cols=["batch_size"],
+                target_col=target_col,
+            )
+
         return models
 
     def _train_attention_layer_models(self) -> Dict[str, BaseEstimator]:
@@ -883,9 +686,6 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
         return models
 
     def _train_models(self) -> Dict[str, BaseEstimator]:
-        # Resolve CPU protocol coverage before selecting a bare transfer model.
-        if not self._config.skip_cpu_overhead_modeling:
-            self._load_cpu_overhead_df(self._cpu_overhead_input_file)
         models = self._train_compute_models()
         models.update(self._train_cpu_overhead_models())
         models.update(self._train_attention_layer_models())
@@ -1018,26 +818,18 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
             "mlp_up_proj",
             "mlp_down_proj",
             "mlp_act",
-            "attn_rope",
+            # "attn_rope",
             "attn_kv_cache_save",
             "input_layernorm",
             "post_attention_layernorm",
             "add",
-            "emb",
         ]
 
-        for boundary in ["first_layernorm", "final_layernorm"]:
-            if boundary in self._models:
-                model_names.append(boundary)
-
-        if self._model_config.rope_theta is None:
-            model_names.remove("attn_rope")
-
-        if "send_recv" in self._models:
+        if self._replica_config.num_pipeline_stages > 1:
             model_names.append("send_recv")
 
         if self._replica_config.tensor_parallel_size > 1:
-            model_names.extend(n for n in self._tp_group_model_names if n in self._models)
+            model_names.append("all_reduce")
 
         num_token_range = np.arange(1, self._max_tokens + 1)
         X = pd.DataFrame({"num_tokens": num_token_range})
@@ -1127,50 +919,25 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
     def _predict_for_cpu_overhead_models(self) -> Dict[str, Any]:
         if self._config.skip_cpu_overhead_modeling:
             return {}
-        names = ["schedule", "sampler_e2e", "prepare_inputs_e2e",
-                 "process_model_outputs", "ray_comm_time"]
-        if self._has_pp_handoff_profile:
-            names.extend(self._pp_handoff_model_names or ["pp_handoff_e2e"])
-        if self._has_engine_bookkeeping_profile:
-            names.append("engine_bookkeeping")
-        names.extend(self._graph_staging_model_names)
-        names.extend(getattr(self, "_pipeline_protocol_model_names", []))
-        sizes = range(1, self._config.prediction_max_batch_size + 1)
-        if len(self._cpu_profile_feature_cols) == 1:
-            X = pd.DataFrame({"batch_size": list(sizes)})
-        else:
-            X = pd.DataFrame(list(product(sizes, self._cpu_profile_prefill_sizes)),
-                             columns=self._cpu_profile_feature_cols)
-        predictions = {}
-        for name in names:
-            if self._cpu_phase_models:
-                values = {}
-                for phase in ["prefill", "decode"]:
-                    model_name = f"{name}_phase_{phase}"
-                    mask = X["prefill_tokens_per_request"] > 0
-                    subset = X[mask if phase == "prefill" else ~mask]
-                    values.update(self._get_model_prediction(model_name, self._models[model_name], subset))
-                predictions[name] = values
-            else:
-                predictions[name] = self._get_model_prediction(name, self._models[name], X)
-        return predictions
 
-    def _get_cpu_profile_prediction(self, name: str, batch: Batch) -> float:
-        key = (batch.size,)
-        if len(self._cpu_profile_feature_cols) > 1:
-            key += (batch.num_prefill_tokens / batch.size,)
-        observed = getattr(self, "_cpu_observed_points", {}).get(name, {})
-        if key in observed:
-            return observed[key]
-        values = self._predictions[name]
-        if key not in values:
-            # Predict unseen prompt lengths without allocating a full token grid.
-            X = pd.DataFrame([key], columns=self._cpu_profile_feature_cols)
-            model_name = name
-            if getattr(self, "_cpu_phase_models", False):
-                model_name += "_phase_prefill" if batch.num_prefill_tokens else "_phase_decode"
-            values[key] = float(self._models[model_name].predict(X)[0])
-        return values[key]
+        predictions = {}
+
+        model_names = [
+            "schedule",
+            "sampler_e2e",
+            "prepare_inputs_e2e",
+            "process_model_outputs",
+            "ray_comm_time",
+        ]
+
+        batch_size_range = np.arange(1, self._config.prediction_max_batch_size + 1)
+        X = pd.DataFrame({"batch_size": batch_size_range})
+
+        for model_name in model_names:
+            model = self._models[model_name]
+            predictions[model_name] = self._get_model_prediction(model_name, model, X)
+
+        return predictions
 
     def _predict_for_attention_layer_models_by_aicb(self) -> Dict[str, Any]:
         # Store attention layer predictions / 存储注意力层预测结果
@@ -1459,168 +1226,42 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
 
     # 线性层和激活层直接用total_num_tokens预测
     # Predict directly with total_num_tokens for the linear layer and activation layer.
-    def _get_pipeline_protocol_time(self, batch: Batch, pipeline_stage: int, current_time):
-        if self._config.skip_cpu_overhead_modeling or not getattr(self, '_pipeline_protocol_model_names', []):
-            return None
-        pp = self._replica_config.num_pipeline_stages
-        predict = lambda name: self._get_cpu_profile_prediction(name, batch)
-        if pipeline_stage == 0:
-            batch._pipeline_protocol_elapsed_ms = 0.0
-            begin = 0.0 if current_time is None else current_time
-            launch = begin + (self._get_schedule_time(batch) + self._get_engine_bookkeeping_time(batch)
-                              + predict('executor_pre_dispatch')) * 1e-3
-            batch._pipeline_protocol_launch_at = launch
-            if not hasattr(self, '_pipeline_worker_available_at'):
-                self._pipeline_worker_available_at = [0.0] * pp
-            batch._pipeline_input_ready_at = [
-                max(launch + predict(f'pipeline_input_dispatch_stage_{s}') * 1e-3,
-                    self._pipeline_worker_available_at[s])
-                + predict(f'pipeline_input_work_stage_{s}') * 1e-3 for s in range(pp)]
-            duration = (batch._pipeline_input_ready_at[0] - launch) * 1000 + predict('executor_pre_dispatch')
-        else:
-            if not hasattr(batch, '_pipeline_input_ready_at'):
-                raise ValueError('Pipeline protocol must begin at stage zero')
-            now = batch._pipeline_protocol_elapsed_ms * 1e-3 if current_time is None else current_time
-            duration = max(0.0, (batch._pipeline_input_ready_at[pipeline_stage] - now) * 1000)
-            duration += predict(f'pipeline_post_receive_stage_{pipeline_stage}')
-        if pipeline_stage == pp - 1:
-            duration += predict('pipeline_result_return')
-        return duration
-
-    def _get_eager_forward_execution_time(self, batch: Batch, pipeline_stage: int):
-        if not batch.num_prefill_tokens or not getattr(self, '_eager_dispatch_programs', []):
-            return None
-        if self._config.backend != 'vidur':
-            raise ValueError('CPU launch program requires independently profiled Vidur GPU primitives')
-        if batch.num_decode_tokens:
-            raise ValueError('Profile mixed prefill/decode CPU programs before simulating mixed batches')
-        from vidur.utils.eager_dispatch_program import interpolate_program, replay_program
-        program = interpolate_program(self._eager_dispatch_programs[pipeline_stage], batch.size,
-                                      batch.num_prefill_tokens / batch.size)
-        lo, hi = pipeline_layer_bounds(self._model_config.num_layers, pipeline_stage,
-                                      self._replica_config.num_pipeline_stages)
-        layers = {f['layer'] for f in program['frames'] if f['layer'] is not None}
-        if layers != set(range(lo, hi)):
-            raise ValueError('Eager CPU program does not match pipeline layer placement')
-        tp = (self._get_tensor_parallel_communication_time(batch, pipeline_stage)
-              if self._replica_config.tensor_parallel_size > 1 else 0.0)
-        key = (self._get_compute_tokens(batch),)
-        gpu = dict(embedding=self._predictions['emb'][key] + tp,
-                   qkv=self._get_attention_layer_pre_proj_execution_time(batch),
-                   rope=self._get_attention_rope_execution_time(batch),
-                   attention=self._get_attention_kv_cache_save_execution_time(batch)
-                             + self._get_attention_prefill_execution_time(batch),
-                   attention_output=self._get_attention_layer_post_proj_execution_time(batch) + tp,
-                   post_attention_norm=self._get_mlp_norm_layer_act_execution_time(batch),
-                   mlp_up=self._get_mlp_layer_up_proj_execution_time(batch),
-                   mlp_activation=self._get_mlp_layer_act_execution_time(batch),
-                   mlp_down=self._get_mlp_layer_down_proj_execution_time(batch) + tp,
-                   final_norm=self._predictions['final_layernorm'][key])
-        def duration(operation, layer):
-            if operation == 'input_norm':
-                return (self._predictions['first_layernorm'][key] if layer == 0 else
-                        self._get_attn_norm_layer_act_execution_time(batch))
-            if operation not in gpu:
-                raise ValueError(f'No GPU primitive for eager operation {operation}')
-            return gpu[operation]
-        return replay_program(program, duration)
-
-    def _get_decoder_graph_execution_time(self, batch: Batch, pipeline_stage: int):
-        if self._decoder_graph_profile is None or batch.num_prefill_tokens:
-            return None
-        from vidur.utils.runtime_layout import pipeline_layer_bounds
-        lo, hi = pipeline_layer_bounds(self._model_config.num_layers, pipeline_stage,
-                                       self._replica_config.num_pipeline_stages)
-        kv = sum(r.num_processed_tokens for r in batch.requests) / batch.size
-        return self._decoder_graph_profile.predict(hi - lo, batch.size, kv)
-
-    def _get_compute_tokens(self, batch: Batch) -> int:
-        if not getattr(self, "_attention_layout_aware", False):
-            return batch._total_num_tokens_rounded
-        count = sum(batch.num_tokens)
-        if batch.num_prefill_tokens or self._config.decode_attention_execution_mode == "eager":
-            return count
-        max_context = max(r.num_processed_tokens + 1 for r in batch.requests)
-        if max_context > self._attention_graph_capacity:
-            raise ValueError("Decode exceeds CUDA graph capture coverage; profile the eager fallback before simulating it")
-        from vidur.utils.runtime_layout import graph_batch_size
-        return graph_batch_size(count)
-
-    def _get_model_boundary_time(self, batch: Batch, pipeline_stage: int) -> float:
-        if self._config.backend != "vidur":
-            return 0.0
-        key = (self._get_compute_tokens(batch),)
-        total = 0.0
-        if pipeline_stage == 0:
-            total += self._predictions["emb"][key]
-            if getattr(self, "_attention_layout_aware", False) and self._replica_config.tensor_parallel_size > 1:
-                # Native VocabParallelEmbedding has one reduction, while its
-                # standalone GPU target contains only local embedding work.
-                total += self._get_tensor_parallel_communication_time(batch, pipeline_stage=pipeline_stage, include_boundary=True)
-            if "first_layernorm" in self._predictions:
-                # Replace one fused layer-input norm by the actual first norm.
-                total += self._predictions["first_layernorm"][key] - self._predictions["input_layernorm"][key]
-        if pipeline_stage == self._replica_config.num_pipeline_stages - 1:
-            if "final_layernorm" in self._predictions:
-                total += self._predictions["final_layernorm"][key]
-        # Logits is already inside the profiled sampler_e2e interval.
-        return total
-
     def _get_attention_layer_pre_proj_execution_time(self, batch: Batch) -> float:
-        return self._predictions["attn_pre_proj"][(self._get_compute_tokens(batch),)]
+        return self._predictions["attn_pre_proj"][(batch._total_num_tokens_rounded,)]
 
     def _get_attention_layer_post_proj_execution_time(self, batch: Batch) -> float:
-        return self._predictions["attn_post_proj"][(self._get_compute_tokens(batch),)]
+        return self._predictions["attn_post_proj"][(batch._total_num_tokens_rounded,)]
 
     def _get_mlp_layer_up_proj_execution_time(self, batch: Batch) -> float:
-        return self._predictions["mlp_up_proj"][(self._get_compute_tokens(batch),)]
+        return self._predictions["mlp_up_proj"][(batch._total_num_tokens_rounded,)]
 
     def _get_mlp_layer_down_proj_execution_time(self, batch: Batch) -> float:
-        return self._predictions["mlp_down_proj"][(self._get_compute_tokens(batch),)]
+        return self._predictions["mlp_down_proj"][(batch._total_num_tokens_rounded,)]
 
     def _get_mlp_layer_act_execution_time(self, batch: Batch) -> float:
-        return self._predictions["mlp_act"][(self._get_compute_tokens(batch),)]
+        return self._predictions["mlp_act"][(batch._total_num_tokens_rounded,)]
 
     def _get_attn_norm_layer_act_execution_time(self, batch: Batch) -> float:
-        return self._predictions["input_layernorm"][(self._get_compute_tokens(batch),)]
+        return self._predictions["input_layernorm"][(batch._total_num_tokens_rounded,)]
 
     def _get_mlp_norm_layer_act_execution_time(self, batch: Batch) -> float:
         if not self._model_config.post_attn_norm:
             return 0
 
         return self._predictions["post_attention_layernorm"][
-            (self._get_compute_tokens(batch),)
+            (batch._total_num_tokens_rounded,)
         ]
 
     def _get_add_layer_act_execution_time(self, batch: Batch) -> float:
-        return self._predictions["add"][(self._get_compute_tokens(batch),)]
+        return self._predictions["add"][(batch._total_num_tokens_rounded,)]
 
     # profiling得到是单个allreduce在bytes上的时间
     # 模型训练得到的是(num_token -> 单次allreduce time)的映射 
     # Profiling gives the time of a single allreduce operation in bytes
     # Model training produces a mapping of (num_token -> single allreduce time)
-    def _get_tensor_parallel_communication_time(self, batch: Batch, pipeline_stage: int = 0, include_boundary: bool = False) -> float:
-        graph = getattr(self, "_decoder_graph_profile", None)
-        if (graph is not None and graph.includes_tp_collectives
-                and not batch.num_prefill_tokens and not include_boundary):
-            tp = self._replica_config.tensor_parallel_size
-            nodes = self._rank_node_map[pipeline_stage * tp:(pipeline_stage + 1) * tp]
-            if len(nodes) != tp or len(set(nodes)) != 1:
-                raise ValueError("Combined TP decoder graph lacks coverage for this rank placement")
-            # This DAG contains both collectives per layer. Charge them once.
-            return 0.0
-        native = getattr(self, "_native_tp_collectives", {}).get(pipeline_stage)
-        if native is not None:
-            return native.predict(self._get_compute_tokens(batch),
-                bool(batch.num_prefill_tokens) or self._config.decode_attention_execution_mode == "eager")
-        names = getattr(self, "_tp_group_model_names", ["all_reduce"] * self._replica_config.num_pipeline_stages)
-        name = names[pipeline_stage]
-        if getattr(self, "_attention_layout_aware", False):
-            # One CUDA graph replay launches the captured collectives; do not
-            # add a per-layer Python launch or an arbitrary TP skew exponent.
-            return self._predictions[name][(self._get_compute_tokens(batch),)]
+    def _get_tensor_parallel_communication_time(self, batch: Batch) -> float:
         return (
-            self._predictions[name][(self._get_compute_tokens(batch),)]
+            self._predictions["all_reduce"][(batch._total_num_tokens_rounded,)]
             + self._config.nccl_cpu_launch_overhead_ms
             + self._config.nccl_cpu_skew_overhead_per_device_ms
             * self._replica_config.tensor_parallel_size**1.25
@@ -1628,24 +1269,16 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
             # The larger the TP group, the slower the all-reduce, here we use **1.25 to simulate this effect
         )
 
-    def _get_pipeline_parallel_communication_time(self, batch: Batch, pipeline_stage: int = 0) -> float:
-        if getattr(self, "_has_pp_handoff_profile", False):
-            names = getattr(self, "_pp_handoff_model_names", [])
-            if names:
-                return self._get_cpu_profile_prediction(names[pipeline_stage], batch)
-            # The measured executor residual excludes this complete tensor_dict
-            # handoff. Add it once across all non-final boundaries, not again
-            # as a bare NCCL send_recv prediction.
-            return self._get_cpu_profile_prediction("pp_handoff_e2e", batch) / (
-                self._replica_config.num_pipeline_stages - 1)
-        return self._predictions["send_recv"][(self._get_compute_tokens(batch),)]
+    def _get_pipeline_parallel_communication_time(self, batch: Batch) -> float:
+        try:
+            return self._predictions["send_recv"][(batch._total_num_tokens_rounded,)]
+        except KeyError as e:
+            logger.error(f"Failed to get send_recv prediction for batch {batch}")
+            raise e
 
     def _get_attention_rope_execution_time(self, batch: Batch) -> float:
-        if self._config.backend != "vidur":
-            return 0
-        if self._model_config.rope_theta is None:
-            return 0
-        return self._predictions["attn_rope"][(self._get_compute_tokens(batch),)]
+        return 0
+        # return self._predictions["attn_rope"][(batch._total_num_tokens_rounded,)]
 
     def _get_attention_kv_cache_save_execution_time(self, batch: Batch) -> float:
         # don't use round up to the nearest multiple of 8 here, because we want to
@@ -1663,10 +1296,9 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
             return 0
         # TODO(tianhao909): add decode output logging
         # TODO(tianhao909): 添加 decode 输出日志
-        value = self._predictions["attn_decode"][(decode_batch_size, decode_avg_kv_cache_size)]
-        if getattr(self, "_attention_layout_aware", False):
-            return value
-        return value * (
+        return self._predictions["attn_decode"][
+            (decode_batch_size, decode_avg_kv_cache_size)
+        ] * (
             1
             + self._attention_decode_batching_overhead_fraction
             * int(decode_batch_size > 1)
@@ -1684,47 +1316,43 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
         agg_kv_cache_size = sum(kv_cache_sizes)
         agg_prefill_chunk_size = sum([x**2 for x in prefill_chunk_sizes]) ** 0.5
 
-        value = self._predictions["attn_prefill"][
-            (agg_kv_cache_size, round(agg_prefill_chunk_size) ** 2)]
-        if getattr(self, "_attention_layout_aware", False):
-            return value
-        return value * (
-            1 + self._attention_prefill_batching_overhead_fraction * int(len(prefill_params) > 1))
-
-    def _get_graph_input_staging_time(self, batch: Batch, pipeline_stage: int) -> float:
-        if self._config.skip_cpu_overhead_modeling or not getattr(self, "_graph_staging_model_names", []):
-            return 0.0
-        return self._get_cpu_profile_prediction(self._graph_staging_model_names[pipeline_stage], batch)
-
-    def _get_engine_bookkeeping_time(self, batch: Batch) -> float:
-        if self._config.skip_cpu_overhead_modeling or not getattr(self, "_has_engine_bookkeeping_profile", False):
-            return 0.0
-        return self._get_cpu_profile_prediction("engine_bookkeeping", batch)
+        return self._predictions["attn_prefill"][
+            (agg_kv_cache_size, round(agg_prefill_chunk_size) ** 2)
+        ] * (
+            1
+            + self._attention_prefill_batching_overhead_fraction
+            * int(len(prefill_params) > 1)
+        )
 
     def _get_schedule_time(self, batch: Batch) -> float:
         if self._config.skip_cpu_overhead_modeling:
             return 0
-        return self._get_cpu_profile_prediction("schedule", batch)
+
+        return self._predictions["schedule"][(batch.size,)]
 
     def _get_sampler_e2e_time(self, batch: Batch) -> float:
         if self._config.skip_cpu_overhead_modeling:
             return 0
-        return self._get_cpu_profile_prediction("sampler_e2e", batch)
+
+        return self._predictions["sampler_e2e"][(batch.size,)]
 
     def _get_prepare_inputs_e2e_time(self, batch: Batch) -> float:
         if self._config.skip_cpu_overhead_modeling:
             return 0
-        return self._get_cpu_profile_prediction("prepare_inputs_e2e", batch)
+
+        return self._predictions["prepare_inputs_e2e"][(batch.size,)]
 
     def _get_process_model_outputs_time(self, batch: Batch) -> float:
         if self._config.skip_cpu_overhead_modeling:
             return 0
-        return self._get_cpu_profile_prediction("process_model_outputs", batch)
+
+        return self._predictions["process_model_outputs"][(batch.size,)]
 
     def _get_ray_comm_time(self, batch: Batch) -> float:
         if self._config.skip_cpu_overhead_modeling:
             return 0
-        return self._get_cpu_profile_prediction("ray_comm_time", batch)
+
+        return self._predictions["ray_comm_time"][(batch.size,)]
 
     def to_dict(self) -> dict:
         return {
@@ -1743,7 +1371,6 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
             "all_reduce_input_file": self._all_reduce_input_file,
             "send_recv_input_file": self._send_recv_input_file,
             "cpu_overhead_input_file": self._cpu_overhead_input_file,
-            "network_transport": self._config.network_transport,
             "prediction_max_prefill_chunk_size": self._config.prediction_max_prefill_chunk_size,
             "max_batch_size": self._config.prediction_max_batch_size,
         }

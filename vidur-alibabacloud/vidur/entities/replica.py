@@ -31,8 +31,10 @@ class Replica(BaseEntity):
         self._device_config = replica_config.device_config
         self._generator_config = generator_config
 
-        if not 1 <= self._replica_config.num_pipeline_stages <= self._model_config.num_layers:
-            raise ValueError("Pipeline stages must be between one and the number of layers")
+        assert (
+            self._model_config.num_layers % self._replica_config.num_pipeline_stages
+            == 0
+        )
         assert (
             self._model_config.embedding_dim % self._replica_config.tensor_parallel_size
             == 0

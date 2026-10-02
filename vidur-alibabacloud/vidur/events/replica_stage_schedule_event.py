@@ -31,7 +31,7 @@ class ReplicaStageScheduleEvent(BaseEvent):
 
         # PP stage执行一个micro-batch
         # PP stage executes a micro-batch   
-        self._batch, self._batch_stage, execution_time = stage_scheduler.on_schedule(current_time=self.time)
+        self._batch, self._batch_stage, execution_time = stage_scheduler.on_schedule()
 
         if not (self._batch and self._batch_stage):
             return []

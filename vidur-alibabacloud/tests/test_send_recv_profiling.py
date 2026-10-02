@@ -161,7 +161,6 @@ class PredictorTargetTests(unittest.TestCase):
 
         class PredictorHarness:
             _replica_config = SimpleNamespace(num_pipeline_stages=2, tensor_parallel_size=1)
-            _model_config = SimpleNamespace(rope_theta=10000)
             _compute_input_file = "unused"
             _attention_input_file = "unused"
             _send_recv_input_file = "unused"

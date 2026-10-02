@@ -25589,3 +25589,17 @@
 [2026-10-02 13:06:59] 统计: hits=0, interp=0, calls=0, entries=0
 [2026-10-02 13:06:59] 查表索引已保存到 /home/turbo_ops/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
 [2026-10-02 13:07:00] AICBGlobalCache 初始化完成, 缓存目录: /home/turbo_ops/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-10-02 14:54:09] AICBGlobalCache 初始化完成, 缓存目录: /home/turbo_ops/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-10-02 14:54:12] AICBGlobalCache 初始化完成, 缓存目录: /home/turbo_ops/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-10-02 14:54:12] AICBGlobalCache 初始化完成, 缓存目录: /home/turbo_ops/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-10-02 14:54:12] AICBGlobalCache 初始化完成, 缓存目录: /home/turbo_ops/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-10-02 14:54:12] AICBGlobalCache 初始化完成, 缓存目录: /home/turbo_ops/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-10-02 14:54:32] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-10-02 14:54:32] 查表索引已保存到 /home/turbo_ops/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-10-02 14:54:33] AICBGlobalCache 初始化完成, 缓存目录: /home/turbo_ops/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-10-02 14:54:36] AICBGlobalCache 初始化完成, 缓存目录: /home/turbo_ops/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-10-02 14:54:36] AICBGlobalCache 初始化完成, 缓存目录: /home/turbo_ops/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-10-02 14:54:36] AICBGlobalCache 初始化完成, 缓存目录: /home/turbo_ops/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-10-02 14:54:36] AICBGlobalCache 初始化完成, 缓存目录: /home/turbo_ops/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-10-02 14:54:55] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-10-02 14:54:55] 查表索引已保存到 /home/turbo_ops/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json

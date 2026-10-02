@@ -1,0 +1,34 @@
+test_export_matches_vidur_schema_and_preserves_order_and_measurements (test_collectives_csv_schema.CollectivesCsvSchemaTests) ... Wrote 3 Vidur-compatible rows: /tmp/tmpwa5_8iv4/send_recv.csv
+Wrote 3 Vidur-compatible rows: /tmp/tmpt048osfa/all_reduce.csv
+ok
+test_prediction_cache_key_includes_training_hash_and_inputs (test_send_recv_profiling.PredictorTargetTests) ... ok
+test_random_forest_training_uses_mean_target_and_reuses_training_cache (test_send_recv_profiling.PredictorTargetTests) ... /home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/execution_time_predictor/sklearn_execution_time_predictor.py:410: ResourceWarning: unclosed file <_io.BufferedWriter name='/tmp/tmps_ufpvtf/send_recv_f66ddf43.pkl'>
+  pickle.dump(model, open(cache_file, "wb"), protocol=pickle.HIGHEST_PROTOCOL)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/execution_time_predictor/sklearn_execution_time_predictor.py:496: ResourceWarning: unclosed file <_io.BufferedWriter name='/tmp/tmps_ufpvtf/send_recv_275c6e81_predictions.pkl'>
+  pickle.dump(
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/execution_time_predictor/sklearn_execution_time_predictor.py:410: ResourceWarning: unclosed file <_io.BufferedWriter name='/tmp/tmps_ufpvtf/send_recv_5ce89be1.pkl'>
+  pickle.dump(model, open(cache_file, "wb"), protocol=pickle.HIGHEST_PROTOCOL)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/execution_time_predictor/sklearn_execution_time_predictor.py:496: ResourceWarning: unclosed file <_io.BufferedWriter name='/tmp/tmps_ufpvtf/send_recv_618ede62_predictions.pkl'>
+  pickle.dump(
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/execution_time_predictor/sklearn_execution_time_predictor.py:399: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/tmps_ufpvtf/send_recv_5ce89be1.pkl'>
+  model = pickle.load(open(cache_file, "rb"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/turbo_ops/changle/SimAI/vidur-alibabacloud/vidur/execution_time_predictor/sklearn_execution_time_predictor.py:515: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/tmps_ufpvtf/send_recv_618ede62_predictions.pkl'>
+  predictions = pickle.load(open(cache_file, "rb"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_send_recv_training_uses_mean_target (test_send_recv_profiling.PredictorTargetTests) ... ok
+test_training_hash_includes_target_column (test_send_recv_profiling.PredictorTargetTests) ... ok
+test_custom_round_count_reaches_profile_loop (test_send_recv_profiling.ProfilingRoundTests) ... ok
+test_default_send_recv_profile_runs_sixty_rounds_and_reports_mean (test_send_recv_profiling.ProfilingRoundTests) ... ok
+test_round_defaults_and_overrides (test_send_recv_profiling.ProfilingRoundTests) ... ok
+test_contract_uses_collective_default_and_reports_mean_aggregation (test_send_recv_profiling.VllmContractTests) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.095s
+
+OK

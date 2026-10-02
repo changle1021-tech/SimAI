@@ -460,10 +460,6 @@ class ReplicaConfig:
         default="a100",
         metadata={"help": "Device."},
     )
-    rank_node_map: Optional[str] = field(
-        default=None,
-        metadata={"help": "JSON node index per TP/PP rank, e.g. [0,0,1,1]; default packs ranks by node GPU capacity."},
-    )
     network_device: str = field(
         default="a100_pairwise_nvlink",
         metadata={"help": "Network device."},
@@ -683,26 +679,6 @@ class BaseExecutionTimePredictorConfig(BasePolyConfig):
     prediction_max_tokens_per_request: int = field(
         default=4096,
         metadata={"help": "Max tokens per request for prediction."},
-    )
-    decoder_graph_input_file: Optional[str] = field(
-        default=None,
-        metadata={"help": "Native decoder GPU graph primitives independent of request E2E; table declares whether TP collectives are included."},
-    )
-    network_transport: Optional[str] = field(
-        default=None,
-        metadata={"help": "Measured cross-node NCCL transport (socket or ib); required for cross-node native profiles."},
-    )
-    execution_loop_mode: str = field(
-        default="direct",
-        metadata={"help": "CPU profile execution path: direct, serving background loop, or http_serving actual API."},
-    )
-    decode_attention_execution_mode: str = field(
-        default="cuda_graph",
-        metadata={"help": "Runtime decode layout: cuda_graph or eager; must match attention profiling."},
-    )
-    cuda_graph_max_seq_len: Optional[int] = field(
-        default=None,
-        metadata={"help": "Runtime graph capture sequence capacity; defaults to prediction/model sequence limit."},
     )
     attention_decode_batching_overhead_fraction: float = field(
         default=0.1,

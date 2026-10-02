@@ -1,0 +1,44 @@
+{
+  "status": "complete",
+  "started": 1790927648.8663905,
+  "tests": {
+    "exit_code": 0,
+    "log": "/home/turbo_ops/changle/Files/analysis/pp_rollback_sync_20261002/restored_tp_tests.log"
+  },
+  "cases": [
+    {
+      "tp": 4,
+      "pp": 1,
+      "requests": 3,
+      "e2e_ms": [
+        376.19984985264813,
+        376.19984985262886,
+        376.1998498527177
+      ],
+      "mean_e2e_ms": 376.19984985266495,
+      "original_path_baseline_ms": 376.02657537208916,
+      "change_from_original_path_pct": 0.046080381527380254,
+      "request_metrics": "/home/turbo_ops/changle/Files/analysis/pp_rollback_sync_20261002/restored_tp4/2026-10-02_14-54-11-340636/request_metrics.csv",
+      "launch_record": "/home/turbo_ops/changle/Files/analysis/pp_rollback_sync_20261002/restored_tp4.launch.json",
+      "scope": "Restoration regression against original simulation path; not a new native accuracy measurement"
+    },
+    {
+      "tp": 2,
+      "pp": 1,
+      "requests": 3,
+      "e2e_ms": [
+        371.69935855379646,
+        371.6993585537711,
+        371.69935855385813
+      ],
+      "mean_e2e_ms": 371.6993585538086,
+      "original_path_baseline_ms": 371.6817069129864,
+      "change_from_original_path_pct": 0.004749128217484966,
+      "request_metrics": "/home/turbo_ops/changle/Files/analysis/pp_rollback_sync_20261002/restored_tp2/2026-10-02_14-54-34-944606/request_metrics.csv",
+      "launch_record": "/home/turbo_ops/changle/Files/analysis/pp_rollback_sync_20261002/restored_tp2.launch.json",
+      "scope": "Restoration regression against original simulation path; not a new native accuracy measurement"
+    }
+  ],
+  "unchanged_controls": 220,
+  "completed": 1790927696.756085
+}
