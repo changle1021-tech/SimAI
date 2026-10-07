@@ -634,6 +634,14 @@ class SplitWiseGlobalSchedulerConfig(BaseGlobalSchedulerConfig):
 
 @dataclass
 class BaseExecutionTimePredictorConfig(BasePolyConfig):
+    async_execution_input_file: Optional[str] = field(
+        default=None,
+        metadata={"help": "Optional matched async execution profile: local-driver model GPU interval and non-overlapping wall segments. Original per-operator/CPU profiles remain the default."},
+    )
+    async_execution_vocab_size: Optional[int] = field(
+        default=None,
+        metadata={"help": "Explicit vocabulary size from the profiled native model, validated against the async profile. Does not alter legacy model/profile inputs."},
+    )
     compute_input_file: str = field(
         default="./data/profiling/compute/{DEVICE}/{MODEL}/mlp.csv",
         metadata={"help": "Path to the compute input file."},

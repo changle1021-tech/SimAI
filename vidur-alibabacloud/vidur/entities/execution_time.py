@@ -441,7 +441,9 @@ class ExecutionTime(BaseEntity):
         predictor_config: BaseExecutionTimePredictorConfig,
         replica_config: ReplicaConfig,
         replica_scheduler_config: BaseReplicaSchedulerConfig,
+        model_gpu_interval_ms: Optional[float] = None,
     ) -> None:
+        self._model_gpu_interval_ms = model_gpu_interval_ms
         self._id = ExecutionTime.generate_id()
 
         self._num_layers_per_pipeline_stage = num_layers_per_pipeline_stage
@@ -1284,6 +1286,12 @@ class ExecutionTime(BaseEntity):
 
     @property
     def model_time(self) -> float:
+        if self._model_gpu_interval_ms is not None:
+            # This complete interval already includes GPU model boundaries,
+            # collectives, enqueue gaps and rank wait. Layer/skew estimates are
+            # inactive on this explicitly selected path; sampler GPU work ends
+            # outside this interval and belongs to its measured critical tail.
+            return (self._model_gpu_interval_ms + self.pipeline_parallel_communication_time) * 1e-3
         # 对于特定模型，需要逐层计算执行时间
         # For specific models, the execution time needs to be calculated layer by layer.
         if self._replica_config.model_name in ['deepseek-671B', 'qwen3-moe-235B', 'qwen3-next-80B'] and self._config.backend == 'aicb':

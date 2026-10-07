@@ -19,7 +19,7 @@ from vidur.config import (
     ReplicaConfig,
     SimulationConfig,
 )
-from vidur.entities import Batch
+from vidur.entities import Batch, ExecutionTime
 from vidur.execution_time_predictor.base_execution_time_predictor import (
     BaseExecutionTimePredictor,
 )
@@ -84,6 +84,21 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
             self._cpu_overhead_input_file,
         ) = self._get_input_files()
         self._model_training_hashes = {}
+        self._async_profile = None
+        if getattr(self._config, "async_execution_input_file", None):
+            if self._config.backend != "vidur" or self._replica_scheduler_provider != "vllm":
+                raise ValueError("Async execution profiles require the vidur backend and matching vLLM scheduling.")
+            if self._config.skip_cpu_overhead_modeling:
+                raise ValueError("Async GPU/wall profiles must retain their paired non-model intervals.")
+            from vidur.execution_time_predictor.async_execution_profile import AsyncExecutionProfile
+            path = self._config.async_execution_input_file.replace("{MODEL}", self._model_config.get_name()).replace("{DEVICE}", self._replica_config.device).replace("{NETWORK_DEVICE}", self._replica_config.network_device)
+            import copy
+            profile_model_config = copy.copy(self._model_config)
+            if self._config.async_execution_vocab_size is not None:
+                profile_model_config.vocab_size = self._config.async_execution_vocab_size
+            self._async_profile = AsyncExecutionProfile(path, profile_model_config, self._replica_config)
+            logger.info("Using matched async GPU/wall profile %s, SHA256=%s; operator-level breakdown is unmodeled.", self._async_profile.source_path, self._async_profile.source_sha256)
+            return
 
         # print(f"> Debug: start self._models = self._train_models() \
             # and self._predictions = self._predict_from_models()")
@@ -121,6 +136,25 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
         #     print(f"> Debug: Key type: {type(list(pred_dict.keys())[0])}")
         #     print(f"> Debug: Value type: {type(list(pred_dict.values())[0])}")
         #     print()
+
+    def get_execution_time(self, batch: Batch, pipeline_stage: int) -> ExecutionTime:
+        if self._async_profile is None:
+            return super().get_execution_time(batch, pipeline_stage)
+        if pipeline_stage != 0:
+            raise ValueError("The selected TP profile does not describe this pipeline stage.")
+        costs = self._async_profile.predict(batch)
+        # Operator-level estimates are intentionally unmodeled on this coarse
+        # path. GPU model time is the full measured interval, not a layer sum.
+        result = ExecutionTime(
+            self._num_layers_per_pipeline_stage,
+            *([0.0] * 14),
+            costs["schedule_ms"], costs["post_model_sampler_ms"],
+            costs["input_prefix_ms"], costs["output_processing_ms"],
+            costs["executor_return_ms"],
+            self._config, self._replica_config, self.replica_scheduler_config,
+            model_gpu_interval_ms=costs["model_gpu_ms"],
+        )
+        return result
 
     def _get_input_files(self) -> Tuple[str, str, str, str, str]:
         input_files = [
