@@ -1,0 +1,13 @@
+model,tp,phase,batch_size,prefill_chunk_size,kv_cache_size,old_attention_median_ms,new_attention_median_ms,new_kv_write_median_ms,change_percent,old_matching_rows,new_matching_rows,old_backend
+meta-llama/Llama-2-7b-hf,1,prefill,1,512,0,0.048,0.02515,0.0071,-47.60416666666667,1,2,AttentionBackend.FLASH_ATTENTION
+meta-llama/Llama-2-7b-hf,1,decode,1,0,512,0.011,0.0236,0.0049,114.54545454545455,1,1,AttentionBackend.FLASH_ATTENTION
+meta-llama/Llama-2-7b-hf,2,prefill,1,512,0,0.038,0.024099999999999996,0.005049999999999999,-36.578947368421055,1,2,AttentionBackend.FLASH_ATTENTION
+meta-llama/Llama-2-7b-hf,2,decode,1,0,512,0.01,0.015600000000000003,0.0027,56.00000000000003,1,1,AttentionBackend.FLASH_ATTENTION
+meta-llama/Llama-2-7b-hf,4,prefill,1,512,0,0.025,0.023499999999999997,0.00335,-6.000000000000016,1,2,AttentionBackend.FLASH_ATTENTION
+meta-llama/Llama-2-7b-hf,4,decode,1,0,512,0.01,0.015000000000000008,0.0020000000000000005,50.000000000000085,1,1,AttentionBackend.FLASH_ATTENTION
+internlm/internlm-20b,1,prefill,1,512,0,0.076,0.031050000000000008,0.008950000000000003,-59.14473684210525,1,2,AttentionBackend.FLASH_ATTENTION
+internlm/internlm-20b,1,decode,1,0,512,0.011,0.0241,0.005399999999999999,119.0909090909091,1,1,AttentionBackend.FLASH_ATTENTION
+internlm/internlm-20b,2,prefill,1,512,0,0.045,0.024349999999999997,0.005749999999999998,-45.88888888888889,1,2,AttentionBackend.FLASH_ATTENTION
+internlm/internlm-20b,2,decode,1,0,512,0.01,0.018000000000000006,0.0030999999999999995,80.00000000000004,1,1,AttentionBackend.FLASH_ATTENTION
+internlm/internlm-20b,4,prefill,1,512,0,0.022,0.023449999999999995,0.004000000000000001,6.5909090909090695,1,2,AttentionBackend.FLASH_ATTENTION
+internlm/internlm-20b,4,decode,1,0,512,0.01,0.014000000000000007,0.0024999999999999996,40.00000000000008,1,1,AttentionBackend.FLASH_ATTENTION

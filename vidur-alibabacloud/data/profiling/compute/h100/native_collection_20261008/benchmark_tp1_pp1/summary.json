@@ -1,0 +1,14 @@
+{
+  "source_run": "benchmark_runs/2026-10-08_18-38-30-457007",
+  "model": "meta-llama/Llama-2-7b-hf",
+  "tp": 1,
+  "pp": 1,
+  "requests": 3,
+  "prefill_tokens": 512,
+  "output_tokens": 50,
+  "e2e_ms": 388.07570718838315,
+  "prefill_completion_ms": 14.782988989612278,
+  "tpot_ms": 7.618218738750426,
+  "scope": "Simulator output, not a native vLLM measurement or TP4 accuracy validation.",
+  "trace_matches_metrics": false
+}

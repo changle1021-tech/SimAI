@@ -1,0 +1,193 @@
+{
+  "branch": "codex/pp-rollback-20261002",
+  "publication_base_commit": "ce2d06396f7d3aaa55aa2a90f09c2b10e95f215d",
+  "device": "h100",
+  "dtype": "float16",
+  "tensor_parallel_sizes": [
+    1,
+    2,
+    4
+  ],
+  "collector_method": "vllm_cuda_graph_kernel_sum_v2",
+  "files": [
+    {
+      "model": "meta-llama/Llama-2-7b-hf",
+      "kind": "mlp",
+      "source": "profiling_outputs/mlp/2026-10-08_11-08-58-597376/meta-llama/Llama-2-7b-hf/mlp.csv",
+      "path": "data/profiling/compute/h100/meta-llama/Llama-2-7b-hf/mlp.csv",
+      "bytes": 2703162,
+      "sha256": "70565d7ff2d220d14d077d480767a5b1d065c0605208ddade05cd7b4825e8a74",
+      "rows": 783,
+      "rows_per_tp": {
+        "1": 261,
+        "2": 261,
+        "4": 261
+      },
+      "coverage": {
+        "num_tokens_min": 1,
+        "num_tokens_max": 4096
+      },
+      "sampling_grid_complete": true
+    },
+    {
+      "model": "meta-llama/Llama-2-7b-hf",
+      "kind": "attention",
+      "source": "profiling_outputs/attention/2026-10-08_11-27-54-454880/meta-llama/Llama-2-7b-hf/attention.csv",
+      "path": "data/profiling/compute/h100/meta-llama/Llama-2-7b-hf/attention.csv",
+      "bytes": 3777719,
+      "sha256": "97f2ff85e6d474049c94b8f1722147a597137c23bf5d6963e98409eb53a96393",
+      "rows": 3876,
+      "rows_per_tp": {
+        "1": 1292,
+        "2": 1292,
+        "4": 1292
+      },
+      "coverage": {
+        "batch_sizes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "max_model_len": 4096,
+        "block_size": 16,
+        "prefill_rows": 1956,
+        "decode_rows": 1920
+      },
+      "sampling_grid_complete": true
+    },
+    {
+      "model": "internlm/internlm-20b",
+      "kind": "mlp",
+      "source": "profiling_outputs/mlp/2026-10-08_11-08-58-597376/internlm/internlm-20b/mlp.csv",
+      "path": "data/profiling/compute/h100/internlm/internlm-20b/mlp.csv",
+      "bytes": 2665498,
+      "sha256": "84e427cc675da5e6036caa1fe41194ef674b562ed3c340ef978fbb84f25b3e91",
+      "rows": 783,
+      "rows_per_tp": {
+        "1": 261,
+        "2": 261,
+        "4": 261
+      },
+      "coverage": {
+        "num_tokens_min": 1,
+        "num_tokens_max": 4096
+      },
+      "sampling_grid_complete": true
+    },
+    {
+      "model": "internlm/internlm-20b",
+      "kind": "attention",
+      "source": "profiling_outputs/attention/2026-10-08_11-27-54-454880/internlm/internlm-20b/attention.csv",
+      "path": "data/profiling/compute/h100/internlm/internlm-20b/attention.csv",
+      "bytes": 3753001,
+      "sha256": "f2c484791f96606bae480075e616375aceed73b8c9bb978adab60cdec0361b29",
+      "rows": 3876,
+      "rows_per_tp": {
+        "1": 1292,
+        "2": 1292,
+        "4": 1292
+      },
+      "coverage": {
+        "batch_sizes": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        "max_model_len": 4096,
+        "block_size": 16,
+        "prefill_rows": 1956,
+        "decode_rows": 1920
+      },
+      "sampling_grid_complete": true
+    }
+  ],
+  "note": "CSV bytes are unchanged from completed collection runs. TP denotes per-shard operator shape, not a multi-GPU latency measurement.",
+  "collection_configs": {
+    "mlp": {
+      "source": "profiling_outputs/mlp/2026-10-08_11-08-58-597376/config.json",
+      "sha256": "647cde6bdc680a85abd98d598878a0f8bf0eed9fbc26d73e539bab014177d5ac",
+      "parameters": {
+        "disable_ray": false,
+        "num_gpus": 4,
+        "output_dir": "profiling_outputs",
+        "models": [
+          "meta-llama/Llama-2-7b-hf",
+          "internlm/internlm-20b"
+        ],
+        "num_tensor_parallel_workers": [
+          1,
+          2,
+          4
+        ],
+        "max_tokens": 4096
+      }
+    },
+    "attention": {
+      "source": "profiling_outputs/attention/2026-10-08_11-27-54-454880/config.json",
+      "sha256": "be099d6aae56daa49f0d4a00c4a9e43ea979614ede2c13bc131ecf8495305fb3",
+      "parameters": {
+        "disable_ray": false,
+        "num_gpus": 4,
+        "output_dir": "profiling_outputs",
+        "models": [
+          "meta-llama/Llama-2-7b-hf",
+          "internlm/internlm-20b"
+        ],
+        "num_tensor_parallel_workers": [
+          1,
+          2,
+          4
+        ],
+        "max_model_len": 4096,
+        "max_seq_len": 4096,
+        "min_batch_size": 1,
+        "max_batch_size": 8,
+        "profile_only_decode": false,
+        "profile_only_prefill": false,
+        "block_size": 16
+      }
+    }
+  },
+  "comparison_references": [
+    {
+      "model": "meta-llama/Llama-2-7b-hf",
+      "source": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/data/profiling/compute/h100/meta-llama/Llama-2-7b-hf/attention.csv",
+      "sha256": "6b44955921aab09b2f367dce876a503df934b11bfde667e6847b1d437a0969d0"
+    },
+    {
+      "model": "internlm/internlm-20b",
+      "source": "/home/turbo_ops/changle/SimAI/vidur-alibabacloud/data/profiling/compute/h100/internlm/internlm-20b/attention.csv",
+      "sha256": "c2ba947d0360c8a819429b22d9b999c8a9bf575038cf0e0ec85bdbbd28beb93f"
+    }
+  ],
+  "comparison_scope": "Same named attention median field at B1, P512 or KV512; KV-write is separate. Different runtime/capture/cache conditions mean these are not equivalence or accuracy assertions.",
+  "benchmark": {
+    "source_run": "benchmark_runs/2026-10-08_18-38-30-457007",
+    "model": "meta-llama/Llama-2-7b-hf",
+    "tp": 1,
+    "pp": 1,
+    "requests": 3,
+    "prefill_tokens": 512,
+    "output_tokens": 50,
+    "e2e_ms": 388.07570718838315,
+    "prefill_completion_ms": 14.782988989612278,
+    "tpot_ms": 7.618218738750426,
+    "scope": "Simulator output, not a native vLLM measurement or TP4 accuracy validation.",
+    "trace_matches_metrics": false
+  },
+  "benchmark_files": {
+    "config.json": "ba440d438e5742f508ce689dbed8197402dcc21ddaceb67fa777bbb510c9a36d",
+    "request_metrics.csv": "680460d5e161648e0d547c687735a3ee7c8cb0a8377dccbbc7a558f4976ca3cd",
+    "batch_metrics.csv": "a7900029e71ce4a13eea7a53767834ef11be59d5c3f2b81b6d2481901b03a9a4"
+  }
+}
