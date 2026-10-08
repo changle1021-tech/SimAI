@@ -5,8 +5,10 @@ import os
 
 import pandas as pd
 import torch
+from tqdm import tqdm
 
 from vidur.profiling.common.model_config import ModelConfig
+from vidur.profiling.common.progress import collect_profile_results
 from vidur.profiling.mlp.mlp_wrapper import MlpWrapper
 from vidur.profiling.utils import get_num_tokens_to_profile
 
@@ -28,16 +30,24 @@ def parse_args(argv=None):
     return parser.parse_args(argv)
 
 
-def profile_model(args, model, tokens):
+def profile_model(args, model, tokens, progress=None):
     config = ModelConfig.from_model_name(model)
     rows = []
     for tp in args.num_tensor_parallel_workers:
         if config.no_tensor_parallel and tp != 1:
             continue
         config.validate_parallelism(tp)
+        if progress is not None:
+            progress.set_description_str(f"MLP {model} TP={tp}")
+            progress.set_postfix_str("initializing workers")
         if args.disable_ray:
             worker = MlpWrapper(config, tp)
-            rows.extend(worker.profile(n) for n in tokens)
+            for n in tokens:
+                if progress is not None:
+                    progress.set_postfix_str(f"tokens={n}")
+                rows.append(worker.profile(n))
+                if progress is not None:
+                    progress.update(1)
             del worker
             torch.cuda.empty_cache()
         else:
@@ -47,8 +57,12 @@ def profile_model(args, model, tokens):
                        for _ in range(args.num_gpus)]
             try:
                 for i in range(0, len(tokens), len(workers)):
-                    rows.extend(ray.get([worker.profile.remote(n) for worker, n
-                                         in zip(workers, tokens[i:i+len(workers)])]))
+                    inputs = tokens[i:i+len(workers)]
+                    if progress is not None:
+                        progress.set_postfix_str(f"running {len(inputs)} shapes")
+                    refs = [worker.profile.remote(n) for worker, n in zip(workers, inputs)]
+                    rows.extend(collect_profile_results(
+                        ray, refs, inputs, progress, lambda n: f"tokens={n}"))
             finally:
                 for worker in workers:
                     ray.kill(worker)
@@ -66,14 +80,23 @@ def main():
     with open(os.path.join(out, "config.json"), "w") as f:
         json.dump(vars(args), f, indent=2)
     tokens = get_num_tokens_to_profile(args.max_tokens)
+    total = 0
     for model in args.models:
-        frame = profile_model(args, model, tokens)
-        if frame.empty:
-            raise ValueError("No valid profiling combinations for " + model)
-        path = os.path.join(out, model, "mlp.csv")
-        os.makedirs(os.path.dirname(path), exist_ok=True)
-        frame.to_csv(path, index=False)
-        print(path, flush=True)
+        config = ModelConfig.from_model_name(model)
+        for tp in args.num_tensor_parallel_workers:
+            if config.no_tensor_parallel and tp != 1:
+                continue
+            config.validate_parallelism(tp)
+            total += len(tokens)
+    with tqdm(total=total, desc="MLP profiling", unit="shape", dynamic_ncols=True) as progress:
+        for model in args.models:
+            frame = profile_model(args, model, tokens, progress)
+            if frame.empty:
+                raise ValueError("No valid profiling combinations for " + model)
+            path = os.path.join(out, model, "mlp.csv")
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            frame.to_csv(path, index=False)
+            tqdm.write(path)
 
 
 if __name__ == "__main__":

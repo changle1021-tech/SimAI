@@ -2,3 +2,4 @@
 vllm==0.5.1
 pandas
 ray>=2.6.3
+tqdm

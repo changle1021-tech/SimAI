@@ -6,9 +6,11 @@ from types import SimpleNamespace
 
 import pandas as pd
 import torch
+from tqdm import tqdm
 
 from vidur.profiling.attention.attention_wrapper import AttentionWrapper
 from vidur.profiling.common.model_config import ModelConfig
+from vidur.profiling.common.progress import collect_profile_results
 from vidur.profiling.utils import get_attention_input_combinations, get_max_num_blocks
 
 
@@ -37,17 +39,32 @@ def parse_args(argv=None):
     return parser.parse_args(argv)
 
 
-def profile_model(args, model, tp, combinations):
+def describe_input(item):
+    phase = "prefill" if item.is_prefill else "decode"
+    return f"{phase} B={item.batch_size} chunk={item.prefill_chunk_size} KV={item.kv_cache_size}"
+
+
+def profile_model(args, model, tp, combinations, progress=None, max_num_blocks=None):
     config = ModelConfig.from_model_name(model)
     config.validate_parallelism(tp)
     parallel = SimpleNamespace(tensor_parallel_size=tp, pipeline_parallel_size=1)
-    max_blocks = get_max_num_blocks(config, parallel, args.block_size, torch.float16)
+    max_blocks = (get_max_num_blocks(config, parallel, args.block_size, torch.float16)
+                  if max_num_blocks is None else max_num_blocks)
     combinations = [x for x in combinations if x.is_valid(args.max_model_len)
                     and x.is_under_memory_limit(max_blocks * args.block_size)]
     constructor = (config, parallel, max_blocks, args.max_model_len, args.block_size, torch.float16)
+    if progress is not None:
+        progress.set_description_str(f"Attention {model} TP={tp}")
+        progress.set_postfix_str("initializing workers")
     if args.disable_ray:
         worker = AttentionWrapper(*constructor)
-        rows = [worker.profile(x) for x in combinations]
+        rows = []
+        for item in combinations:
+            if progress is not None:
+                progress.set_postfix_str(describe_input(item))
+            rows.append(worker.profile(item))
+            if progress is not None:
+                progress.update(1)
         del worker
         torch.cuda.empty_cache()
         return rows
@@ -58,8 +75,11 @@ def profile_model(args, model, tp, combinations):
     rows = []
     try:
         for i in range(0, len(combinations), len(workers)):
-            rows.extend(ray.get([worker.profile.remote(item) for worker, item
-                                 in zip(workers, combinations[i:i+len(workers)])]))
+            inputs = combinations[i:i+len(workers)]
+            if progress is not None:
+                progress.set_postfix_str(f"running {len(inputs)} shapes")
+            refs = [worker.profile.remote(item) for worker, item in zip(workers, inputs)]
+            rows.extend(collect_profile_results(ray, refs, inputs, progress, describe_input))
     finally:
         for worker in workers:
             ray.kill(worker)
@@ -80,20 +100,33 @@ def main():
         json.dump(vars(args), f, indent=2)
     combinations = get_attention_input_combinations(args.max_seq_len, args.min_batch_size,
         args.max_batch_size, args.profile_only_prefill, args.profile_only_decode)
+    plans = []
     for model in args.models:
         config = ModelConfig.from_model_name(model)
-        rows = []
+        model_plan = []
         for tp in args.num_tensor_parallel_workers:
             if config.no_tensor_parallel and tp != 1:
                 continue
-            rows.extend(profile_model(args, model, tp, combinations))
-        if not rows:
-            raise ValueError("No valid profiling combinations for " + model)
-        frame = pd.json_normalize(rows)
-        path = os.path.join(out, model, "attention.csv")
-        os.makedirs(os.path.dirname(path), exist_ok=True)
-        frame.to_csv(path, index=False)
-        print(path, flush=True)
+            config.validate_parallelism(tp)
+            parallel = SimpleNamespace(tensor_parallel_size=tp, pipeline_parallel_size=1)
+            max_blocks = get_max_num_blocks(config, parallel, args.block_size, torch.float16)
+            inputs = [x for x in combinations if x.is_valid(args.max_model_len)
+                      and x.is_under_memory_limit(max_blocks * args.block_size)]
+            model_plan.append((tp, inputs, max_blocks))
+        plans.append((model, model_plan))
+    total = sum(len(inputs) for _, plan in plans for _, inputs, _ in plan)
+    with tqdm(total=total, desc="Attention profiling", unit="shape", dynamic_ncols=True) as progress:
+        for model, plan in plans:
+            rows = []
+            for tp, inputs, max_blocks in plan:
+                rows.extend(profile_model(args, model, tp, inputs, progress, max_blocks))
+            if not rows:
+                raise ValueError("No valid profiling combinations for " + model)
+            frame = pd.json_normalize(rows)
+            path = os.path.join(out, model, "attention.csv")
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            frame.to_csv(path, index=False)
+            tqdm.write(path)
 
 
 if __name__ == "__main__":

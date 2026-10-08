@@ -71,6 +71,8 @@ We need actual GPUs to get profiling data for a new model. Once the profiling is
 
 ### Single-GPU collection and timing scope
 
+Both collectors show a `tqdm` progress bar for the whole run: completed/total shapes, elapsed time, rate and ETA, with the current model, TP and shape. Unsupported TP choices and memory-filtered attention shapes are excluded from the total. Single-process and Ray runs advance the bar only after results have completed; Ray results retain submission order in the CSV.
+
 For an isolated GPU, `--disable_ray` runs the same collector in the current process:
 
 ```bash
