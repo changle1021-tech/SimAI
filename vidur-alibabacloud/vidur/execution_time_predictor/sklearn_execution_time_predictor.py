@@ -183,13 +183,9 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
         df = pd.read_csv(file_path)
         df = df.drop_duplicates()
 
-        for column in [
-            "time_stats.attn_kv_cache_save.median",
-        ]:
-            if column not in df.columns:
-                df[column] = 0
-            else:
-                df.fillna({column: 0}, inplace=True)
+        column = "time_stats.attn_kv_cache_save.median"
+        if column not in df.columns or not np.isfinite(df[column]).all() or (df[column] <= 0).any():
+            raise ValueError("attention.csv requires measured positive KV-write costs; regenerate it with vidur.profiling.attention.main")
 
         # 保存筛选前的DataFrame长度
         # Save the original DataFrame length before filtering
@@ -237,6 +233,28 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
         filtered_df = df[
             embd_mask & q_head_mask & kv_head_mask & block_size_mask & tp_workers_mask
         ]
+        required = {"forward_tokens", "block_table_width", "cuda_graph", "profile_method", "max_model_len"}
+        if not required.issubset(filtered_df.columns):
+            raise ValueError("attention.csv lacks native execution-shape metadata; regenerate the attention profile")
+        if set(filtered_df["profile_method"]) != {"vllm_cuda_graph_kernel_sum_v2"}:
+            raise ValueError("attention.csv mixes unsupported timing methods")
+        limits = filtered_df["max_model_len"].unique()
+        if len(limits) != 1 or limits[0] < 1:
+            raise ValueError("Use one model/capture limit per attention.csv configuration")
+        self._attention_capture_limit = int(limits[0])
+        prefill = filtered_df["prefill_chunk_size"] > 0
+        sizes = filtered_df["batch_size"].astype(int)
+        padded = sizes.where(sizes <= 2, sizes.where(sizes <= 4, (sizes + 7) // 8 * 8))
+        padded = padded.where(~sizes.between(3, 4), 4)
+        expected_tokens = padded.where(~prefill, sizes * filtered_df["prefill_chunk_size"])
+        if not (filtered_df["forward_tokens"] == expected_tokens).all():
+            raise ValueError("attention.csv has inconsistent forward-token shapes")
+        graph_flags = filtered_df["cuda_graph"].astype(str).str.lower() == "true"
+        if not (graph_flags == ~prefill).all():
+            raise ValueError("attention.csv has inconsistent graph/prefill modes")
+        width = (self._attention_capture_limit + self._block_size - 1) // self._block_size
+        if not (filtered_df.loc[~prefill, "block_table_width"] == width).all():
+            raise ValueError("attention.csv has inconsistent decode block-table padding")
         
         # Add logging output
         logger.info(
@@ -294,9 +312,7 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
 
     def _get_attention_df_with_derived_features(self, df: pd.DataFrame) -> pd.DataFrame:
         df_with_derived_features = df.copy()
-        df_with_derived_features["num_tokens"] = df_with_derived_features[
-            ["prefill_chunk_size", "batch_size"]
-        ].max(axis=1)
+        df_with_derived_features["num_tokens"] = df_with_derived_features["forward_tokens"]
         df_with_derived_features["is_decode"] = (
             df_with_derived_features["prefill_chunk_size"] == 0
         )
@@ -566,9 +582,13 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
             "mlp_act",
             "input_layernorm",
             "post_attention_layernorm",
-            # "attn_rope",
             "add",
         ]
+
+        column = "time_stats.attn_rope.median"
+        if column not in compute_df or not np.isfinite(compute_df[column]).all() or (compute_df[column] < 0).any():
+            raise ValueError("mlp.csv requires measured time_stats.attn_rope.median values")
+        model_names.append("attn_rope")
 
         for model_name in model_names:
             logger.debug(
@@ -582,21 +602,11 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
             )
 
         attention_df = self._load_attention_df(self._attention_input_file)
-        # print(f"> Debug: self._attention_input_file={self._attention_input_file}, attention_df={attention_df}")
         attention_df = self._get_attention_df_with_derived_features(attention_df)
-        
-
-        model_names = [
-            "attn_kv_cache_save",
-        ]
-
-        for model_name in model_names:
-            models[model_name] = self._train_model(
-                model_name=model_name,
-                df=attention_df,
-                feature_cols=["num_tokens"],
-                target_col=f"time_stats.{model_name}.median",
-            )
+        models["attn_kv_cache_save"] = self._train_model(
+            model_name="attn_kv_cache_save", df=attention_df, feature_cols=["num_tokens"],
+            target_col="time_stats.attn_kv_cache_save.median",
+        )
 
         if self._replica_config.num_pipeline_stages > 1:
             send_recv_df = self._load_send_recv_df(self._send_recv_input_file)
@@ -818,12 +828,12 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
             "mlp_up_proj",
             "mlp_down_proj",
             "mlp_act",
-            # "attn_rope",
-            "attn_kv_cache_save",
             "input_layernorm",
             "post_attention_layernorm",
             "add",
         ]
+
+        model_names.extend(["attn_kv_cache_save", "attn_rope"])
 
         if self._replica_config.num_pipeline_stages > 1:
             model_names.append("send_recv")
@@ -1175,7 +1185,9 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
 
         for request in batch.requests:
             if request._is_prefill_complete:
-                decode_kv_cache_sizes.append(request.num_processed_tokens)
+                # The CSV counts cached tokens before the current decode input.
+                decode_kv_cache_sizes.append(request.num_processed_tokens if self._config.backend == "aicb"
+                                             else max(0, request.num_processed_tokens - 1))
 
         if not decode_kv_cache_sizes:
             batch._decode_params = (0, 0)
@@ -1226,34 +1238,46 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
 
     # 线性层和激活层直接用total_num_tokens预测
     # Predict directly with total_num_tokens for the linear layer and activation layer.
+    def _compute_tokens(self, batch: Batch) -> int:
+        if self._config.backend == "aicb":
+            return batch._total_num_tokens_rounded
+        tokens = sum(batch.num_tokens)
+        if batch.num_prefill_tokens:
+            return tokens
+        if tokens <= 2:
+            return tokens
+        if tokens <= 4:
+            return 4
+        return (tokens + 7) // 8 * 8
+
     def _get_attention_layer_pre_proj_execution_time(self, batch: Batch) -> float:
-        return self._predictions["attn_pre_proj"][(batch._total_num_tokens_rounded,)]
+        return self._predictions["attn_pre_proj"][(self._compute_tokens(batch),)]
 
     def _get_attention_layer_post_proj_execution_time(self, batch: Batch) -> float:
-        return self._predictions["attn_post_proj"][(batch._total_num_tokens_rounded,)]
+        return self._predictions["attn_post_proj"][(self._compute_tokens(batch),)]
 
     def _get_mlp_layer_up_proj_execution_time(self, batch: Batch) -> float:
-        return self._predictions["mlp_up_proj"][(batch._total_num_tokens_rounded,)]
+        return self._predictions["mlp_up_proj"][(self._compute_tokens(batch),)]
 
     def _get_mlp_layer_down_proj_execution_time(self, batch: Batch) -> float:
-        return self._predictions["mlp_down_proj"][(batch._total_num_tokens_rounded,)]
+        return self._predictions["mlp_down_proj"][(self._compute_tokens(batch),)]
 
     def _get_mlp_layer_act_execution_time(self, batch: Batch) -> float:
-        return self._predictions["mlp_act"][(batch._total_num_tokens_rounded,)]
+        return self._predictions["mlp_act"][(self._compute_tokens(batch),)]
 
     def _get_attn_norm_layer_act_execution_time(self, batch: Batch) -> float:
-        return self._predictions["input_layernorm"][(batch._total_num_tokens_rounded,)]
+        return self._predictions["input_layernorm"][(self._compute_tokens(batch),)]
 
     def _get_mlp_norm_layer_act_execution_time(self, batch: Batch) -> float:
         if not self._model_config.post_attn_norm:
             return 0
 
         return self._predictions["post_attention_layernorm"][
-            (batch._total_num_tokens_rounded,)
+            (self._compute_tokens(batch),)
         ]
 
     def _get_add_layer_act_execution_time(self, batch: Batch) -> float:
-        return self._predictions["add"][(batch._total_num_tokens_rounded,)]
+        return self._predictions["add"][(self._compute_tokens(batch),)]
 
     # profiling得到是单个allreduce在bytes上的时间
     # 模型训练得到的是(num_token -> 单次allreduce time)的映射 
@@ -1277,17 +1301,19 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
             raise e
 
     def _get_attention_rope_execution_time(self, batch: Batch) -> float:
-        return 0
-        # return self._predictions["attn_rope"][(batch._total_num_tokens_rounded,)]
+        if self._config.backend == "aicb":
+            return 0
+        return self._predictions["attn_rope"][(self._compute_tokens(batch),)]
 
     def _get_attention_kv_cache_save_execution_time(self, batch: Batch) -> float:
-        # don't use round up to the nearest multiple of 8 here, because we want to
-        # predict the execution time for the exact number of tokens
-        num_tokens = sum(batch.num_tokens)
+        num_tokens = sum(batch.num_tokens) if self._config.backend == "aicb" else self._compute_tokens(batch)
 
         return self._predictions["attn_kv_cache_save"][(num_tokens,)]
 
     def _get_attention_decode_execution_time(self, batch: Batch) -> float:
+        if self._config.backend != "aicb" and any(r._is_prefill_complete and
+                r.num_processed_tokens > self._attention_capture_limit for r in batch.requests):
+            raise ValueError("Decode length exceeds the capture limit measured in attention.csv")
         (
             decode_batch_size,
             decode_avg_kv_cache_size,      # Average context length per request

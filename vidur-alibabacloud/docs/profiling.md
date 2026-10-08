@@ -1,5 +1,7 @@
 # How to add a new model to the simulator?
 
+For complete current commands, including the sim-101 Docker environment, see [profiling_commands.md](profiling_commands.md).
+
 ## Structure of Profiling data
 
 The profiling data is stored in the `data/profiling` directory. The profiling data is stored in CSV format. The profiling data is stored in the following format:
@@ -34,17 +36,16 @@ For network profiling, the network configuration of the node matters. So, we hav
 
 We need actual GPUs to get profiling data for a new model. Once the profiling is done, simulations can be run on CPUs only.
 
-1. Clone the [`sarathi-serve`](https://github.com/microsoft/sarathi-serve) GitHub repo.
-    1. Checkout branch [`vidur`](https://github.com/microsoft/sarathi-serve/tree/vidur)
-    1. Follow its README to install it.
-    1. Let us assume that the Python virtual environment was created in `sarathi-serve/env`.
-1. Now clone this repo [`vidur`](https://github.com/microsoft/vidur) but keep the `sarathi-serve/env` virtual environment activated.
-1. Add a YAML model config for the new model in `data/model_configs`.
-    - Use the model's HuggingFace model id for the file name eg. `data/model_configs/meta-llama/Llama-2-70b-hf.yml`.
-    - Refer HuggingFace `config.json` for the model eg. <https://huggingface.co/meta-llama/Llama-2-70b-hf/blob/main/config.json>.
-    - Ensure that correct parameters are set in the YAML file so that the reference transformer model [GPTModel](vidur/profiling/mlp/mlp_impl.py) closely resembles the new model.
-    - We use this reference model to profile only the MLP operations of all the models so the attention operations are no-op'ed here.
-1. Run the following command to install the simulator in the virtual environment: `python -m pip install -e .` from the `vidur/` directory.
+1. Use a CUDA environment with **vLLM 0.5.1**, for example the matching vLLM container.
+    - Install compute-profiling dependencies with `python -m pip install -r requirements-profiling.txt`.
+    - Install this repository with `python -m pip install -e . --no-deps`.
+    - CPU-only simulation does not import vLLM; vLLM is needed for GPU data collection.
+1. Register a model configuration in `vidur/config/model_config.py`, following the existing `BaseModelConfig` classes.
+    - Set heads, KV heads, hidden/intermediate sizes, bias, activation, norm and positional-encoding settings from the model's Hugging Face configuration.
+    - The collectors use the same `ModelConfig.from_model_name()` registry. There is no Llama-only model-type check.
+    - Phi-2's partial RoPE and non-gated GELU/LayerNorm, GQA, KV-head replication and model-specific TP restrictions are honored.
+    - The default model set includes Phi-2, InternLM-20B, Qwen-72B, CodeLlama-34B, Llama-2-7B/70B and Llama-3-8B/70B.
+1. MLP and attention each have one native implementation. There is no separate attention-profile simulator path or old-implementation switch.
 1. For compute profiling (mlp and attention), 1 GPU is enough even for tensor parallel degrees greater than 1. So `num_gpus` set to 1 is sufficient albeit slower for profiling.
 1. Now we need to do the MLP profiling:
 
@@ -67,6 +68,49 @@ We need actual GPUs to get profiling data for a new model. Once the profiling is
     - Run `python vidur/profiling/attention/main.py --help` for more options.
     - Copy the CSV file from `profiling_outputs/attention/<timestamp>/codellama/CodeLlama-34b-Instruct-hf/attention.csv` to `data/profiling/compute/a100/codellama/CodeLlama-34b-Instruct-hf/attention.csv`.
     - Note that we are using `a100` as the device name. If you are using `h100` or some other device, then you need to create a new folder for that device in `data/profiling/compute` and copy the CSV files there.
+
+### Single-GPU collection and timing scope
+
+For an isolated GPU, `--disable_ray` runs the same collector in the current process:
+
+```bash
+CUDA_VISIBLE_DEVICES=0 python -m vidur.profiling.mlp.main \
+  --disable_ray --models meta-llama/Llama-2-7b-hf internlm/internlm-20b \
+  --num_tensor_parallel_workers 1 2 4 8 --max_tokens 4096
+CUDA_VISIBLE_DEVICES=0 python -m vidur.profiling.attention.main \
+  --disable_ray --models meta-llama/Llama-2-7b-hf internlm/internlm-20b \
+  --num_tensor_parallel_workers 1 2 4 8 --max_model_len 4096 \
+  --max_seq_len 4096 --max_batch_size 8
+```
+
+`--max_model_len` is also the native decode graph capture limit. Decode block tables are padded to that limit, and batch sizes use vLLM's graph buckets (1, 2, 4, then multiples of 8). `--max_seq_len` selects the effective input-length range to sample. Set the capture limit to the one used by the native service.
+
+The shared profiler captures the native GPU operations and sums **CUDA child-kernel durations only** using PyTorch/Kineto. Each operator has five measured rounds of ten graph replays, following warmup. Before each replay, a 128MiB buffer is read to condition L2 without dirty writeback traffic. These separately identified conditioning kernels and PyTorch graph bookkeeping are excluded. CPU parent events are not added to CUDA children. Per-round samples and min/max/mean/median/std are written to CSV. No endpoint-latency residual is used as a cost.
+
+* `mlp.csv` contains projections, MLP operations, norms, residual add, embedding and `time_stats.attn_rope.*`. RoPE uses the configured rotary dimension, style and scaling.
+* `attention.csv` contains `time_stats.attn_kv_cache_save.*` and prefill/decode attention, including split-KV combine. It supports first and cached/chunked prefill, packed QKV, and disjoint physical KV blocks for requests.
+* Attention data records `forward_tokens`, `block_table_width`, `cuda_graph`, `max_model_len`, `profile_method` and vLLM version. One model/TP/block configuration must have one capture limit per input table.
+
+The simulator consumes these tables through the existing `compute_input_file` and `attention_input_file` settings (or their standard `data/profiling/compute/{DEVICE}/{MODEL}/` paths). There are no `vllm_attention_profile_file`, `vllm_attention_decode_capture_limit`, or RoPE opt-out parameters. Missing KV-write measurements are rejected rather than replaced with zero. Regenerate old attention tables with the integrated collector.
+
+TP values here select the **single-shard compute shape**; collectives are still profiled separately below. Operator timing excludes scheduling, sampling, logits and inter-kernel/engine gaps, so operator-level fixes alone do not guarantee endpoint TTFT accuracy.
+
+### Validation on H100, 2026-10-08
+
+The integrated attention and MLP entry points completed GPU smoke tests for all eight default models. Llama-2-7B shard profiling also completed at TP2/4/8. Serial execution, Ray execution, cached prefill and B3-to-4 decode graph padding were exercised. All 15 unit tests passed, including the existing communication-profile tests.
+
+Independent kernel data was collected and replayed against the saved three-request native trace (Llama-2-7B, FP16, TP1/PP1, B1, input512/output50):
+
+| Metric | Native vLLM | Original prediction | Integrated tables |
+|---|---:|---:|---:|
+| E2E, ms | 406.869 | 361.050 | 386.916 |
+| TPOT, ms (49 decode intervals) | 7.893 | 7.060 | 7.602 |
+
+The new E2E error is approximately -4.90% and TPOT error -3.68%. Predicted prefill completion is 14.407 ms versus client TTFT 20.125 ms; the endpoint/launch/outer-engine difference remains outside this operator-only repair. These results do not assert end-to-end accuracy for every profiled model.
+
+During validation, a write-based cache-conditioning experiment inflated the B1 sum of four linear operators to 6.019 ms per 32 layers. Reading the conditioning buffer instead measured 4.938 ms; the separately traced native linear-kernel sum was 5.022 ms. The write-based experiment was rejected, rather than subtracting a fitted latency constant. Only the read-based implementation is retained.
+
+Launches, CSVs (including per-round samples and kernel names), and replay results are retained on sim-101 at `/home/turbo_ops/changle/Files/analysis/integrated_profiling_20261008_172545/`. Copy the newly collected `mlp.csv` and `attention.csv` to the standard data paths before running the simulator; old attention tables without measured KV writes and execution shapes cannot be used.
 
 ## Network (Collectives) profiling
 

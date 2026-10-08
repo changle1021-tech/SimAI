@@ -144,6 +144,8 @@ class VllmContractTests(unittest.TestCase):
 
 class PredictorTargetTests(unittest.TestCase):
     def test_send_recv_training_uses_mean_target(self):
+        import numpy as np
+        import pandas as pd
         path = ROOT / "vidur" / "execution_time_predictor" / "sklearn_execution_time_predictor.py"
         tree = ast.parse(path.read_text(), filename=str(path))
         cls = next(node for node in tree.body
@@ -153,9 +155,9 @@ class PredictorTargetTests(unittest.TestCase):
                       if isinstance(node, ast.FunctionDef)
                       and node.name == "_train_compute_models")
         # Execute the real method body against a recorder to avoid importing
-        # sklearn, pandas, torch, Ray, or the full simulator configuration.
+        # sklearn, torch, Ray, or the full simulator configuration.
         method.decorator_list = []
-        env = {"Dict": dict, "BaseEstimator": object,
+        env = {"Dict": dict, "BaseEstimator": object, "np": np,
                "logger": SimpleNamespace(debug=lambda *args, **kwargs: None)}
         exec(compile(ast.Module(body=[method], type_ignores=[]), str(path), "exec"), env)
 
@@ -168,7 +170,7 @@ class PredictorTargetTests(unittest.TestCase):
             def __init__(self):
                 self.targets = {}
 
-            def _load_compute_df(self, _): return [1]
+            def _load_compute_df(self, _): return pd.DataFrame({"time_stats.attn_rope.median": [0.004]})
             def _get_compute_df_with_derived_features(self, df): return df
             def _train_model(self, model_name, target_col, **kwargs):
                 self.targets[model_name] = target_col

@@ -1,11 +1,14 @@
+from __future__ import annotations
+
 import binascii
 import enum
 from itertools import product
-from math import floor
-from typing import List
+from math import ceil, floor
+from typing import TYPE_CHECKING, List
 
 import torch
-from sarathi.config import ParallelConfig
+if TYPE_CHECKING:
+    from sarathi.config import ParallelConfig
 
 from vidur.profiling.attention.attention_input import AttentionInput
 from vidur.profiling.collectives.collectives_input import CollectivesInput
@@ -164,12 +167,11 @@ def get_max_num_blocks(
         * model_config.get_head_size()
         * element_size
     )
-    assert model_config.num_layers % max_pipeline_parallel_size == 0
     block_memory_total = block_memory_size * (
-        model_config.num_layers // max_pipeline_parallel_size
+        max(1, ceil(model_config.num_layers / max_pipeline_parallel_size))
     )
     return floor(
-        (torch.cuda.mem_get_info()[1] * gpu_memory_utilization) / (block_memory_total)
+        (torch.cuda.mem_get_info()[0] * gpu_memory_utilization) / (block_memory_total)
     )
 
 

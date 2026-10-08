@@ -1,0 +1,4 @@
+# GPU compute profiling environment; CPU-only simulation does not require vLLM.
+vllm==0.5.1
+pandas
+ray>=2.6.3
