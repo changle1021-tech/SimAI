@@ -1,0 +1,1577 @@
+[2026-09-02 12:45:04] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 12:45:08] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 12:45:08] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 12:45:08] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 12:45:08] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 12:45:08] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 12:45:08] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 12:45:08] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 12:45:08] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 12:45:08] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 12:45:08] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 12:45:08] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 12:45:08] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 13:04:27] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 13:04:30] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 13:04:30] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 13:04:30] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 13:04:30] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 13:04:30] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 13:04:30] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 13:04:30] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 13:04:30] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 13:04:30] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 13:04:30] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 13:04:30] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 13:04:30] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 13:10:36] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 13:11:52] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 14:03:24] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 14:03:27] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 14:03:27] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 14:03:27] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 14:03:27] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 14:03:27] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 14:03:27] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 14:03:27] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 14:03:27] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 14:03:27] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 14:03:27] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 14:03:27] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 14:03:27] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:27:12] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:27:15] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:27:15] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:27:15] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:27:15] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:27:15] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:27:15] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:27:15] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:27:15] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:27:15] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:27:15] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:27:15] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:27:15] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:31:07] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:32:43] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-02 21:32:43] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-02 21:39:15] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:39:18] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:39:18] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:39:18] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:39:18] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:39:18] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:39:18] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:39:18] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:39:18] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:39:18] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:39:18] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:39:18] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:39:18] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:44:12] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:45:02] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-02 21:45:02] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-02 21:47:03] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:47:05] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-02 21:47:05] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-02 21:50:19] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:50:22] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-02 21:50:22] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-02 21:52:17] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:52:40] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:52:43] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-02 21:52:43] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-02 21:59:21] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 21:59:24] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-02 21:59:24] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-02 22:00:13] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:00:15] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-02 22:00:15] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-02 22:00:46] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:00:49] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-02 22:00:49] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-02 22:01:51] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:01:55] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-02 22:01:55] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-02 22:02:39] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:02:41] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-02 22:02:41] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-02 22:03:59] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:04:05] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-02 22:04:05] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-02 22:18:00] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:18:06] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-02 22:18:06] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-02 22:18:22] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:18:25] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-02 22:18:25] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-02 22:18:50] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:18:52] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-02 22:18:52] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-02 22:28:28] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:28:32] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-02 22:28:32] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-02 22:36:44] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:36:46] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:36:46] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:36:46] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:36:46] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:36:46] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:36:46] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:36:46] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:36:46] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:36:46] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:36:46] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:36:46] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:36:46] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:41:41] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:41:46] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:45:52] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:45:54] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-02 22:45:54] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-02 22:47:51] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:47:53] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-02 22:47:53] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-02 22:48:42] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:48:45] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-02 22:48:45] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-02 22:50:34] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:50:37] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-02 22:50:37] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-02 22:51:25] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:51:27] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-02 22:51:27] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-02 22:52:22] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:52:25] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:52:25] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:52:25] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:52:25] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:52:25] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:52:25] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:52:25] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:52:25] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:52:25] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:52:25] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:52:25] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-02 22:52:25] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:28:54] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:29:24] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:30:22] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:30:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:30:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:30:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:30:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:30:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:30:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:30:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:30:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:30:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:30:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:30:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:30:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:30:42] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 00:30:42] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 00:37:28] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:37:32] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 00:37:32] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 00:37:33] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:37:36] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 00:37:36] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 00:37:59] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:38:03] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 00:38:03] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 00:38:03] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:38:06] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 00:38:06] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 00:45:54] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:45:59] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:45:59] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:45:59] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:45:59] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:45:59] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:45:59] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:45:59] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:45:59] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:45:59] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:45:59] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:45:59] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:45:59] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:46:13] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 00:46:13] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 00:47:17] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:47:21] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 00:47:21] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 00:48:44] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:48:48] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 00:48:48] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 00:50:07] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 00:50:11] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 00:50:11] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 09:38:33] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 09:38:35] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 09:38:35] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 09:39:55] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 09:39:58] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 09:39:58] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 09:40:34] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 09:40:36] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 09:40:36] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 09:41:13] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 09:41:15] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 09:41:15] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 09:41:49] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 09:41:52] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 09:41:52] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 09:42:41] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 09:42:43] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 09:42:43] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 10:00:18] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:00:36] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:02:23] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:02:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:02:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:02:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:02:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:02:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:02:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:02:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:02:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:02:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:02:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:02:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:02:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:08:05] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:08:07] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:08:07] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:08:07] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:08:07] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:08:07] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:08:07] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:08:07] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:08:07] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:08:07] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:08:07] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:08:07] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:08:07] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:16:19] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:17:10] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 10:17:10] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 10:22:00] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:22:03] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:22:03] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:22:03] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:22:03] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:22:03] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:22:03] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:22:03] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:22:03] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:22:03] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:22:03] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:22:03] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:22:03] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:28:54] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:31:14] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 10:31:14] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 10:34:29] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:34:31] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:34:31] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:34:31] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:34:31] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:34:31] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:34:31] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:34:31] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:34:31] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:34:31] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:34:31] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:34:31] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:34:31] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:42:15] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:43:28] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:43:39] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:44:38] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 10:44:38] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 10:46:06] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:46:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:46:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:46:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:46:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:46:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:46:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:46:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:46:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:46:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:46:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:46:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:46:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:47:02] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:47:25] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:47:25] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:47:40] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:47:41] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:47:41] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:47:41] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:47:41] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:47:41] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:47:41] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:47:41] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:47:41] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:47:41] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:47:41] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:47:41] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:47:41] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:47:41] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:47:41] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:47:41] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:47:41] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:47:41] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:47:41] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:47:41] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:47:42] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:47:42] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:47:42] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:47:42] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:51:27] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:53:54] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:56:02] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:56:06] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:56:06] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:56:06] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:56:06] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:56:06] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:56:06] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:56:06] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:56:06] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:56:06] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:56:06] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:56:06] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:56:06] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 10:58:30] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 11:01:30] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 11:01:33] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 11:01:33] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 11:03:47] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 11:03:50] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 11:03:50] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 11:04:24] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 11:04:27] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 11:04:27] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 11:12:00] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 11:12:03] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 11:12:03] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 11:22:05] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 11:22:08] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 11:22:08] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 11:22:14] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 11:22:17] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 11:22:17] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 11:34:31] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 11:34:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 11:34:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 11:34:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 11:34:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 11:34:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 11:34:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 11:34:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 11:34:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 11:34:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 11:34:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 11:34:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 11:34:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 11:43:03] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 11:43:03] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 11:59:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 11:59:12] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 11:59:12] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 11:59:29] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 11:59:32] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 11:59:32] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 11:59:50] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 11:59:53] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 11:59:53] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 12:01:02] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:01:04] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 12:01:04] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 12:01:08] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:01:12] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 12:01:12] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 12:11:15] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:11:18] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:11:18] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:11:18] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:11:18] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:11:18] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:11:18] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:11:18] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:11:18] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:11:18] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:11:18] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:11:18] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:11:18] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:11:56] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:11:57] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:11:57] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:11:57] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:11:57] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:11:57] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:11:57] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:11:57] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:11:57] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:11:57] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:11:57] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:11:57] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:11:57] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:17:04] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:18:17] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:18:55] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 12:18:55] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 12:18:56] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:18:59] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:18:59] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:18:59] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:18:59] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:18:59] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:18:59] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:18:59] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:18:59] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:18:59] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:18:59] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:18:59] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:18:59] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:26:32] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 12:26:32] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 12:26:33] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:26:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:26:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:26:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:26:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:26:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:26:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:26:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:26:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:26:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:26:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:26:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:26:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:32:04] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:32:57] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 12:32:57] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 12:57:58] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 12:58:02] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 12:58:02] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:02:05] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:02:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:02:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:02:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:02:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:02:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:02:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:02:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:02:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:02:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:02:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:02:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:02:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:02:22] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:02:22] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:03:33] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:03:36] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:03:36] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:05:21] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:05:21] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:05:21] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:06:07] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:06:10] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:06:10] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:07:16] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:07:19] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:07:19] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:07:25] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:07:27] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:07:27] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:07:32] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:08:16] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:08:19] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:08:19] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:10:03] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:10:05] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:10:05] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:10:06] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:10:09] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:10:09] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:10:10] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:10:12] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:10:12] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:10:14] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:10:16] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:10:16] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:10:17] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:10:19] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:10:19] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:10:21] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:10:23] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:10:23] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:15:40] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:15:43] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:15:43] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:16:21] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:16:23] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:16:23] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:16:42] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:16:45] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:16:45] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:17:43] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:17:46] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:17:46] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:18:07] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:18:10] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:18:10] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:32:54] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:32:58] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:32:58] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:36:39] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:37:30] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:37:35] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:37:35] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:42:00] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:42:02] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:42:02] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:42:37] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:42:40] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:42:40] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:42:40] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:42:42] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:42:42] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:42:43] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:42:45] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:42:45] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:42:46] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:42:48] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:42:48] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:42:49] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:42:52] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:42:52] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:42:52] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:42:55] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:42:55] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:46:19] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:46:21] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:46:21] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:46:22] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:46:24] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:46:24] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:46:24] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:46:27] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:46:27] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:46:27] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:46:30] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:46:30] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:46:30] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:46:33] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:46:33] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:46:33] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:46:34] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:46:34] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:49:04] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:49:06] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:49:06] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:49:07] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:49:09] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:49:09] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:49:10] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:49:10] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:49:10] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:49:11] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:49:13] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:49:13] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:49:14] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:49:16] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:49:16] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:49:17] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:49:19] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:49:19] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 13:54:25] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 13:54:27] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 13:54:27] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 14:01:10] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 14:01:12] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 14:01:12] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 14:19:04] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 14:19:08] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 14:19:08] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 14:19:25] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 14:19:28] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 14:19:28] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 14:19:52] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 14:19:55] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 14:19:55] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 14:20:19] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 14:20:22] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 14:20:22] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 14:20:57] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 14:21:01] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 14:21:01] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 14:21:20] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 14:21:23] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 14:21:23] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 14:21:38] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 14:21:41] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 14:21:41] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 14:21:53] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 14:21:56] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 14:21:56] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 14:27:44] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 14:27:45] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 14:27:45] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 14:28:17] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 14:28:18] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 14:28:18] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 14:39:51] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 14:39:54] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 14:39:54] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 14:40:38] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 14:40:40] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 14:40:40] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 14:41:11] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 14:41:14] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 14:41:14] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 14:41:46] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 14:42:00] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 14:42:04] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 14:42:04] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 14:42:20] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 14:42:23] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 14:42:23] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 14:42:56] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 14:43:00] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 14:43:00] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 14:43:16] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 14:43:20] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 14:43:20] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 14:43:28] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 14:43:32] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 14:43:32] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 14:44:02] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 14:44:06] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 14:44:06] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 14:44:34] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 14:44:37] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 14:44:37] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 14:45:11] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 14:45:13] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 14:45:13] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 14:45:46] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 14:45:48] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 14:45:48] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 14:46:15] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 14:46:18] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 14:46:18] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 14:46:46] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 14:46:49] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 14:46:49] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 14:47:00] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 14:47:02] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 14:47:02] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 15:04:40] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 15:04:43] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 15:04:43] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 15:22:49] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 15:22:52] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 15:22:52] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 15:45:46] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 15:45:51] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 15:45:51] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 16:05:39] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:05:43] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:05:43] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:05:43] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:05:43] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:05:43] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:05:43] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:05:43] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:05:43] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:05:43] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:05:43] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:05:43] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:05:43] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:11:31] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:11:33] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:11:33] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:11:33] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:11:34] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:13:23] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:13:24] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:13:25] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:15:00] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 16:15:00] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 16:33:54] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:33:56] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:33:56] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:33:56] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:33:56] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:33:56] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:33:56] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:33:56] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:33:56] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:33:56] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:33:56] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:33:56] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:33:56] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:40:45] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:42:06] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:42:06] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 16:42:59] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 16:42:59] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 17:42:06] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 17:42:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 17:42:29] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 17:42:29] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 17:44:43] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 17:44:45] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 17:44:45] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 17:46:36] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 17:46:38] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 17:46:38] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 18:50:43] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 18:50:53] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=0, seq=0, phase=decode
+[2026-09-03 18:50:53] [AICB调用] 第1次subprocess调用
+[2026-09-03 18:50:54] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=0, seq=0, phase=decode
+[2026-09-03 18:50:54] [AICB调用] 第2次subprocess调用
+[2026-09-03 18:50:54] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=0, seq=0, phase=decode
+[2026-09-03 18:50:54] [AICB调用] 第3次subprocess调用
+[2026-09-03 18:50:54] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=0, seq=0, phase=decode
+[2026-09-03 18:50:54] [AICB调用] 第4次subprocess调用
+[2026-09-03 18:50:55] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=0, seq=0, phase=decode
+[2026-09-03 18:50:55] [AICB调用] 第5次subprocess调用
+[2026-09-03 18:50:55] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=0, seq=0, phase=decode
+[2026-09-03 18:50:55] [AICB调用] 第6次subprocess调用
+[2026-09-03 18:50:55] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=0, seq=0, phase=decode
+[2026-09-03 18:50:55] [AICB调用] 第7次subprocess调用
+[2026-09-03 18:50:56] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=0, seq=0, phase=decode
+[2026-09-03 18:50:56] [AICB调用] 第8次subprocess调用
+[2026-09-03 18:50:56] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4096, phase=decode
+[2026-09-03 18:50:56] [AICB调用] 第9次subprocess调用
+[2026-09-03 18:50:56] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4097, phase=decode
+[2026-09-03 18:50:56] [AICB调用] 第10次subprocess调用
+[2026-09-03 18:50:56] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4098, phase=decode
+[2026-09-03 18:50:56] [AICB调用] 第11次subprocess调用
+[2026-09-03 18:50:57] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4099, phase=decode
+[2026-09-03 18:50:57] [AICB调用] 第12次subprocess调用
+[2026-09-03 18:50:57] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4100, phase=decode
+[2026-09-03 18:50:57] [AICB调用] 第13次subprocess调用
+[2026-09-03 18:50:57] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4101, phase=decode
+[2026-09-03 18:50:57] [AICB调用] 第14次subprocess调用
+[2026-09-03 18:50:58] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4102, phase=decode
+[2026-09-03 18:50:58] [AICB调用] 第15次subprocess调用
+[2026-09-03 18:50:58] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4103, phase=decode
+[2026-09-03 18:50:58] [AICB调用] 第16次subprocess调用
+[2026-09-03 18:50:58] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4104, phase=decode
+[2026-09-03 18:50:58] [AICB调用] 第17次subprocess调用
+[2026-09-03 18:50:58] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4105, phase=decode
+[2026-09-03 18:50:58] [AICB调用] 第18次subprocess调用
+[2026-09-03 18:50:59] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4106, phase=decode
+[2026-09-03 18:50:59] [AICB调用] 第19次subprocess调用
+[2026-09-03 18:50:59] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4107, phase=decode
+[2026-09-03 18:50:59] [AICB调用] 第20次subprocess调用
+[2026-09-03 18:50:59] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4108, phase=decode
+[2026-09-03 18:50:59] [AICB调用] 第21次subprocess调用
+[2026-09-03 18:51:00] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4109, phase=decode
+[2026-09-03 18:51:00] [AICB调用] 第22次subprocess调用
+[2026-09-03 18:51:00] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4110, phase=decode
+[2026-09-03 18:51:00] [AICB调用] 第23次subprocess调用
+[2026-09-03 18:51:00] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4111, phase=decode
+[2026-09-03 18:51:00] [AICB调用] 第24次subprocess调用
+[2026-09-03 18:51:01] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4112, phase=decode
+[2026-09-03 18:51:01] [AICB调用] 第25次subprocess调用
+[2026-09-03 18:51:01] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4113, phase=decode
+[2026-09-03 18:51:01] [AICB调用] 第26次subprocess调用
+[2026-09-03 18:51:01] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4114, phase=decode
+[2026-09-03 18:51:01] [AICB调用] 第27次subprocess调用
+[2026-09-03 18:51:01] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4115, phase=decode
+[2026-09-03 18:51:01] [AICB调用] 第28次subprocess调用
+[2026-09-03 18:51:02] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4116, phase=decode
+[2026-09-03 18:51:02] [AICB调用] 第29次subprocess调用
+[2026-09-03 18:51:02] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4117, phase=decode
+[2026-09-03 18:51:02] [AICB调用] 第30次subprocess调用
+[2026-09-03 18:51:02] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4118, phase=decode
+[2026-09-03 18:51:02] [AICB调用] 第31次subprocess调用
+[2026-09-03 18:51:03] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4119, phase=decode
+[2026-09-03 18:51:03] [AICB调用] 第32次subprocess调用
+[2026-09-03 18:51:03] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4120, phase=decode
+[2026-09-03 18:51:03] [AICB调用] 第33次subprocess调用
+[2026-09-03 18:51:03] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4121, phase=decode
+[2026-09-03 18:51:03] [AICB调用] 第34次subprocess调用
+[2026-09-03 18:51:04] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4122, phase=decode
+[2026-09-03 18:51:04] [AICB调用] 第35次subprocess调用
+[2026-09-03 18:51:04] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4123, phase=decode
+[2026-09-03 18:51:04] [AICB调用] 第36次subprocess调用
+[2026-09-03 18:51:04] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4124, phase=decode
+[2026-09-03 18:51:04] [AICB调用] 第37次subprocess调用
+[2026-09-03 18:51:04] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4125, phase=decode
+[2026-09-03 18:51:04] [AICB调用] 第38次subprocess调用
+[2026-09-03 18:51:05] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4126, phase=decode
+[2026-09-03 18:51:05] [AICB调用] 第39次subprocess调用
+[2026-09-03 18:51:05] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4127, phase=decode
+[2026-09-03 18:51:05] [AICB调用] 第40次subprocess调用
+[2026-09-03 18:51:05] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4128, phase=decode
+[2026-09-03 18:51:05] [AICB调用] 第41次subprocess调用
+[2026-09-03 18:51:06] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4129, phase=decode
+[2026-09-03 18:51:06] [AICB调用] 第42次subprocess调用
+[2026-09-03 18:51:06] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4130, phase=decode
+[2026-09-03 18:51:06] [AICB调用] 第43次subprocess调用
+[2026-09-03 18:51:06] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4131, phase=decode
+[2026-09-03 18:51:06] [AICB调用] 第44次subprocess调用
+[2026-09-03 18:51:07] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4132, phase=decode
+[2026-09-03 18:51:07] [AICB调用] 第45次subprocess调用
+[2026-09-03 18:51:07] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4133, phase=decode
+[2026-09-03 18:51:07] [AICB调用] 第46次subprocess调用
+[2026-09-03 18:51:07] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4134, phase=decode
+[2026-09-03 18:51:07] [AICB调用] 第47次subprocess调用
+[2026-09-03 18:51:07] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4135, phase=decode
+[2026-09-03 18:51:07] [AICB调用] 第48次subprocess调用
+[2026-09-03 18:51:08] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4136, phase=decode
+[2026-09-03 18:51:08] [AICB调用] 第49次subprocess调用
+[2026-09-03 18:51:08] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4137, phase=decode
+[2026-09-03 18:51:08] [AICB调用] 第50次subprocess调用
+[2026-09-03 18:51:08] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4138, phase=decode
+[2026-09-03 18:51:08] [AICB调用] 第51次subprocess调用
+[2026-09-03 18:51:09] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4139, phase=decode
+[2026-09-03 18:51:09] [AICB调用] 第52次subprocess调用
+[2026-09-03 18:51:09] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4140, phase=decode
+[2026-09-03 18:51:09] [AICB调用] 第53次subprocess调用
+[2026-09-03 18:51:09] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4141, phase=decode
+[2026-09-03 18:51:09] [AICB调用] 第54次subprocess调用
+[2026-09-03 18:51:09] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4142, phase=decode
+[2026-09-03 18:51:09] [AICB调用] 第55次subprocess调用
+[2026-09-03 18:51:10] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4143, phase=decode
+[2026-09-03 18:51:10] [AICB调用] 第56次subprocess调用
+[2026-09-03 18:51:10] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=4144, phase=decode
+[2026-09-03 18:51:10] [AICB调用] 第57次subprocess调用
+[2026-09-03 18:51:10] 统计: hits=0, interp=0, calls=57, entries=0
+[2026-09-03 18:51:10] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 18:57:07] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 18:57:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 18:57:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 18:57:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 18:57:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 18:57:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 18:57:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 18:57:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 18:57:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 18:57:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 18:57:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 18:57:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 18:57:09] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 18:58:33] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 18:58:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 18:58:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 18:58:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 18:58:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 18:58:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 18:58:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 18:58:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 18:58:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 18:58:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 18:58:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 18:58:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 18:58:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 19:01:22] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 19:03:40] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 19:03:40] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 19:05:31] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 19:05:34] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 19:05:34] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 19:08:06] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 19:08:09] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 19:08:09] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 22:09:01] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 22:10:22] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 22:10:27] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 22:10:27] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 22:12:38] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 22:12:41] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-03 22:12:41] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 22:25:53] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 22:26:22] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 22:26:46] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 22:26:49] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-03 22:26:49] [AICB调用] 第1次subprocess调用
+[2026-09-03 22:26:49] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1024, phase=decode
+[2026-09-03 22:26:49] [AICB调用] 第2次subprocess调用
+[2026-09-03 22:26:50] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1025, phase=decode
+[2026-09-03 22:26:50] [AICB调用] 第3次subprocess调用
+[2026-09-03 22:26:50] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1026, phase=decode
+[2026-09-03 22:26:50] [AICB调用] 第4次subprocess调用
+[2026-09-03 22:26:50] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1027, phase=decode
+[2026-09-03 22:26:50] [AICB调用] 第5次subprocess调用
+[2026-09-03 22:26:51] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1028, phase=decode
+[2026-09-03 22:26:51] [AICB调用] 第6次subprocess调用
+[2026-09-03 22:26:51] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1029, phase=decode
+[2026-09-03 22:26:51] [AICB调用] 第7次subprocess调用
+[2026-09-03 22:26:51] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1030, phase=decode
+[2026-09-03 22:26:51] [AICB调用] 第8次subprocess调用
+[2026-09-03 22:26:52] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1031, phase=decode
+[2026-09-03 22:26:52] [AICB调用] 第9次subprocess调用
+[2026-09-03 22:26:52] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1032, phase=decode
+[2026-09-03 22:26:52] [AICB调用] 第10次subprocess调用
+[2026-09-03 22:26:52] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1033, phase=decode
+[2026-09-03 22:26:52] [AICB调用] 第11次subprocess调用
+[2026-09-03 22:26:53] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1034, phase=decode
+[2026-09-03 22:26:53] [AICB调用] 第12次subprocess调用
+[2026-09-03 22:26:53] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1035, phase=decode
+[2026-09-03 22:26:53] [AICB调用] 第13次subprocess调用
+[2026-09-03 22:26:53] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1036, phase=decode
+[2026-09-03 22:26:53] [AICB调用] 第14次subprocess调用
+[2026-09-03 22:26:54] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1037, phase=decode
+[2026-09-03 22:26:54] [AICB调用] 第15次subprocess调用
+[2026-09-03 22:26:54] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1038, phase=decode
+[2026-09-03 22:26:54] [AICB调用] 第16次subprocess调用
+[2026-09-03 22:26:54] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1039, phase=decode
+[2026-09-03 22:26:54] [AICB调用] 第17次subprocess调用
+[2026-09-03 22:26:55] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1040, phase=decode
+[2026-09-03 22:26:55] [AICB调用] 第18次subprocess调用
+[2026-09-03 22:26:55] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1041, phase=decode
+[2026-09-03 22:26:55] [AICB调用] 第19次subprocess调用
+[2026-09-03 22:26:55] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1042, phase=decode
+[2026-09-03 22:26:55] [AICB调用] 第20次subprocess调用
+[2026-09-03 22:26:56] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1043, phase=decode
+[2026-09-03 22:26:56] [AICB调用] 第21次subprocess调用
+[2026-09-03 22:26:56] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1044, phase=decode
+[2026-09-03 22:26:56] [AICB调用] 第22次subprocess调用
+[2026-09-03 22:26:57] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1045, phase=decode
+[2026-09-03 22:26:57] [AICB调用] 第23次subprocess调用
+[2026-09-03 22:26:57] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1046, phase=decode
+[2026-09-03 22:26:57] [AICB调用] 第24次subprocess调用
+[2026-09-03 22:26:57] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1047, phase=decode
+[2026-09-03 22:26:57] [AICB调用] 第25次subprocess调用
+[2026-09-03 22:26:58] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1048, phase=decode
+[2026-09-03 22:26:58] [AICB调用] 第26次subprocess调用
+[2026-09-03 22:26:58] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1049, phase=decode
+[2026-09-03 22:26:58] [AICB调用] 第27次subprocess调用
+[2026-09-03 22:26:58] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1050, phase=decode
+[2026-09-03 22:26:58] [AICB调用] 第28次subprocess调用
+[2026-09-03 22:26:58] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1051, phase=decode
+[2026-09-03 22:26:58] [AICB调用] 第29次subprocess调用
+[2026-09-03 22:26:59] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1052, phase=decode
+[2026-09-03 22:26:59] [AICB调用] 第30次subprocess调用
+[2026-09-03 22:26:59] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1053, phase=decode
+[2026-09-03 22:26:59] [AICB调用] 第31次subprocess调用
+[2026-09-03 22:26:59] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1054, phase=decode
+[2026-09-03 22:26:59] [AICB调用] 第32次subprocess调用
+[2026-09-03 22:27:00] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1055, phase=decode
+[2026-09-03 22:27:00] [AICB调用] 第33次subprocess调用
+[2026-09-03 22:27:00] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1056, phase=decode
+[2026-09-03 22:27:00] [AICB调用] 第34次subprocess调用
+[2026-09-03 22:27:00] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1057, phase=decode
+[2026-09-03 22:27:00] [AICB调用] 第35次subprocess调用
+[2026-09-03 22:27:01] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1058, phase=decode
+[2026-09-03 22:27:01] [AICB调用] 第36次subprocess调用
+[2026-09-03 22:27:01] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1059, phase=decode
+[2026-09-03 22:27:01] [AICB调用] 第37次subprocess调用
+[2026-09-03 22:27:01] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1060, phase=decode
+[2026-09-03 22:27:01] [AICB调用] 第38次subprocess调用
+[2026-09-03 22:27:02] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1061, phase=decode
+[2026-09-03 22:27:02] [AICB调用] 第39次subprocess调用
+[2026-09-03 22:27:02] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1062, phase=decode
+[2026-09-03 22:27:02] [AICB调用] 第40次subprocess调用
+[2026-09-03 22:27:02] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1063, phase=decode
+[2026-09-03 22:27:02] [AICB调用] 第41次subprocess调用
+[2026-09-03 22:27:03] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1064, phase=decode
+[2026-09-03 22:27:03] [AICB调用] 第42次subprocess调用
+[2026-09-03 22:27:03] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1065, phase=decode
+[2026-09-03 22:27:03] [AICB调用] 第43次subprocess调用
+[2026-09-03 22:27:04] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1066, phase=decode
+[2026-09-03 22:27:04] [AICB调用] 第44次subprocess调用
+[2026-09-03 22:27:04] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1067, phase=decode
+[2026-09-03 22:27:04] [AICB调用] 第45次subprocess调用
+[2026-09-03 22:27:04] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1068, phase=decode
+[2026-09-03 22:27:04] [AICB调用] 第46次subprocess调用
+[2026-09-03 22:27:05] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1069, phase=decode
+[2026-09-03 22:27:05] [AICB调用] 第47次subprocess调用
+[2026-09-03 22:27:05] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1070, phase=decode
+[2026-09-03 22:27:05] [AICB调用] 第48次subprocess调用
+[2026-09-03 22:27:05] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1071, phase=decode
+[2026-09-03 22:27:05] [AICB调用] 第49次subprocess调用
+[2026-09-03 22:27:06] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1072, phase=decode
+[2026-09-03 22:27:06] [AICB调用] 第50次subprocess调用
+[2026-09-03 22:27:06] 统计: hits=0, interp=0, calls=50, entries=0
+[2026-09-03 22:27:06] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-03 22:31:12] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 22:31:15] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-03 22:31:15] [AICB调用] 第1次subprocess调用
+[2026-09-03 22:31:16] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1024, phase=decode
+[2026-09-03 22:31:16] [AICB调用] 第2次subprocess调用
+[2026-09-03 22:31:16] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1025, phase=decode
+[2026-09-03 22:31:16] [AICB调用] 第3次subprocess调用
+[2026-09-03 22:31:17] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1026, phase=decode
+[2026-09-03 22:31:17] [AICB调用] 第4次subprocess调用
+[2026-09-03 22:31:29] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 22:31:31] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-03 22:31:31] [AICB调用] 第1次subprocess调用
+[2026-09-03 22:31:31] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1024, phase=decode
+[2026-09-03 22:31:31] [AICB调用] 第2次subprocess调用
+[2026-09-03 22:31:32] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1025, phase=decode
+[2026-09-03 22:31:32] [AICB调用] 第3次subprocess调用
+[2026-09-03 22:31:32] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=4, pp=1, ep=4, bs=1, seq=1026, phase=decode
+[2026-09-03 22:31:32] [AICB调用] 第4次subprocess调用
+[2026-09-03 22:38:45] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 22:39:02] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 22:39:17] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 22:39:35] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 22:39:39] [未命中] key=model=DeepSeek-671B, ws=32, tp=8, pp=1, ep=32, bs=1, seq=395, phase=prefill
+[2026-09-03 22:39:39] [AICB调用] 第1次subprocess调用
+[2026-09-03 22:39:39] [未命中] key=model=DeepSeek-671B, ws=32, tp=8, pp=1, ep=32, bs=1, seq=736, phase=prefill
+[2026-09-03 22:39:39] [AICB调用] 第2次subprocess调用
+[2026-09-03 22:39:39] [未命中] key=model=DeepSeek-671B, ws=32, tp=8, pp=1, ep=32, bs=1, seq=389, phase=prefill
+[2026-09-03 22:39:39] [AICB调用] 第3次subprocess调用
+[2026-09-03 22:39:40] [未命中] key=model=DeepSeek-671B, ws=32, tp=8, pp=1, ep=32, bs=1, seq=739, phase=prefill
+[2026-09-03 22:39:40] [AICB调用] 第4次subprocess调用
+[2026-09-03 22:39:40] [未命中] key=model=DeepSeek-671B, ws=32, tp=8, pp=1, ep=32, bs=1, seq=395, phase=decode
+[2026-09-03 22:39:40] [AICB调用] 第5次subprocess调用
+[2026-09-03 22:39:40] [未命中] key=model=DeepSeek-671B, ws=32, tp=8, pp=1, ep=32, bs=1, seq=396, phase=decode
+[2026-09-03 22:39:40] [AICB调用] 第6次subprocess调用
+[2026-09-03 22:39:41] [未命中] key=model=DeepSeek-671B, ws=32, tp=8, pp=1, ep=32, bs=1, seq=397, phase=decode
+[2026-09-03 22:39:41] [AICB调用] 第7次subprocess调用
+[2026-09-03 22:39:41] [未命中] key=model=DeepSeek-671B, ws=32, tp=8, pp=1, ep=32, bs=1, seq=398, phase=decode
+[2026-09-03 22:39:41] [AICB调用] 第8次subprocess调用
+[2026-09-03 22:39:41] [未命中] key=model=DeepSeek-671B, ws=32, tp=8, pp=1, ep=32, bs=1, seq=399, phase=decode
+[2026-09-03 22:39:41] [AICB调用] 第9次subprocess调用
+[2026-09-03 22:39:42] [未命中] key=model=DeepSeek-671B, ws=32, tp=8, pp=1, ep=32, bs=1, seq=400, phase=decode
+[2026-09-03 22:39:42] [AICB调用] 第10次subprocess调用
+[2026-09-03 22:40:03] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-03 22:40:05] [未命中] key=model=Qwen3-Next-80B, ws=32, tp=1, pp=1, ep=32, bs=0, seq=0, phase=decode
+[2026-09-03 22:40:05] [AICB调用] 第1次subprocess调用
+[2026-09-03 22:40:05] [未命中] key=model=Qwen3-Next-80B, ws=32, tp=1, pp=1, ep=32, bs=1, seq=100, phase=decode
+[2026-09-03 22:40:05] [AICB调用] 第2次subprocess调用
+[2026-09-03 22:40:06] [未命中] key=model=Qwen3-Next-80B, ws=32, tp=1, pp=1, ep=32, bs=1, seq=101, phase=decode
+[2026-09-03 22:40:06] [AICB调用] 第3次subprocess调用
+[2026-09-03 22:40:06] [未命中] key=model=Qwen3-Next-80B, ws=32, tp=1, pp=1, ep=32, bs=1, seq=102, phase=decode
+[2026-09-03 22:40:06] [AICB调用] 第4次subprocess调用
+[2026-09-03 22:40:06] [未命中] key=model=Qwen3-Next-80B, ws=32, tp=1, pp=1, ep=32, bs=1, seq=103, phase=decode
+[2026-09-03 22:40:06] [AICB调用] 第5次subprocess调用
+[2026-09-03 22:40:07] [未命中] key=model=Qwen3-Next-80B, ws=32, tp=1, pp=1, ep=32, bs=1, seq=104, phase=decode
+[2026-09-03 22:40:07] [AICB调用] 第6次subprocess调用
+[2026-09-03 22:40:07] [未命中] key=model=Qwen3-Next-80B, ws=32, tp=1, pp=1, ep=32, bs=1, seq=105, phase=decode
+[2026-09-03 22:40:07] [AICB调用] 第7次subprocess调用
+[2026-09-04 10:52:42] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-04 10:53:38] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-04 10:54:11] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-04 10:54:13] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=0, seq=0, phase=decode
+[2026-09-04 10:54:13] [AICB调用] 第1次subprocess调用
+[2026-09-04 10:54:13] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=1024, phase=decode
+[2026-09-04 10:54:13] [AICB调用] 第2次subprocess调用
+[2026-09-04 10:54:13] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=1025, phase=decode
+[2026-09-04 10:54:13] [AICB调用] 第3次subprocess调用
+[2026-09-04 10:54:14] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=1026, phase=decode
+[2026-09-04 10:54:14] [AICB调用] 第4次subprocess调用
+[2026-09-04 10:54:14] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=1027, phase=decode
+[2026-09-04 10:54:14] [AICB调用] 第5次subprocess调用
+[2026-09-04 10:54:14] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=1028, phase=decode
+[2026-09-04 10:54:14] [AICB调用] 第6次subprocess调用
+[2026-09-04 10:54:15] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=1029, phase=decode
+[2026-09-04 10:54:15] [AICB调用] 第7次subprocess调用
+[2026-09-04 10:54:15] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=1030, phase=decode
+[2026-09-04 10:54:15] [AICB调用] 第8次subprocess调用
+[2026-09-04 10:54:15] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=1031, phase=decode
+[2026-09-04 10:54:15] [AICB调用] 第9次subprocess调用
+[2026-09-04 10:54:16] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=1032, phase=decode
+[2026-09-04 10:54:16] [AICB调用] 第10次subprocess调用
+[2026-09-04 10:54:16] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=1033, phase=decode
+[2026-09-04 10:54:16] [AICB调用] 第11次subprocess调用
+[2026-09-04 10:54:17] [未命中] key=model=Qwen3-Next-80B, ws=8, tp=1, pp=1, ep=8, bs=1, seq=1034, phase=decode
+[2026-09-04 10:54:17] [AICB调用] 第12次subprocess调用
+[2026-09-04 19:18:54] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-04 19:19:54] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-04 19:19:54] [AICB调用] 第1次subprocess调用
+[2026-09-04 19:19:55] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1024, phase=decode
+[2026-09-04 19:19:55] [AICB调用] 第2次subprocess调用
+[2026-09-04 19:19:55] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1025, phase=decode
+[2026-09-04 19:19:55] [AICB调用] 第3次subprocess调用
+[2026-09-04 19:19:55] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1026, phase=decode
+[2026-09-04 19:19:55] [AICB调用] 第4次subprocess调用
+[2026-09-04 19:19:55] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1027, phase=decode
+[2026-09-04 19:19:55] [AICB调用] 第5次subprocess调用
+[2026-09-04 19:19:56] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1028, phase=decode
+[2026-09-04 19:19:56] [AICB调用] 第6次subprocess调用
+[2026-09-04 19:19:55] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1029, phase=decode
+[2026-09-04 19:19:55] [AICB调用] 第7次subprocess调用
+[2026-09-04 19:19:55] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1030, phase=decode
+[2026-09-04 19:19:55] [AICB调用] 第8次subprocess调用
+[2026-09-04 19:19:55] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1031, phase=decode
+[2026-09-04 19:19:55] [AICB调用] 第9次subprocess调用
+[2026-09-04 19:19:56] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1032, phase=decode
+[2026-09-04 19:19:56] [AICB调用] 第10次subprocess调用
+[2026-09-04 19:19:56] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1033, phase=decode
+[2026-09-04 19:19:56] [AICB调用] 第11次subprocess调用
+[2026-09-04 19:19:56] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1034, phase=decode
+[2026-09-04 19:19:56] [AICB调用] 第12次subprocess调用
+[2026-09-04 19:19:57] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1035, phase=decode
+[2026-09-04 19:19:57] [AICB调用] 第13次subprocess调用
+[2026-09-04 19:19:57] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1036, phase=decode
+[2026-09-04 19:19:57] [AICB调用] 第14次subprocess调用
+[2026-09-04 19:19:57] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1037, phase=decode
+[2026-09-04 19:19:57] [AICB调用] 第15次subprocess调用
+[2026-09-04 19:19:58] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1038, phase=decode
+[2026-09-04 19:19:58] [AICB调用] 第16次subprocess调用
+[2026-09-04 19:19:58] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1039, phase=decode
+[2026-09-04 19:19:58] [AICB调用] 第17次subprocess调用
+[2026-09-04 19:19:58] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1040, phase=decode
+[2026-09-04 19:19:58] [AICB调用] 第18次subprocess调用
+[2026-09-04 19:19:59] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1041, phase=decode
+[2026-09-04 19:19:59] [AICB调用] 第19次subprocess调用
+[2026-09-04 19:19:59] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1042, phase=decode
+[2026-09-04 19:19:59] [AICB调用] 第20次subprocess调用
+[2026-09-04 19:19:59] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1043, phase=decode
+[2026-09-04 19:19:59] [AICB调用] 第21次subprocess调用
+[2026-09-04 19:19:59] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1044, phase=decode
+[2026-09-04 19:20:00] [AICB调用] 第22次subprocess调用
+[2026-09-04 19:20:00] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1045, phase=decode
+[2026-09-04 19:20:00] [AICB调用] 第23次subprocess调用
+[2026-09-04 19:20:36] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-04 19:21:33] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-04 19:21:33] [AICB调用] 第1次subprocess调用
+[2026-09-04 19:21:33] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1024, phase=decode
+[2026-09-04 19:21:33] [AICB调用] 第2次subprocess调用
+[2026-09-04 19:21:34] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1025, phase=decode
+[2026-09-04 19:21:34] [AICB调用] 第3次subprocess调用
+[2026-09-04 19:21:34] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1026, phase=decode
+[2026-09-04 19:21:34] [AICB调用] 第4次subprocess调用
+[2026-09-04 19:21:34] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1027, phase=decode
+[2026-09-04 19:21:34] [AICB调用] 第5次subprocess调用
+[2026-09-04 19:21:35] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1028, phase=decode
+[2026-09-04 19:21:35] [AICB调用] 第6次subprocess调用
+[2026-09-04 19:21:35] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1029, phase=decode
+[2026-09-04 19:21:35] [AICB调用] 第7次subprocess调用
+[2026-09-04 19:21:35] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1030, phase=decode
+[2026-09-04 19:21:35] [AICB调用] 第8次subprocess调用
+[2026-09-04 19:21:36] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1031, phase=decode
+[2026-09-04 19:21:36] [AICB调用] 第9次subprocess调用
+[2026-09-04 19:21:36] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1032, phase=decode
+[2026-09-04 19:21:36] [AICB调用] 第10次subprocess调用
+[2026-09-04 19:21:36] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1033, phase=decode
+[2026-09-04 19:21:36] [AICB调用] 第11次subprocess调用
+[2026-09-04 19:21:37] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1034, phase=decode
+[2026-09-04 19:21:37] [AICB调用] 第12次subprocess调用
+[2026-09-04 19:21:37] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1035, phase=decode
+[2026-09-04 19:21:37] [AICB调用] 第13次subprocess调用
+[2026-09-04 19:21:38] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1036, phase=decode
+[2026-09-04 19:21:38] [AICB调用] 第14次subprocess调用
+[2026-09-04 19:21:38] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1037, phase=decode
+[2026-09-04 19:21:38] [AICB调用] 第15次subprocess调用
+[2026-09-04 19:21:38] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1038, phase=decode
+[2026-09-04 19:21:38] [AICB调用] 第16次subprocess调用
+[2026-09-04 19:21:39] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1039, phase=decode
+[2026-09-04 19:21:39] [AICB调用] 第17次subprocess调用
+[2026-09-04 19:21:39] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1040, phase=decode
+[2026-09-04 19:21:39] [AICB调用] 第18次subprocess调用
+[2026-09-04 19:21:39] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1041, phase=decode
+[2026-09-04 19:21:39] [AICB调用] 第19次subprocess调用
+[2026-09-04 19:21:40] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1042, phase=decode
+[2026-09-04 19:21:40] [AICB调用] 第20次subprocess调用
+[2026-09-04 19:21:40] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1043, phase=decode
+[2026-09-04 19:21:40] [AICB调用] 第21次subprocess调用
+[2026-09-04 19:21:41] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1044, phase=decode
+[2026-09-04 19:21:41] [AICB调用] 第22次subprocess调用
+[2026-09-04 19:21:41] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1045, phase=decode
+[2026-09-04 19:21:41] [AICB调用] 第23次subprocess调用
+[2026-09-04 19:21:41] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1046, phase=decode
+[2026-09-04 19:21:41] [AICB调用] 第24次subprocess调用
+[2026-09-04 19:21:42] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1047, phase=decode
+[2026-09-04 19:21:42] [AICB调用] 第25次subprocess调用
+[2026-09-04 19:21:42] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1048, phase=decode
+[2026-09-04 19:21:42] [AICB调用] 第26次subprocess调用
+[2026-09-04 19:21:42] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1049, phase=decode
+[2026-09-04 19:21:42] [AICB调用] 第27次subprocess调用
+[2026-09-04 19:21:43] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1050, phase=decode
+[2026-09-04 19:21:43] [AICB调用] 第28次subprocess调用
+[2026-09-04 19:21:43] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1051, phase=decode
+[2026-09-04 19:21:43] [AICB调用] 第29次subprocess调用
+[2026-09-04 19:21:44] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1052, phase=decode
+[2026-09-04 19:21:44] [AICB调用] 第30次subprocess调用
+[2026-09-04 19:21:44] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1053, phase=decode
+[2026-09-04 19:21:44] [AICB调用] 第31次subprocess调用
+[2026-09-04 19:21:44] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1054, phase=decode
+[2026-09-04 19:21:44] [AICB调用] 第32次subprocess调用
+[2026-09-04 19:21:45] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1055, phase=decode
+[2026-09-04 19:21:45] [AICB调用] 第33次subprocess调用
+[2026-09-04 19:21:45] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1056, phase=decode
+[2026-09-04 19:21:45] [AICB调用] 第34次subprocess调用
+[2026-09-04 19:21:45] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1057, phase=decode
+[2026-09-04 19:21:45] [AICB调用] 第35次subprocess调用
+[2026-09-04 19:21:46] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1058, phase=decode
+[2026-09-04 19:21:46] [AICB调用] 第36次subprocess调用
+[2026-09-04 19:21:46] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1059, phase=decode
+[2026-09-04 19:21:46] [AICB调用] 第37次subprocess调用
+[2026-09-04 19:21:46] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1060, phase=decode
+[2026-09-04 19:21:46] [AICB调用] 第38次subprocess调用
+[2026-09-04 19:21:47] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1061, phase=decode
+[2026-09-04 19:21:47] [AICB调用] 第39次subprocess调用
+[2026-09-04 19:21:47] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1062, phase=decode
+[2026-09-04 19:21:47] [AICB调用] 第40次subprocess调用
+[2026-09-04 19:21:47] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1063, phase=decode
+[2026-09-04 19:21:47] [AICB调用] 第41次subprocess调用
+[2026-09-04 19:21:48] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1064, phase=decode
+[2026-09-04 19:21:48] [AICB调用] 第42次subprocess调用
+[2026-09-04 19:21:48] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1065, phase=decode
+[2026-09-04 19:21:48] [AICB调用] 第43次subprocess调用
+[2026-09-04 19:21:48] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1066, phase=decode
+[2026-09-04 19:21:48] [AICB调用] 第44次subprocess调用
+[2026-09-04 19:21:49] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1067, phase=decode
+[2026-09-04 19:21:49] [AICB调用] 第45次subprocess调用
+[2026-09-04 19:21:49] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1068, phase=decode
+[2026-09-04 19:21:49] [AICB调用] 第46次subprocess调用
+[2026-09-04 19:21:49] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1069, phase=decode
+[2026-09-04 19:21:49] [AICB调用] 第47次subprocess调用
+[2026-09-04 19:21:50] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1070, phase=decode
+[2026-09-04 19:21:50] [AICB调用] 第48次subprocess调用
+[2026-09-04 19:21:50] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1071, phase=decode
+[2026-09-04 19:21:50] [AICB调用] 第49次subprocess调用
+[2026-09-04 19:21:50] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1072, phase=decode
+[2026-09-04 19:21:50] [AICB调用] 第50次subprocess调用
+[2026-09-04 19:21:51] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1073, phase=decode
+[2026-09-04 19:21:51] [AICB调用] 第51次subprocess调用
+[2026-09-04 19:21:51] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1074, phase=decode
+[2026-09-04 19:21:51] [AICB调用] 第52次subprocess调用
+[2026-09-04 19:21:51] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1075, phase=decode
+[2026-09-04 19:21:51] [AICB调用] 第53次subprocess调用
+[2026-09-04 19:21:52] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1076, phase=decode
+[2026-09-04 19:21:52] [AICB调用] 第54次subprocess调用
+[2026-09-04 19:21:52] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1077, phase=decode
+[2026-09-04 19:21:52] [AICB调用] 第55次subprocess调用
+[2026-09-04 19:21:52] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1078, phase=decode
+[2026-09-04 19:21:52] [AICB调用] 第56次subprocess调用
+[2026-09-04 19:21:53] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1079, phase=decode
+[2026-09-04 19:21:53] [AICB调用] 第57次subprocess调用
+[2026-09-04 19:21:53] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1080, phase=decode
+[2026-09-04 19:21:53] [AICB调用] 第58次subprocess调用
+[2026-09-04 19:21:53] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1081, phase=decode
+[2026-09-04 19:21:53] [AICB调用] 第59次subprocess调用
+[2026-09-04 19:21:54] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1082, phase=decode
+[2026-09-04 19:21:54] [AICB调用] 第60次subprocess调用
+[2026-09-04 19:21:54] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1083, phase=decode
+[2026-09-04 19:21:54] [AICB调用] 第61次subprocess调用
+[2026-09-04 19:21:55] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1084, phase=decode
+[2026-09-04 19:21:55] [AICB调用] 第62次subprocess调用
+[2026-09-04 19:21:55] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1085, phase=decode
+[2026-09-04 19:21:55] [AICB调用] 第63次subprocess调用
+[2026-09-04 19:21:55] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1086, phase=decode
+[2026-09-04 19:21:55] [AICB调用] 第64次subprocess调用
+[2026-09-04 19:21:56] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1087, phase=decode
+[2026-09-04 19:21:56] [AICB调用] 第65次subprocess调用
+[2026-09-04 19:21:56] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1088, phase=decode
+[2026-09-04 19:21:56] [AICB调用] 第66次subprocess调用
+[2026-09-04 19:21:56] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1089, phase=decode
+[2026-09-04 19:21:56] [AICB调用] 第67次subprocess调用
+[2026-09-04 19:21:57] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1090, phase=decode
+[2026-09-04 19:21:57] [AICB调用] 第68次subprocess调用
+[2026-09-04 19:21:57] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1091, phase=decode
+[2026-09-04 19:21:57] [AICB调用] 第69次subprocess调用
+[2026-09-04 19:21:57] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1092, phase=decode
+[2026-09-04 19:21:57] [AICB调用] 第70次subprocess调用
+[2026-09-04 19:21:58] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1093, phase=decode
+[2026-09-04 19:21:58] [AICB调用] 第71次subprocess调用
+[2026-09-04 19:21:58] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1094, phase=decode
+[2026-09-04 19:21:58] [AICB调用] 第72次subprocess调用
+[2026-09-04 19:21:58] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1095, phase=decode
+[2026-09-04 19:21:58] [AICB调用] 第73次subprocess调用
+[2026-09-04 19:21:59] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1096, phase=decode
+[2026-09-04 19:21:59] [AICB调用] 第74次subprocess调用
+[2026-09-04 19:21:59] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1097, phase=decode
+[2026-09-04 19:21:59] [AICB调用] 第75次subprocess调用
+[2026-09-04 19:21:59] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1098, phase=decode
+[2026-09-04 19:21:59] [AICB调用] 第76次subprocess调用
+[2026-09-04 19:22:00] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=1099, phase=decode
+[2026-09-04 19:22:00] [AICB调用] 第77次subprocess调用
+[2026-09-07 21:21:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-07 21:22:56] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-07 21:26:04] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-07 21:27:12] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:12] [AICB调用] 第1次subprocess调用
+[2026-09-07 21:27:12] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:12] [AICB调用] 第2次subprocess调用
+[2026-09-07 21:27:12] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:12] [AICB调用] 第3次subprocess调用
+[2026-09-07 21:27:13] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:13] [AICB调用] 第4次subprocess调用
+[2026-09-07 21:27:13] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:13] [AICB调用] 第5次subprocess调用
+[2026-09-07 21:27:13] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:13] [AICB调用] 第6次subprocess调用
+[2026-09-07 21:27:14] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:14] [AICB调用] 第7次subprocess调用
+[2026-09-07 21:27:14] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:14] [AICB调用] 第8次subprocess调用
+[2026-09-07 21:27:14] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:14] [AICB调用] 第9次subprocess调用
+[2026-09-07 21:27:15] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:15] [AICB调用] 第10次subprocess调用
+[2026-09-07 21:27:15] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:15] [AICB调用] 第11次subprocess调用
+[2026-09-07 21:27:15] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:15] [AICB调用] 第12次subprocess调用
+[2026-09-07 21:27:16] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:16] [AICB调用] 第13次subprocess调用
+[2026-09-07 21:27:16] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:16] [AICB调用] 第14次subprocess调用
+[2026-09-07 21:27:17] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:17] [AICB调用] 第15次subprocess调用
+[2026-09-07 21:27:17] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:17] [AICB调用] 第16次subprocess调用
+[2026-09-07 21:27:17] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:17] [AICB调用] 第17次subprocess调用
+[2026-09-07 21:27:18] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:18] [AICB调用] 第18次subprocess调用
+[2026-09-07 21:27:18] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:18] [AICB调用] 第19次subprocess调用
+[2026-09-07 21:27:19] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:19] [AICB调用] 第20次subprocess调用
+[2026-09-07 21:27:19] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:19] [AICB调用] 第21次subprocess调用
+[2026-09-07 21:27:19] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:19] [AICB调用] 第22次subprocess调用
+[2026-09-07 21:27:20] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:20] [AICB调用] 第23次subprocess调用
+[2026-09-07 21:27:20] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:20] [AICB调用] 第24次subprocess调用
+[2026-09-07 21:27:21] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:21] [AICB调用] 第25次subprocess调用
+[2026-09-07 21:27:21] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:21] [AICB调用] 第26次subprocess调用
+[2026-09-07 21:27:21] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:21] [AICB调用] 第27次subprocess调用
+[2026-09-07 21:27:22] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:22] [AICB调用] 第28次subprocess调用
+[2026-09-07 21:27:22] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:22] [AICB调用] 第29次subprocess调用
+[2026-09-07 21:27:22] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:22] [AICB调用] 第30次subprocess调用
+[2026-09-07 21:27:23] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:23] [AICB调用] 第31次subprocess调用
+[2026-09-07 21:27:23] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-07 21:27:23] [AICB调用] 第32次subprocess调用
+[2026-09-07 21:27:23] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16384, phase=decode
+[2026-09-07 21:27:23] [AICB调用] 第33次subprocess调用
+[2026-09-07 21:27:24] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16385, phase=decode
+[2026-09-07 21:27:24] [AICB调用] 第34次subprocess调用
+[2026-09-07 21:27:24] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16386, phase=decode
+[2026-09-07 21:27:24] [AICB调用] 第35次subprocess调用
+[2026-09-07 21:27:24] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16387, phase=decode
+[2026-09-07 21:27:24] [AICB调用] 第36次subprocess调用
+[2026-09-07 21:27:25] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16388, phase=decode
+[2026-09-07 21:27:25] [AICB调用] 第37次subprocess调用
+[2026-09-07 21:27:25] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16389, phase=decode
+[2026-09-07 21:27:25] [AICB调用] 第38次subprocess调用
+[2026-09-07 21:27:25] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16390, phase=decode
+[2026-09-07 21:27:25] [AICB调用] 第39次subprocess调用
+[2026-09-07 21:27:26] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16391, phase=decode
+[2026-09-07 21:27:26] [AICB调用] 第40次subprocess调用
+[2026-09-07 21:27:26] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16392, phase=decode
+[2026-09-07 21:27:26] [AICB调用] 第41次subprocess调用
+[2026-09-07 21:27:27] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16393, phase=decode
+[2026-09-07 21:27:27] [AICB调用] 第42次subprocess调用
+[2026-09-07 21:27:27] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16394, phase=decode
+[2026-09-07 21:27:27] [AICB调用] 第43次subprocess调用
+[2026-09-07 21:27:27] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16395, phase=decode
+[2026-09-07 21:27:27] [AICB调用] 第44次subprocess调用
+[2026-09-07 21:27:28] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16396, phase=decode
+[2026-09-07 21:27:28] [AICB调用] 第45次subprocess调用
+[2026-09-07 21:27:28] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16397, phase=decode
+[2026-09-07 21:27:28] [AICB调用] 第46次subprocess调用
+[2026-09-07 21:27:28] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16398, phase=decode
+[2026-09-07 21:27:28] [AICB调用] 第47次subprocess调用
+[2026-09-07 21:27:29] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16399, phase=decode
+[2026-09-07 21:27:29] [AICB调用] 第48次subprocess调用
+[2026-09-07 21:27:29] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16400, phase=decode
+[2026-09-07 21:27:29] [AICB调用] 第49次subprocess调用
+[2026-09-07 21:27:29] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16401, phase=decode
+[2026-09-07 21:27:29] [AICB调用] 第50次subprocess调用
+[2026-09-07 21:27:30] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16402, phase=decode
+[2026-09-07 21:27:30] [AICB调用] 第51次subprocess调用
+[2026-09-07 21:27:30] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16403, phase=decode
+[2026-09-07 21:27:30] [AICB调用] 第52次subprocess调用
+[2026-09-07 21:27:30] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16404, phase=decode
+[2026-09-07 21:27:30] [AICB调用] 第53次subprocess调用
+[2026-09-07 21:27:31] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16405, phase=decode
+[2026-09-07 21:27:31] [AICB调用] 第54次subprocess调用
+[2026-09-07 21:27:31] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16406, phase=decode
+[2026-09-07 21:27:31] [AICB调用] 第55次subprocess调用
+[2026-09-07 21:27:31] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16407, phase=decode
+[2026-09-07 21:27:31] [AICB调用] 第56次subprocess调用
+[2026-09-07 21:27:32] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16408, phase=decode
+[2026-09-07 21:27:32] [AICB调用] 第57次subprocess调用
+[2026-09-07 21:27:32] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16409, phase=decode
+[2026-09-07 21:27:32] [AICB调用] 第58次subprocess调用
+[2026-09-07 21:27:32] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16410, phase=decode
+[2026-09-07 21:27:32] [AICB调用] 第59次subprocess调用
+[2026-09-07 21:27:33] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16411, phase=decode
+[2026-09-07 21:27:33] [AICB调用] 第60次subprocess调用
+[2026-09-07 21:27:33] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16412, phase=decode
+[2026-09-07 21:27:33] [AICB调用] 第61次subprocess调用
+[2026-09-07 21:27:34] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16413, phase=decode
+[2026-09-07 21:27:34] [AICB调用] 第62次subprocess调用
+[2026-09-07 21:27:34] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16414, phase=decode
+[2026-09-07 21:27:34] [AICB调用] 第63次subprocess调用
+[2026-09-07 21:27:34] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16415, phase=decode
+[2026-09-07 21:27:34] [AICB调用] 第64次subprocess调用
+[2026-09-07 21:27:35] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16416, phase=decode
+[2026-09-07 21:27:35] [AICB调用] 第65次subprocess调用
+[2026-09-07 21:27:35] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16417, phase=decode
+[2026-09-07 21:27:35] [AICB调用] 第66次subprocess调用
+[2026-09-07 21:27:35] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16418, phase=decode
+[2026-09-07 21:27:35] [AICB调用] 第67次subprocess调用
+[2026-09-07 21:27:36] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16419, phase=decode
+[2026-09-07 21:27:36] [AICB调用] 第68次subprocess调用
+[2026-09-07 21:27:36] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16420, phase=decode
+[2026-09-07 21:27:36] [AICB调用] 第69次subprocess调用
+[2026-09-07 21:27:36] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16421, phase=decode
+[2026-09-07 21:27:36] [AICB调用] 第70次subprocess调用
+[2026-09-07 21:27:37] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16422, phase=decode
+[2026-09-07 21:27:37] [AICB调用] 第71次subprocess调用
+[2026-09-07 21:27:37] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16423, phase=decode
+[2026-09-07 21:27:37] [AICB调用] 第72次subprocess调用
+[2026-09-07 21:27:37] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16424, phase=decode
+[2026-09-07 21:27:37] [AICB调用] 第73次subprocess调用
+[2026-09-07 21:27:38] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16425, phase=decode
+[2026-09-07 21:27:38] [AICB调用] 第74次subprocess调用
+[2026-09-07 21:27:38] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16426, phase=decode
+[2026-09-07 21:27:38] [AICB调用] 第75次subprocess调用
+[2026-09-07 21:27:38] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16427, phase=decode
+[2026-09-07 21:27:38] [AICB调用] 第76次subprocess调用
+[2026-09-07 21:27:39] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16428, phase=decode
+[2026-09-07 21:27:39] [AICB调用] 第77次subprocess调用
+[2026-09-07 21:27:39] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16429, phase=decode
+[2026-09-07 21:27:39] [AICB调用] 第78次subprocess调用
+[2026-09-07 21:27:39] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16430, phase=decode
+[2026-09-07 21:27:39] [AICB调用] 第79次subprocess调用
+[2026-09-07 21:27:40] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16431, phase=decode
+[2026-09-07 21:27:40] [AICB调用] 第80次subprocess调用
+[2026-09-07 21:27:40] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16432, phase=decode
+[2026-09-07 21:27:40] [AICB调用] 第81次subprocess调用
+[2026-09-07 21:27:40] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16433, phase=decode
+[2026-09-07 21:27:40] [AICB调用] 第82次subprocess调用
+[2026-09-07 21:27:41] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16434, phase=decode
+[2026-09-07 21:27:41] [AICB调用] 第83次subprocess调用
+[2026-09-07 21:27:41] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16435, phase=decode
+[2026-09-07 21:27:41] [AICB调用] 第84次subprocess调用
+[2026-09-07 21:27:41] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16436, phase=decode
+[2026-09-07 21:27:41] [AICB调用] 第85次subprocess调用
+[2026-09-07 21:27:42] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16437, phase=decode
+[2026-09-07 21:27:42] [AICB调用] 第86次subprocess调用
+[2026-09-07 21:27:42] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16438, phase=decode
+[2026-09-07 21:27:42] [AICB调用] 第87次subprocess调用
+[2026-09-07 21:27:42] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16439, phase=decode
+[2026-09-07 21:27:42] [AICB调用] 第88次subprocess调用
+[2026-09-07 21:27:43] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16440, phase=decode
+[2026-09-07 21:27:43] [AICB调用] 第89次subprocess调用
+[2026-09-07 21:27:43] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16441, phase=decode
+[2026-09-07 21:27:43] [AICB调用] 第90次subprocess调用
+[2026-09-07 21:27:43] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16442, phase=decode
+[2026-09-07 21:27:43] [AICB调用] 第91次subprocess调用
+[2026-09-07 21:27:44] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16443, phase=decode
+[2026-09-07 21:27:44] [AICB调用] 第92次subprocess调用
+[2026-09-07 21:27:44] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16444, phase=decode
+[2026-09-07 21:27:44] [AICB调用] 第93次subprocess调用
+[2026-09-07 21:27:44] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16445, phase=decode
+[2026-09-07 21:27:44] [AICB调用] 第94次subprocess调用
+[2026-09-07 21:27:45] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16446, phase=decode
+[2026-09-07 21:27:45] [AICB调用] 第95次subprocess调用
+[2026-09-07 21:27:45] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16447, phase=decode
+[2026-09-07 21:27:45] [AICB调用] 第96次subprocess调用
+[2026-09-07 21:27:45] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16448, phase=decode
+[2026-09-07 21:27:45] [AICB调用] 第97次subprocess调用
+[2026-09-07 21:27:46] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16449, phase=decode
+[2026-09-07 21:27:46] [AICB调用] 第98次subprocess调用
+[2026-09-07 21:27:46] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16450, phase=decode
+[2026-09-07 21:27:46] [AICB调用] 第99次subprocess调用
+[2026-09-07 21:27:46] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16451, phase=decode
+[2026-09-07 21:27:46] [AICB调用] 第100次subprocess调用
+[2026-09-07 21:27:47] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16452, phase=decode
+[2026-09-07 21:27:47] [AICB调用] 第101次subprocess调用
+[2026-09-07 21:27:47] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16453, phase=decode
+[2026-09-07 21:27:47] [AICB调用] 第102次subprocess调用
+[2026-09-07 21:27:47] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16454, phase=decode
+[2026-09-07 21:27:47] [AICB调用] 第103次subprocess调用
+[2026-09-07 21:27:48] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=1, pp=1, ep=4, bs=1, seq=16455, phase=decode
+[2026-09-07 21:27:48] [AICB调用] 第104次subprocess调用
+[2026-09-08 18:45:59] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-08 18:46:09] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=2, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-08 18:46:09] [AICB调用] 第1次subprocess调用
+[2026-09-08 18:46:10] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=2, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-08 18:46:10] [AICB调用] 第2次subprocess调用
+[2026-09-08 18:46:10] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=2, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-08 18:46:10] [AICB调用] 第3次subprocess调用
+[2026-09-08 18:46:10] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=2, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-08 18:46:10] [AICB调用] 第4次subprocess调用
+[2026-09-08 18:46:11] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=2, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-08 18:46:11] [AICB调用] 第5次subprocess调用
+[2026-09-08 18:46:11] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=2, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-08 18:46:11] [AICB调用] 第6次subprocess调用
+[2026-09-08 18:46:11] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=2, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-08 18:46:11] [AICB调用] 第7次subprocess调用
+[2026-09-08 18:46:11] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=2, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-08 18:46:11] [AICB调用] 第8次subprocess调用
+[2026-09-08 18:46:12] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=2, pp=1, ep=4, bs=1, seq=4096, phase=decode
+[2026-09-08 18:46:12] [AICB调用] 第9次subprocess调用
+[2026-09-08 18:48:44] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-08 18:48:52] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=2, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-08 18:48:52] [AICB调用] 第1次subprocess调用
+[2026-09-08 18:48:53] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=2, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-08 18:48:53] [AICB调用] 第2次subprocess调用
+[2026-09-08 18:48:53] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=2, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-08 18:48:53] [AICB调用] 第3次subprocess调用
+[2026-09-08 18:48:53] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=2, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-08 18:48:53] [AICB调用] 第4次subprocess调用
+[2026-09-08 18:48:54] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=2, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-08 18:48:54] [AICB调用] 第5次subprocess调用
+[2026-09-08 18:48:54] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=2, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-08 18:48:54] [AICB调用] 第6次subprocess调用
+[2026-09-08 18:48:54] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=2, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-08 18:48:54] [AICB调用] 第7次subprocess调用
+[2026-09-08 18:48:54] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=2, pp=1, ep=4, bs=0, seq=0, phase=decode
+[2026-09-08 18:48:54] [AICB调用] 第8次subprocess调用
+[2026-09-08 18:48:55] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=2, pp=1, ep=4, bs=1, seq=4096, phase=decode
+[2026-09-08 18:48:55] [AICB调用] 第9次subprocess调用
+[2026-09-08 18:48:55] [未命中] key=model=Qwen3-Next-80B, ws=4, tp=2, pp=1, ep=4, bs=1, seq=4097, phase=decode
+[2026-09-08 18:48:55] [AICB调用] 第10次subprocess调用
+[2026-09-09 15:09:23] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-09 15:09:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-09 15:09:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-09 15:09:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-09 15:09:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-09 15:09:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-09 15:09:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-09 15:09:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-09 15:09:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-09 15:09:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-09 15:09:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-09 15:09:26] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-09 15:09:27] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-09 15:14:55] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-09 15:14:56] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-09 15:14:57] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-09 15:14:57] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-09 15:16:23] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-09 15:16:24] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-09 15:17:12] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-09 15:17:12] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-14 11:20:39] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-14 11:24:27] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-14 11:24:30] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-14 11:24:30] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-14 11:32:47] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-14 11:32:52] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-14 11:32:52] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-14 11:32:55] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-14 11:32:59] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-14 11:32:59] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-14 11:33:04] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-14 11:33:08] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-14 11:33:08] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-14 11:33:12] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-14 11:33:12] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-14 11:33:12] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-14 11:33:18] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-14 11:33:22] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-14 11:33:22] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
+[2026-09-14 11:33:27] AICBGlobalCache 初始化完成, 缓存目录: /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/cache
+[2026-09-14 11:33:31] 统计: hits=0, interp=0, calls=0, entries=0
+[2026-09-14 11:33:31] 查表索引已保存到 /home/changle/SimAI/vidur-alibabacloud/data/aicb_workload/lookup_table.json
