@@ -5,6 +5,7 @@ import os
 import pandas as pd
 import ray
 from tqdm import tqdm
+import numpy as np
 
 from vidur.logger import init_logger
 from vidur.profiling.collectives.benchmark_runner import BenchmarkRunner
@@ -41,7 +42,15 @@ def parse_args():
         choices=["all_reduce", "send_recv","all_gather","reduce_scatter","all_to_all","broadcast"],
         help="Collective to profile",
     )
+    parser.add_argument(
+        "--num_profile_rounds",
+        type=int,
+        default=None,
+        help="Independent profiling rounds per size/layout; defaults to 60 for send_recv, ACTIVE_STEPS otherwise",
+    )
     args = parser.parse_args()
+    if args.num_profile_rounds is not None and args.num_profile_rounds < 1:
+        parser.error("--num_profile_rounds must be a positive integer")
 
     # 比如: args.output_dir = 'profiling_outputs/collective/2025-10-15_08-22-57'
     args.output_dir = f"{args.output_dir}/collective/{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}"
@@ -50,7 +59,7 @@ def parse_args():
     return args
 
 
-def create_runner_pool():
+def create_runner_pool(num_profile_rounds=None):
     total_gpus_available = int(ray.cluster_resources()["GPU"])
     logger.info(f"Total GPUs available: {total_gpus_available}")
 
@@ -72,7 +81,10 @@ def create_runner_pool():
                 resources={
                     f"node:{node_ip}": 0.01,
                 }
-            ).remote(gpu_id, gpus_per_node, all_node_ips[0])
+            ).remote(
+                gpu_id, gpus_per_node, all_node_ips[0],
+                num_profile_rounds=num_profile_rounds,
+            )
         )
     return total_gpus_available, num_nodes, runner_pool
 
@@ -82,7 +94,9 @@ def main():
 
     ray.init()
 
-    total_gpus_available, num_nodes, runner_pool = create_runner_pool()
+    total_gpus_available, num_nodes, runner_pool = create_runner_pool(
+        num_profile_rounds=args.num_profile_rounds
+    )
 
     all_results = []
 
@@ -100,12 +114,38 @@ def main():
             promise = runner_pool[gpu_id].run_collective.remote(collectives_input)
             promises.append(promise)
 
-        for gpu_id in range(int(total_gpus_available)):
-            result = ray.get([promises[gpu_id]])[0]
-            if result and gpu_id == 0:
-                all_results.append(result)
+        results = ray.get(promises)
+        valid_results = [r for r in results if r is not None]
 
-        ray.get(promises)
+        if valid_results:
+            assert len(valid_results) == collectives_input.num_workers
+            assert len({len(r["round_times"]) for r in valid_results}) == 1
+
+            # 行是 rank，列是轮次
+            samples = np.asarray(
+                [r["round_times"] for r in valid_results],
+                dtype=float,
+            )
+            assert samples.shape[1] > 0
+            assert np.isfinite(samples).all()
+
+            # 每一轮取所有 rank 中最大的耗时
+            round_max = samples.max(axis=0)
+
+            result = valid_results[0].copy()
+            result.pop("round_times")
+            result["rank"] = -1  # 表示跨 rank 汇总结果
+
+            result["time_stats"] = {
+                args.collective: {
+                    "min": float(round_max.min()),
+                    "max": float(round_max.max()),
+                    "mean": float(round_max.mean()),
+                    "median": float(np.median(round_max)),
+                    "std": float(round_max.std()),
+                }
+            }
+            all_results.append(result)
 
     # filter none results
     all_results = [x for x in all_results if x is not None]

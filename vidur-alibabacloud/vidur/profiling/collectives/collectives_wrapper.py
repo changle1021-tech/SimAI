@@ -6,9 +6,22 @@ from vidur.profiling.common.cuda_timer import CudaTimer
 from vidur.profiling.common.timer_stats_store import TimerStatsStore
 
 WARMUP_STEPS = 1
-ACTIVE_STEPS = 3
+ACTIVE_STEPS = 60
+SEND_RECV_PROFILE_ROUNDS = 60
 GRAPH_DISABLED_STEPS = 10
 DISABLE_GRAPH = True
+
+
+def resolve_num_profile_rounds(collective, num_profile_rounds=None):
+    if num_profile_rounds is None:
+        return SEND_RECV_PROFILE_ROUNDS if collective == "send_recv" else ACTIVE_STEPS
+    if (
+        isinstance(num_profile_rounds, bool)
+        or not isinstance(num_profile_rounds, int)
+        or num_profile_rounds < 1
+    ):
+        raise ValueError("num_profile_rounds must be a positive integer")
+    return num_profile_rounds
 
 
 class CollectiveWrapper:
@@ -21,6 +34,7 @@ class CollectiveWrapper:
         collective: str,
         devices_per_node: int,
         max_devices_per_node: int,
+        num_profile_rounds=None,
     ) -> None:
         self._rank = rank
         self._num_workers = num_workers
@@ -29,6 +43,9 @@ class CollectiveWrapper:
         self._collective = collective
         self._devices_per_node = devices_per_node
         self._max_devices_per_node = max_devices_per_node
+        self._num_profile_rounds = resolve_num_profile_rounds(
+            collective, num_profile_rounds
+        )
 
         self._graphed_collective = GraphedCollective(
             num_workers, size, collective=collective, disable_graph=DISABLE_GRAPH
@@ -56,11 +73,15 @@ class CollectiveWrapper:
 
     def profile(self):
         self.timer_stats_store.clear_stats()
-        for _ in range(ACTIVE_STEPS):
+        for _ in range(self._num_profile_rounds):
             self._run_collective()
 
         return {
             "time_stats": self.timer_stats_store.get_stats(),
+            "round_times": [
+                float(t)
+                for t in self.timer_stats_store.TIMING_STATS[self._collective]
+            ],
             "rank": self._rank,
             "num_workers": self._num_workers,
             "size": self._size * 2,  # bytes

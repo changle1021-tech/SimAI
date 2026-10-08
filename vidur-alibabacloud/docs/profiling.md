@@ -107,13 +107,16 @@ Currently available data include:
 
     ```bash
         python vidur/profiling/collectives/main.py \
-        --num_workers_per_node_combinations 1,2,4,8 \
-        --collective send_recv
+        --num_workers_per_node_combinations 1 2 \
+        --collective send_recv \
+        --num_profile_rounds 60
     ```
 
     - Typically, PP is done across nodes so `num_workers_per_node_combinations` should be the same as the number of GPUs available in one node. Profiling `num_workers_per_node_combinations` less than the number of GPUs in the node to have PP inside a node. This can be useful when each gpu is not connected to every other gpu using the same high speed link.
     - Copy the CSV file from `profiling_outputs/collectives/<timestamp>/send_recv.csv` to `data/profiling/network/{network_device}/send_recv.csv`.
     - `network_device` is an informal name for the network configuration of the node. Eg: `a100_pair_nvlink`, `a100_dgx`, `h100_dgx` etc.
+
+    - `send_recv` defaults to 60 profiling rounds per size/layout. An explicit positive `--num_profile_rounds` overrides this default. Each round takes the median NCCL event duration; `time_stats.send_recv.mean` averages those round timings in milliseconds and is the send/recv random forest training target. Reprofile existing tables to obtain a 60-round average. Other collectives retain their existing defaults and training targets.
 
 ## CPU Overhead Profiling
 

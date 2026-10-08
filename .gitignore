@@ -26,3 +26,11 @@ astra-sim-alibabacloud/inputs/topo/Rail_Opti_SingleToR_*
 *.swp
 *.swo
 *~
+
+# BEGIN Codex TP/PP alignment generated files
+# Keep requested source, tests, docs and profiling inputs trackable.
+/artifacts/alignment_20261007/*
+!/artifacts/alignment_20261007/PROGRESS.md
+!/artifacts/alignment_20261007/ASYNC_PATH_FIX_REPORT.md
+/vidur-alibabacloud/benchmark_runs/
+# END Codex TP/PP alignment generated files

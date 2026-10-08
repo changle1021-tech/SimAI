@@ -83,6 +83,7 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
             self._send_recv_input_file,
             self._cpu_overhead_input_file,
         ) = self._get_input_files()
+        self._model_training_hashes = {}
 
         # print(f"> Debug: start self._models = self._train_models() \
             # and self._predictions = self._predict_from_models()")
@@ -368,7 +369,9 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
     def _get_estimator(self) -> BaseEstimator:
         pass
 
-    def _get_model_hash(self, model_name: str, df: pd.DataFrame = None) -> str:
+    def _get_model_hash(
+        self, model_name: str, df: pd.DataFrame = None, target_col: str = None
+    ) -> str:
         config_str = str(self.to_dict())
 
         if df is None:
@@ -377,6 +380,8 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
             df_hash_str = hashlib.md5(df.to_json().encode("utf-8")).hexdigest()
             combined_str = f"{config_str}_{model_name}_{df_hash_str}"
 
+        if target_col is not None:
+            combined_str += f"_target={target_col}"
         return hashlib.md5(combined_str.encode("utf-8")).hexdigest()[0:8]
 
     def _load_model_from_cache(self, model_name: str, model_hash: str) -> BaseEstimator:
@@ -434,7 +439,8 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
         if len(df) == 0:
             raise Exception(f"Training data for model {model_name} is empty")
 
-        model_hash = self._get_model_hash(model_name, df)
+        model_hash = self._get_model_hash(model_name, df, target_col=target_col)
+        self._model_training_hashes[model_name] = model_hash
 
         cached_model = self._load_model_from_cache(model_name, model_hash)
         if cached_model:
@@ -514,7 +520,13 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
     ) -> Dict[Tuple, float]:
         X = X.copy()
 
-        model_hash = self._get_model_hash(model, df=None)
+        training_hash = self._model_training_hashes.get(model_name)
+        if training_hash is None:
+            training_hash = hashlib.md5(
+                pickle.dumps(model, protocol=pickle.HIGHEST_PROTOCOL)
+            ).hexdigest()
+        prediction_key = f"{training_hash}_{X.to_json()}"
+        model_hash = hashlib.md5(prediction_key.encode("utf-8")).hexdigest()[0:8]
 
         cached_predictions = self._load_model_predication_cache(model_name, model_hash)
         if cached_predictions:
@@ -594,7 +606,7 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
                 model_name="send_recv",
                 df=send_recv_df,
                 feature_cols=["num_tokens"],
-                target_col="time_stats.send_recv.median",
+                target_col="time_stats.send_recv.mean",
             )
 
         if self._replica_config.tensor_parallel_size > 1:
@@ -605,7 +617,7 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
                 model_name="all_reduce",
                 df=all_reduce_df,
                 feature_cols=["num_tokens"],
-                target_col="time_stats.all_reduce.median",
+                target_col="time_stats.all_reduce.mean",
             )
 
         return models
