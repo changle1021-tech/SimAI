@@ -53,7 +53,7 @@ class BaseExecutionTimePredictor(ABC):
             pipeline_parallel_communication_time = (
                 # 这里PP没有考虑async io
                 # PP does not consider async IO here
-                self._get_pipeline_parallel_communication_time(batch)
+                self._get_pipeline_parallel_communication_time(batch, pipeline_stage)
             )
 
         # CPU overhead is measured per batch, not per pipeline stage.
@@ -89,7 +89,7 @@ class BaseExecutionTimePredictor(ABC):
                 # If simai backend returns -1, fall back to vidur's lookup table method
                 # 如果 simai 后端返回 -1，则调用 vidur 的查表方法 
                 if tensor_parallel_communication_time == -1:
-                    tensor_parallel_communication_time = self._get_tensor_parallel_communication_time(batch)
+                    tensor_parallel_communication_time = self._get_tensor_parallel_communication_time(batch, pipeline_stage)
                     
             # elif self._config.simai_analytical_enable:
             elif self._config.backend == "simai_analytical":
@@ -99,7 +99,7 @@ class BaseExecutionTimePredictor(ABC):
                 # If simai backend returns -1, fall back to vidur's lookup table method
                 # 如果 simai 后端返回 -1，则调用 vidur 的查表方法 
                 if tensor_parallel_communication_time == -1:
-                    tensor_parallel_communication_time = self._get_tensor_parallel_communication_time(batch)
+                    tensor_parallel_communication_time = self._get_tensor_parallel_communication_time(batch, pipeline_stage)
             
             elif self._config.backend == "aicb":
                 # TODO(tianhao909): add TP communication support for AICB backend
@@ -107,7 +107,7 @@ class BaseExecutionTimePredictor(ABC):
                 tensor_parallel_communication_time = 0
             else:
                 assert self._config.backend == "vidur", "backend must be one of: simai_simulation, simai_analytical, aicb, vidur"
-                tensor_parallel_communication_time = self._get_tensor_parallel_communication_time(batch)
+                tensor_parallel_communication_time = self._get_tensor_parallel_communication_time(batch, pipeline_stage)
 
         if self._config.backend == "aicb":
             # ============================================================
@@ -310,11 +310,11 @@ class BaseExecutionTimePredictor(ABC):
         pass
 
     @abstractmethod
-    def _get_tensor_parallel_communication_time(self, batch: Batch) -> float:
+    def _get_tensor_parallel_communication_time(self, batch: Batch, pipeline_stage: int = 0) -> float:
         pass
 
     @abstractmethod
-    def _get_pipeline_parallel_communication_time(self, batch: Batch) -> float:
+    def _get_pipeline_parallel_communication_time(self, batch: Batch, pipeline_stage: int = 0) -> float:
         pass
 
     @abstractmethod

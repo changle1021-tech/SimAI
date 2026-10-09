@@ -177,7 +177,9 @@ class PredictorTargetTests(unittest.TestCase):
                 return object()
             def _load_attention_df(self, _): return object()
             def _get_attention_df_with_derived_features(self, df): return df
-            def _load_send_recv_df(self, _): return object()
+            def _communication_profiles(self, collective):
+                return {"send_recv": 1} if collective == "send_recv" else {}
+            def _load_send_recv_df(self, _, devices_per_node=None): return object()
             def _get_send_recv_df_with_derived_features(self, df): return df
 
         harness = PredictorHarness()

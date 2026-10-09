@@ -10,6 +10,7 @@ from vidur.config.device_sku_config import BaseDeviceSKUConfig
 from vidur.config.flat_dataclass import create_flat_dataclass
 from vidur.config.model_config import BaseModelConfig
 from vidur.config.node_sku_config import BaseNodeSKUConfig
+from vidur.config.replica_placement import ReplicaPlacement
 from vidur.config.utils import dataclass_to_dict
 from vidur.logger import init_logger
 from vidur.types import (
@@ -464,6 +465,14 @@ class ReplicaConfig:
         default="a100_pairwise_nvlink",
         metadata={"help": "Network device."},
     )
+    num_nodes: Optional[int] = field(
+        default=None,
+        metadata={"help": "Available nodes per replica. Inferred from TP * PP and GPUs per node when omitted."},
+    )
+    num_gpus_per_node: Optional[int] = field(
+        default=None,
+        metadata={"help": "Usable GPUs per node per replica. Defaults to the network device SKU capacity."},
+    )
     
     # >
     pd_p2p_comm_bandwidth: int = field(
@@ -561,6 +570,10 @@ class ReplicaConfig:
         # Base world_size: per-replica GPU count (excluding dp)
         # 基础 world_size: per-replica 的 GPU 数 (不含 dp)
         self.world_size = self.num_pipeline_stages * self.tensor_parallel_size
+        for name in ("tensor_parallel_size", "num_pipeline_stages", "num_nodes", "num_gpus_per_node"):
+            value = getattr(self, name)
+            if value is not None and (type(value) is not int or value <= 0):
+                raise ValueError(f"{name} must be a positive integer, got {value!r}")
         
         # ============================================================
         # [EP] Reject user-specified EP != world_size, then auto-set
@@ -597,6 +610,20 @@ class ReplicaConfig:
         self.node_config: BaseNodeSKUConfig = BaseNodeSKUConfig.create_from_type_string(
             self.network_device
         )
+        if self.num_gpus_per_node is not None and self.num_gpus_per_node > self.node_config.num_devices_per_node:
+            raise ValueError(
+                f"num_gpus_per_node={self.num_gpus_per_node} exceeds "
+                f"{self.network_device} capacity ({self.node_config.num_devices_per_node})"
+            )
+        # Validate capacity immediately; the property also follows copied phase configs.
+        self.placement
+
+    @property
+    def placement(self) -> ReplicaPlacement:
+        gpus = self.num_gpus_per_node or self.node_config.num_devices_per_node
+        world_size = self.tensor_parallel_size * self.num_pipeline_stages
+        nodes = self.num_nodes if self.num_nodes is not None else (world_size + gpus - 1) // gpus
+        return ReplicaPlacement(self.tensor_parallel_size, self.num_pipeline_stages, nodes, gpus)
 
 
 @dataclass

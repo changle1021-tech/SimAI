@@ -52,6 +52,28 @@ class TPTimePredictor:
         # self.workload_path = '/disk2/futianhao/software3/sim-ai-inference-n/simulator_output/tmp_simai_workload'
         self.cache: Dict[int, float] = {}
 
+    def _placement_cache_key(self):
+        placement = self.replica_config.placement
+        return (placement.tensor_parallel_size, placement.num_pipeline_stages,
+                placement.num_nodes, placement.gpus_per_node, self.num_layers_per_pp_stage)
+
+    def _validate_topology_placement(self, topo):
+        if self.replica_config.num_nodes is None and self.replica_config.num_gpus_per_node is None:
+            return
+        with open(topo, encoding="utf-8") as stream:
+            header = stream.readline().split()
+        if len(header) < 5:
+            raise ValueError(f"Invalid SimAI topology header: {topo}")
+        node_count, gpus_per_server, nvswitch_count, switch_count = map(int, header[:4])
+        placement = self.replica_config.placement
+        if gpus_per_server != placement.gpus_per_node:
+            raise ValueError(
+                f"SimAI topology GPUs per server ({gpus_per_server}) differs from "
+                f"num_gpus_per_node ({placement.gpus_per_node}); supply a matching topology"
+            )
+        if node_count - nvswitch_count - switch_count < placement.world_size:
+            raise ValueError("SimAI topology has fewer GPUs than TP * PP")
+
 
     # > 重写 增加两个功能 复用相同的workload 和 相同command的结果
     # > rewrite: add two features to reuse same workloads and results of same commands
@@ -62,7 +84,7 @@ class TPTimePredictor:
         
         # 使用包含所有相关参数的元组作为缓存键，而不是仅仅使用all_reduce_bytes
         # Use a tuple containing all relevant parameters as cache key instead of just all_reduce_bytes
-        cache_key = (self.hidden_size, num_tokens_in_batch, self.tensor_size)
+        cache_key = (self.hidden_size, num_tokens_in_batch, self.tensor_size, self._placement_cache_key())
         
         # 如果结果已经在缓存中，直接返回
         # If result is already in cache, return directly
@@ -91,7 +113,7 @@ class TPTimePredictor:
             str(self.tensor_size)
         )
         
-        workload_identifier = hashlib.md5(work_item_data.encode()).hexdigest()
+        workload_identifier = hashlib.md5(f"{work_item_data}_{self._placement_cache_key()}".encode()).hexdigest()
         
         
         # 检查是否已经有对应的workload文件
@@ -114,6 +136,7 @@ class TPTimePredictor:
             self.workload.dump_file(workload_file)
         
         topo = os.path.abspath(self.predictor_config.simai_simulation_topo)
+        self._validate_topology_placement(topo)
         conf = os.path.abspath(self.predictor_config.simai_simulation_config)
         
         # 检查是否已经有对应命令的结果缓存
@@ -187,7 +210,7 @@ class TPTimePredictor:
         
         # 使用包含所有相关参数的元组作为缓存键，而不是仅仅使用all_reduce_bytes
         # Use a tuple containing all relevant parameters as cache key instead of just all_reduce_bytes
-        cache_key = (self.hidden_size, num_tokens_in_batch, self.tensor_size)
+        cache_key = (self.hidden_size, num_tokens_in_batch, self.tensor_size, self._placement_cache_key())
         
         # 如果结果已经在缓存中，直接返回
         # If result is already in cache, return directly
@@ -216,7 +239,7 @@ class TPTimePredictor:
         
         # Generate MD5 hash as workload identifier
         # 使用MD5哈希算法生成工作负载标识符
-        workload_identifier = hashlib.md5(work_item_data.encode()).hexdigest()
+        workload_identifier = hashlib.md5(f"{work_item_data}_{self._placement_cache_key()}".encode()).hexdigest()
         
         
         # 检查是否已经有对应的workload文件
@@ -260,7 +283,7 @@ class TPTimePredictor:
             # command = f'AS_SEND_LAT=6 AS_NVLS_ENABLE=1 {self.simai_ns3_binary} -t 16 -w {workload_file} -n {topo} -c {conf}'
             # ./bin/SimAI_analytical -w example/workload_analytical.txt -g 9216 -g_p_s 8 -r test- -busbw example/busbw.yaml
             
-            cmd_g_p_s = 8          
+            cmd_g_p_s = self.replica_config.placement.gpus_per_node
             cmd_r= 'analytical_'    # Result file prefix
             cmd_busbw = f'{self.simai_dir}/example/busbw.yaml'
             # command = f'{self.simai_analytical_binary} -w {workload_file} -g {self.replica_config.world_size} -g_p_s {cmd_g_p_s} -r {cmd_r} -busbw {cmd_busbw}'
@@ -320,4 +343,3 @@ class TPTimePredictor:
             + self.predictor_config.nccl_cpu_launch_overhead_ms
             + self.predictor_config.nccl_cpu_skew_overhead_per_device_ms
             * self.replica_config.tensor_parallel_size**1.25)
-        

@@ -65,16 +65,10 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
         else:
             self._max_tokens = self._config.prediction_max_tokens_per_request
 
-        num_workers = (
-            self._replica_config.num_pipeline_stages
-            * self._replica_config.tensor_parallel_size
+        self._is_multi_node = (
+            self._replica_config.placement.world_size
+            > self._replica_config.placement.gpus_per_node
         )
-        devices_per_node = self._replica_config.node_config.num_devices_per_node
-        assert (
-            num_workers < devices_per_node or num_workers % devices_per_node == 0
-        ), "Number of workers should be less than devices per node or a multiple of devices per node"
-
-        self._is_multi_node = num_workers > devices_per_node
 
         (
             self._compute_input_file,       # mlp
@@ -269,25 +263,56 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
         
         return filtered_df
 
-    def _load_all_reduce_df(self, file_path: str) -> pd.DataFrame:
+    def _communication_profiles(self, collective: str) -> Dict[str, int]:
+        placement = self._replica_config.placement
+        if collective == "all_reduce":
+            if placement.tensor_parallel_size == 1:
+                return {}
+            shapes = {placement.tp_devices_per_node(stage)
+                      for stage in range(placement.num_pipeline_stages)}
+        else:
+            shapes = {placement.pp_devices_per_node(stage)
+                      for stage in range(placement.num_pipeline_stages - 1)}
+        return {(collective if len(shapes) == 1 else f"{collective}_dpn{shape}"): shape
+                for shape in sorted(shapes)}
+
+    def _communication_model_name(self, collective: str, pipeline_stage: int) -> str:
+        placement = self._replica_config.placement
+        shape = (placement.tp_devices_per_node(pipeline_stage) if collective == "all_reduce"
+                 else placement.pp_devices_per_node(pipeline_stage))
+        return next(name for name, devices in self._communication_profiles(collective).items()
+                    if devices == shape)
+
+    def _load_all_reduce_df(self, file_path: str, devices_per_node: int = None) -> pd.DataFrame:
+        if devices_per_node is None:
+            devices_per_node = self._replica_config.placement.tp_devices_per_node(0)
         df = self._read_input_file(file_path)
-        return df[
+        filtered_df = df[
             (df["num_workers"] == self._replica_config.tensor_parallel_size)
-            & (df["devices_per_node"] == self._replica_config.tensor_parallel_size)
+            & (df["devices_per_node"] == devices_per_node)
             & (df["collective"] == "all_reduce")
         ]
+        if filtered_df.empty:
+            raise ValueError(
+                f"Missing all_reduce profile in {file_path}: "
+                f"num_workers={self._replica_config.tensor_parallel_size}, "
+                f"devices_per_node={devices_per_node}"
+            )
+        return filtered_df
 
-    def _load_send_recv_df(self, file_path: str) -> pd.DataFrame:
-        if self._is_multi_node:
-            devices_per_node = 1
-        else:
-            devices_per_node = 2
-
+    def _load_send_recv_df(self, file_path: str, devices_per_node: int = None) -> pd.DataFrame:
+        if devices_per_node is None:
+            devices_per_node = self._replica_config.placement.pp_devices_per_node(0)
         df = self._read_input_file(file_path)
         filtered_df = df[
             (df["collective"] == "send_recv")
+            & (df["num_workers"] == 2)
             & (df["devices_per_node"] == devices_per_node)
         ]
+        if filtered_df.empty:
+            raise ValueError(
+                f"Missing send_recv profile in {file_path}: devices_per_node={devices_per_node}"
+            )
         return filtered_df
 
     def _load_cpu_overhead_df(self, file_path: str) -> pd.DataFrame:
@@ -608,23 +633,23 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
             target_col="time_stats.attn_kv_cache_save.median",
         )
 
-        if self._replica_config.num_pipeline_stages > 1:
-            send_recv_df = self._load_send_recv_df(self._send_recv_input_file)
+        for model_name, devices_per_node in self._communication_profiles("send_recv").items():
+            send_recv_df = self._load_send_recv_df(self._send_recv_input_file, devices_per_node)
             send_recv_df = self._get_send_recv_df_with_derived_features(send_recv_df)
 
-            models["send_recv"] = self._train_model(
-                model_name="send_recv",
+            models[model_name] = self._train_model(
+                model_name=model_name,
                 df=send_recv_df,
                 feature_cols=["num_tokens"],
                 target_col="time_stats.send_recv.mean",
             )
 
-        if self._replica_config.tensor_parallel_size > 1:
-            all_reduce_df = self._load_all_reduce_df(self._all_reduce_input_file)
+        for model_name, devices_per_node in self._communication_profiles("all_reduce").items():
+            all_reduce_df = self._load_all_reduce_df(self._all_reduce_input_file, devices_per_node)
             all_reduce_df = self._get_all_reduce_df_with_derived_features(all_reduce_df)
 
-            models["all_reduce"] = self._train_model(
-                model_name="all_reduce",
+            models[model_name] = self._train_model(
+                model_name=model_name,
                 df=all_reduce_df,
                 feature_cols=["num_tokens"],
                 target_col="time_stats.all_reduce.mean",
@@ -732,12 +757,12 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
         # Add send/recv comm model if pipeline parallelism exists
         # 若存在流水线并行，则加入send/recv通信模型
         if self._replica_config.num_pipeline_stages > 1:
-            model_names.append("send_recv")
+            model_names.extend(self._communication_profiles("send_recv"))
 
         # Add all_reduce comm model if tensor parallelism exists
         # 若存在张量并行，则加入all_reduce通信模型
         if self._replica_config.tensor_parallel_size > 1:
-            model_names.append("all_reduce")
+            model_names.extend(self._communication_profiles("all_reduce"))
 
         # Generate range from 1 to max tokens for batch prediction
         # 生成从1到最大token数的范围，用于批量预测
@@ -794,14 +819,14 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
                     (num_tokens,): 0.0001 + 0.00001 * num_tokens 
                     for num_tokens in num_token_range
                 }
-            elif model_name == "send_recv":
+            elif model_name.startswith("send_recv"):
                 # Send/Recv comm: base 0.01ms, +0.001ms per token
                 # Send/Recv通信：基础时间0.01ms，每token增加0.001ms
                 predictions[model_name] = {
                     (num_tokens,): 0.01 + 0.001 * num_tokens 
                     for num_tokens in num_token_range
                 }
-            elif model_name == "all_reduce":
+            elif model_name.startswith("all_reduce"):
                 # All-reduce comm: base 0.02ms, +0.002ms per token
                 # All-reduce通信：基础时间0.02ms，每token增加0.002ms
                 predictions[model_name] = {
@@ -836,10 +861,10 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
         model_names.extend(["attn_kv_cache_save", "attn_rope"])
 
         if self._replica_config.num_pipeline_stages > 1:
-            model_names.append("send_recv")
+            model_names.extend(self._communication_profiles("send_recv"))
 
         if self._replica_config.tensor_parallel_size > 1:
-            model_names.append("all_reduce")
+            model_names.extend(self._communication_profiles("all_reduce"))
 
         num_token_range = np.arange(1, self._max_tokens + 1)
         X = pd.DataFrame({"num_tokens": num_token_range})
@@ -1283,9 +1308,9 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
     # 模型训练得到的是(num_token -> 单次allreduce time)的映射 
     # Profiling gives the time of a single allreduce operation in bytes
     # Model training produces a mapping of (num_token -> single allreduce time)
-    def _get_tensor_parallel_communication_time(self, batch: Batch) -> float:
+    def _get_tensor_parallel_communication_time(self, batch: Batch, pipeline_stage: int = 0) -> float:
         return (
-            self._predictions["all_reduce"][(batch._total_num_tokens_rounded,)]
+            self._predictions[self._communication_model_name("all_reduce", pipeline_stage)][(batch._total_num_tokens_rounded,)]
             + self._config.nccl_cpu_launch_overhead_ms
             + self._config.nccl_cpu_skew_overhead_per_device_ms
             * self._replica_config.tensor_parallel_size**1.25
@@ -1293,9 +1318,9 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
             # The larger the TP group, the slower the all-reduce, here we use **1.25 to simulate this effect
         )
 
-    def _get_pipeline_parallel_communication_time(self, batch: Batch) -> float:
+    def _get_pipeline_parallel_communication_time(self, batch: Batch, pipeline_stage: int = 0) -> float:
         try:
-            return self._predictions["send_recv"][(batch._total_num_tokens_rounded,)]
+            return self._predictions[self._communication_model_name("send_recv", pipeline_stage)][(batch._total_num_tokens_rounded,)]
         except KeyError as e:
             logger.error(f"Failed to get send_recv prediction for batch {batch}")
             raise e
@@ -1384,6 +1409,9 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
         return {
             "model_provider": str(self._config.get_type()),
             "num_tensor_parallel_workers": self._replica_config.tensor_parallel_size,
+            "num_pipeline_stages": self._replica_config.num_pipeline_stages,
+            "num_nodes": self._replica_config.placement.num_nodes,
+            "gpus_per_node": self._replica_config.placement.gpus_per_node,
             "k_fold_cv_splits": self._config.k_fold_cv_splits,
             "num_q_heads": self._model_config.num_q_heads,
             "num_kv_heads": self._model_config.num_kv_heads,
