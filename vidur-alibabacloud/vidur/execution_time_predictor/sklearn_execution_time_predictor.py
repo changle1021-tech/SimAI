@@ -1309,8 +1309,19 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
     # Profiling gives the time of a single allreduce operation in bytes
     # Model training produces a mapping of (num_token -> single allreduce time)
     def _get_tensor_parallel_communication_time(self, batch: Batch, pipeline_stage: int = 0) -> float:
+        communication_tokens = batch._total_num_tokens_rounded
+        if batch.num_prefill_tokens == 0 and batch.num_decode_tokens > 0:
+            # Model pure decode using vLLM 0.5.1 CUDA graph input padding.
+            communication_tokens = sum(batch.num_tokens)
+            if communication_tokens <= 2:
+                pass
+            elif communication_tokens <= 4:
+                communication_tokens = 4
+            else:
+                communication_tokens = ((communication_tokens + 7) // 8) * 8
+
         return (
-            self._predictions[self._communication_model_name("all_reduce", pipeline_stage)][(batch._total_num_tokens_rounded,)]
+            self._predictions[self._communication_model_name("all_reduce", pipeline_stage)][(communication_tokens,)]
             + self._config.nccl_cpu_launch_overhead_ms
             + self._config.nccl_cpu_skew_overhead_per_device_ms
             * self._replica_config.tensor_parallel_size**1.25

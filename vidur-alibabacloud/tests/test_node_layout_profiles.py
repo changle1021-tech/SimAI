@@ -90,7 +90,12 @@ class NodeLayoutProfileTests(unittest.TestCase):
     def test_mixed_tp_edges_use_separate_prediction_tables(self):
         predictor = self.predictor(self.config(tp=2, pp=3, gpus=3))
         predictor._predictions = {"all_reduce_dpn1": {(8,): 9.0}, "all_reduce_dpn2": {(8,): 2.0}}
-        batch = SimpleNamespace(_total_num_tokens_rounded=8)
+        batch = SimpleNamespace(
+            _total_num_tokens_rounded=8,
+            num_prefill_tokens=0,
+            num_decode_tokens=8,
+            num_tokens=[1] * 8,
+        )
         self.assertEqual([predictor._get_tensor_parallel_communication_time(batch, stage)
                           for stage in range(3)], [2.0, 9.0, 2.0])
 
