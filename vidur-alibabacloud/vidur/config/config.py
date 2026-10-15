@@ -489,6 +489,19 @@ class ReplicaConfig:
         default=800,
         metadata={"help": "> add: rdma_bandwidth for tp/ep communication et al. (bps)"},
     )
+
+    moe_comm_intra_node_latency_us: float = field(
+        default=0.0,
+        metadata={"help": "Fixed per-layer MoE EP communication latency (us) when the EP group "
+                  "fits in one node (NVLink). Added to comm_size / nvlink_bandwidth. "
+                  "Reference: vLLM 0.11.2 AG/RS on 4x H100 measured ~23.5 us/layer for decode."},
+    )
+
+    moe_comm_inter_node_latency_us: float = field(
+        default=0.0,
+        metadata={"help": "Fixed per-layer MoE EP communication latency (us) when the EP group "
+                  "spans nodes (RDMA). Added to comm_size / rdma_bandwidth."},
+    )
     
     pd_p2p_comm_dtype: str = field(
         default='float16',

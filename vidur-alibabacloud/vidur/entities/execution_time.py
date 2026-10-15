@@ -582,23 +582,41 @@ class ExecutionTime(BaseEntity):
         # +comm
         # return layer_data.get('comp_time', 0.0)
 
-        replica_stage = "prefill"  # NOTE: hardcoded prefill; decode uses different bandwidth
-    
         # Convert unit from ns to s / 单侍从ns转换为s
         moe_comp_time = layer_data.get('comp_time', 0.0) * 1e-9 
         
         # Unit: Byte / 单位Byte
         moe_comm_size = layer_data.get('comm_size', 0.0) 
-    
-        if replica_stage == "prefill": # normal kernel
-            # Convert Gbps to Byte/s / Gbps换算成 Byte/s
-            cur_bw = self._replica_config.rdma_bandwidth * 1024 * 1024 * 1024 / 8 
-        elif replica_stage == "decode": # low_latency kernel
-            # Convert Gbps to Byte/s / Gbps换算成 Byte/s
-            cur_bw = self._replica_config.nvlink_bandwidth * 1024 * 1024 * 1024 / 8 
-        moe_comm_time = moe_comm_size / cur_bw # 秒
+
+        moe_comm_time = self._get_moe_comm_time(moe_comm_size)
         moe_time = moe_comp_time + moe_comm_time
         return moe_time if moe_time > 0 else 1e-6
+
+    def _is_moe_comm_cross_node(self) -> bool:
+        # The EP group spans all ranks of the phase (ws = tp * pp * dp).
+        # EP 组覆盖该阶段的全部 rank；超过单机 GPU 数即为跨机通信
+        gpus_per_node = (
+            self._replica_config.num_gpus_per_node
+            or self._replica_config.node_config.num_devices_per_node
+        )
+        return self._replica_config.expert_model_parallel_size > gpus_per_node
+
+    def _get_moe_comm_time(self, moe_comm_size: float) -> float:
+        # Link is chosen by topology (cross-node -> RDMA, intra-node -> NVLink),
+        # not by prefill/decode. A fixed per-layer latency models launch/sync cost.
+        # 按拓扑选择链路：跨机用 RDMA，机内用 NVLink；与 prefill/decode 无关。
+        # 固定开销 (latency) 用于描述通信启动与同步成本，小消息时为主要部分。
+        if moe_comm_size <= 0:
+            return 0.0
+        if self._is_moe_comm_cross_node():
+            bandwidth_gbps = self._replica_config.rdma_bandwidth
+            latency_us = self._replica_config.moe_comm_inter_node_latency_us
+        else:
+            bandwidth_gbps = self._replica_config.nvlink_bandwidth
+            latency_us = self._replica_config.moe_comm_intra_node_latency_us
+        # Convert Gbps to Byte/s / Gbps换算成 Byte/s
+        bandwidth = bandwidth_gbps * 1024 * 1024 * 1024 / 8
+        return latency_us * 1e-6 + moe_comm_size / bandwidth
     
     def _get_aicb_params(self):
         """
