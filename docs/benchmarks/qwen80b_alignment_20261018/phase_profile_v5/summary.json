@@ -1,0 +1,79 @@
+[
+  {
+    "phase": "prefill",
+    "seq": 256,
+    "context": 0,
+    "gpu": 4,
+    "returncode": 0
+  },
+  {
+    "phase": "prefill",
+    "seq": 512,
+    "context": 0,
+    "gpu": 4,
+    "returncode": 0
+  },
+  {
+    "phase": "prefill",
+    "seq": 512,
+    "context": 512,
+    "gpu": 4,
+    "returncode": 0
+  },
+  {
+    "phase": "prefill",
+    "seq": 512,
+    "context": 8192,
+    "gpu": 4,
+    "returncode": 0
+  },
+  {
+    "phase": "decode",
+    "seq": 256,
+    "context": 0,
+    "gpu": 4,
+    "returncode": 0
+  },
+  {
+    "phase": "decode",
+    "seq": 512,
+    "context": 0,
+    "gpu": 4,
+    "returncode": 0
+  },
+  {
+    "phase": "decode",
+    "seq": 1024,
+    "context": 0,
+    "gpu": 4,
+    "returncode": 0
+  },
+  {
+    "phase": "decode",
+    "seq": 2048,
+    "context": 0,
+    "gpu": 4,
+    "returncode": 0
+  },
+  {
+    "phase": "decode",
+    "seq": 4096,
+    "context": 0,
+    "gpu": 4,
+    "returncode": 0
+  },
+  {
+    "phase": "decode",
+    "seq": 8192,
+    "context": 0,
+    "gpu": 4,
+    "returncode": 0
+  },
+  {
+    "phase": "decode",
+    "seq": 8446,
+    "context": 0,
+    "gpu": 4,
+    "returncode": 0
+  }
+]

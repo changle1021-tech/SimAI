@@ -1,0 +1,10 @@
+{
+  "prefill_e2e_time": {
+    "unobserved": 0.10814672365771481,
+    "observed": 0.10814672365771481
+  },
+  "request_e2e_time": {
+    "unobserved": 2.473768407092126,
+    "observed": 2.473768407092126
+  }
+}

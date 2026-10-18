@@ -1,0 +1,92 @@
+[
+  {
+    "tokens": 256,
+    "mode": "cpu",
+    "requests": 3,
+    "per_chunk_median": {
+      "compiled_fx_cpu_ms": 64.23712499999999,
+      "compiled_outer_exclusive_gpu_ms": 0.0,
+      "gdn_core_chain_cpu_ms": 36.60732199999999,
+      "flash_attention_cpu_ms": 1.3120689999999997,
+      "moe_cpu_ms": 47.473654,
+      "compiled_outer_exclusive_cpu_ms": 16.936557999999998
+    }
+  },
+  {
+    "tokens": 256,
+    "mode": "gpu",
+    "requests": 1,
+    "per_chunk_median": {
+      "compiled_fx_cpu_ms": 69.050776,
+      "compiled_outer_exclusive_gpu_ms": 16.865471929311752,
+      "gdn_core_chain_cpu_ms": 36.61158699999999,
+      "moe_gpu_ms": 51.280160307884216,
+      "flash_attention_gpu_ms": 1.3955519944429398,
+      "gdn_core_chain_gpu_ms": 36.08575999736786,
+      "compiled_fx_gpu_ms": 68.14563223719597,
+      "flash_attention_cpu_ms": 1.5672549999999998,
+      "moe_cpu_ms": 50.945818,
+      "compiled_outer_exclusive_cpu_ms": 18.104958
+    }
+  },
+  {
+    "tokens": 512,
+    "mode": "cpu",
+    "requests": 3,
+    "per_chunk_median": {
+      "compiled_fx_cpu_ms": 59.972227000000004,
+      "compiled_outer_exclusive_gpu_ms": 0.0,
+      "gdn_core_chain_cpu_ms": 37.57154799999999,
+      "flash_attention_cpu_ms": 1.262289,
+      "moe_cpu_ms": 43.61276799999999,
+      "compiled_outer_exclusive_cpu_ms": 16.481834
+    }
+  },
+  {
+    "tokens": 512,
+    "mode": "gpu",
+    "requests": 1,
+    "per_chunk_median": {
+      "compiled_fx_cpu_ms": 66.506365,
+      "compiled_outer_exclusive_gpu_ms": 13.759359985589981,
+      "gdn_core_chain_cpu_ms": 37.326209000000006,
+      "moe_gpu_ms": 52.30857586860657,
+      "flash_attention_gpu_ms": 1.4530560001730919,
+      "gdn_core_chain_gpu_ms": 36.74832010269165,
+      "compiled_fx_gpu_ms": 66.06793585419655,
+      "flash_attention_cpu_ms": 1.523803,
+      "moe_cpu_ms": 48.458725000000015,
+      "compiled_outer_exclusive_cpu_ms": 18.04764000000001
+    }
+  },
+  {
+    "tokens": 2048,
+    "mode": "cpu",
+    "requests": 3,
+    "per_chunk_median": {
+      "compiled_fx_cpu_ms": 58.37226199999999,
+      "compiled_outer_exclusive_gpu_ms": 0.0,
+      "gdn_core_chain_cpu_ms": 37.18065450000001,
+      "flash_attention_cpu_ms": 1.207988,
+      "moe_cpu_ms": 42.62359275,
+      "compiled_outer_exclusive_cpu_ms": 15.748669249999999
+    }
+  },
+  {
+    "tokens": 2048,
+    "mode": "gpu",
+    "requests": 1,
+    "per_chunk_median": {
+      "compiled_fx_cpu_ms": 64.41866300000001,
+      "compiled_outer_exclusive_gpu_ms": 13.023232139647007,
+      "gdn_core_chain_cpu_ms": 36.85420574999998,
+      "moe_gpu_ms": 51.16675195097923,
+      "flash_attention_gpu_ms": 1.4708640053868294,
+      "gdn_core_chain_gpu_ms": 36.30477602779865,
+      "compiled_fx_gpu_ms": 64.18998409062624,
+      "flash_attention_cpu_ms": 1.4525987500000002,
+      "moe_cpu_ms": 47.393433000000016,
+      "compiled_outer_exclusive_cpu_ms": 17.025229999999986
+    }
+  }
+]

@@ -1,0 +1,21 @@
+{
+  "scope": "native_chain/gdn_dp*_p*.json",
+  "accepted_for_calibration": false,
+  "reason": "Capture deep-copied shared GDN metadata separately for every layer. This created 36 different cu_seqlens tensor identities and thrashed the FLA identity-keyed 8-entry metadata cache. Actual runtime audit has one shared cu object per chunk (35 hits after one miss). These GDN replay times cannot represent native execution.",
+  "evidence": [
+    "cache_audit/dp0.json",
+    "cache_audit/dp1.json",
+    "runtime_source/fla/utils.py",
+    "scripts/native_chain_worker.py"
+  ],
+  "raw_sha256": {
+    "native_chain/gdn_dp0_p256.json": "cce7c42fec84ad45f307a1cb901b9cbc119d760d9327a899ada7bac490f969d0",
+    "native_chain/gdn_dp0_p512.json": "8e577f3bfa792c1537bd327532614fdba37406148ff496cba49918cb71c3ecf4",
+    "native_chain/gdn_dp1_p256.json": "da8e97c57c35e150a33b45cbcd37d2223168ed3bd4b38684a17150de70981fe0",
+    "native_chain/gdn_dp1_p512.json": "5d30b08763ba487cc0101ab2bbe142718ff257eb973a3619aa6f82039bc3853b",
+    "native_chain/gdn_dp2_p256.json": "f8af895c42c2a9279ba69b0bf3faa67a32af4a6deac9b65a87ddd3b31e8c7b3d",
+    "native_chain/gdn_dp2_p512.json": "cd8283f4739f603ea13459475fb72c283e856c35a8211a0e0a6c751065c326d8",
+    "native_chain/gdn_dp3_p256.json": "6fbd5a4a55eae314b1d11b96f859b5bbff482a0222c98e0c8f46c2f0777d0508",
+    "native_chain/gdn_dp3_p512.json": "f0bbf4c3d3382cfb9091edd432257c1ebb74ebe8650214d4cca9eff3ac440f80"
+  }
+}

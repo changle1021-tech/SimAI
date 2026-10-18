@@ -1,0 +1,37 @@
+{
+  "results": [
+    {
+      "dp_rank": 0,
+      "local_rank": 0,
+      "device": "cuda:0",
+      "dtype": "torch.bfloat16",
+      "modules": {
+        "Qwen3NextForCausalLM": 1,
+        "Qwen3NextModel": 1,
+        "VocabParallelEmbedding": 1,
+        "ModuleList": 1,
+        "Qwen3NextDecoderLayer": 48,
+        "Qwen3NextGatedDeltaNet": 36,
+        "SiLUActivation": 36,
+        "ColumnParallelLinear": 108,
+        "RMSNormGated": 36,
+        "RowParallelLinear": 96,
+        "Qwen3NextSparseMoeBlock": 48,
+        "ReplicatedLinear": 48,
+        "Linear": 48,
+        "Qwen2MoeMLP": 48,
+        "MergedColumnParallelLinear": 48,
+        "SiluAndMul": 48,
+        "SharedFusedMoE": 48,
+        "UnquantizedFusedMoEMethod": 48,
+        "GemmaRMSNorm": 121,
+        "Qwen3NextAttention": 12,
+        "QKVParallelLinear": 12,
+        "RotaryEmbedding": 1,
+        "Attention": 12,
+        "ParallelLMHead": 1,
+        "LogitsProcessor": 1
+      }
+    }
+  ]
+}

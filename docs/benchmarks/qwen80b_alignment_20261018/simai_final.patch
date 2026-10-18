@@ -1,0 +1,910 @@
+From e4a84a4e33e014c4ac0ad2c05ee5691238869c13 Mon Sep 17 00:00:00 2001
+From: 101 <101@example.com>
+Date: Sun, 18 Oct 2026 21:22:45 +0700
+Subject: [PATCH] fix(vidur): validate Qwen profiles and model request CPU
+ boundaries
+
+---
+ aicb                                          |   2 +-
+ .../test_qwen_aicb_profiles_validation.py     | 278 ++++++++++++++++++
+ .../tests/test_qwen_aicb_wiring.py            | 234 +++++++++++++++
+ vidur-alibabacloud/vidur/config/config.py     |  12 +
+ .../vidur/entities/execution_time.py          |  38 ++-
+ .../vidur/entities/qwen_aicb_profiles.py      | 208 +++++++++++++
+ .../base_execution_time_predictor.py          |   6 +
+ .../sklearn_execution_time_predictor.py       |   9 +
+ 8 files changed, 785 insertions(+), 2 deletions(-)
+ create mode 100644 vidur-alibabacloud/tests/test_qwen_aicb_profiles_validation.py
+ create mode 100644 vidur-alibabacloud/tests/test_qwen_aicb_wiring.py
+ create mode 100644 vidur-alibabacloud/vidur/entities/qwen_aicb_profiles.py
+
+diff --git a/aicb b/aicb
+index 75a1428..db9353e 160000
+--- a/aicb
++++ b/aicb
+@@ -1 +1 @@
+-Subproject commit 75a142824258ff6e3c2c3138db0536cf8f8ebad4
++Subproject commit db9353e6e924422baa02962aaceacdbde24e8309
+diff --git a/vidur-alibabacloud/tests/test_qwen_aicb_profiles_validation.py b/vidur-alibabacloud/tests/test_qwen_aicb_profiles_validation.py
+new file mode 100644
+index 0000000..6fbbf31
+--- /dev/null
++++ b/vidur-alibabacloud/tests/test_qwen_aicb_profiles_validation.py
+@@ -0,0 +1,278 @@
++"""CPU-only validation tests for the standalone Qwen profile readers."""
++import hashlib
++import importlib.util
++import json
++import math
++import tempfile
++import unittest
++from pathlib import Path
++
++
++MODULE_PATH = Path(__file__).parents[1] / "vidur/entities/qwen_aicb_profiles.py"
++_spec = importlib.util.spec_from_file_location("qwen_aicb_profiles", str(MODULE_PATH))
++_profiles = importlib.util.module_from_spec(_spec)
++_spec.loader.exec_module(_profiles)
++QwenAICBProfiles = _profiles.QwenAICBProfiles
++RuntimeBoundaryProfile = _profiles.RuntimeBoundaryProfile
++RuntimeMoECommunication = _profiles.RuntimeMoECommunication
++
++
++class ProfileFixtures(unittest.TestCase):
++    def setUp(self):
++        self.temp = tempfile.TemporaryDirectory()
++        self.addCleanup(self.temp.cleanup)
++        self.root = Path(self.temp.name) / "aicb"
++        producer = self.root / "workload_generator/mocked_model/inference"
++        producer.mkdir(parents=True)
++        for name in ("qwen3_next_projections.py", "AiobQwen3Next.py",
++                     "qwen3_next_attention.py", "qwen3_next_moe.py"):
++            (producer / name).write_text("# dummy " + name)
++        self.directory = self.root / "results/workload"
++        self.directory.mkdir(parents=True)
++
++    def write_profile(self, seq, phase="decode", context=0, value=None,
++                      invocation_update=None, metadata_update=None,
++                      payload_update=None, filename=None):
++        invocation = dict(model_name="Qwen3-Next-80B", world_size=4,
++                          tensor_model_parallel_size=1, pipeline_model_parallel=1,
++                          expert_model_parallel_size=4, micro_batch=1,
++                          phase=phase, seq_length=seq, context_length=context)
++        invocation.update(invocation_update or {})
++        value = float(seq + 2 * context) if value is None else value
++        rows = ["layer_id\tlayer_name\tcomp_time\tcomm_size"]
++        for layer in range(48):
++            for component in ("attention", "moe"):
++                rows.append("{}\t{}\t{}\t{}".format(layer, component, value, value + 1))
++        payload = ("\n".join(rows) + "\n").encode()
++        if payload_update:
++            payload = payload_update(payload)
++        if filename is None:
++            filename = ("vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq{}-{}-{}.csv"
++                        .format(seq, context, phase) if phase == "prefill" else
++                        "vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq{}-{}.csv".format(seq, phase))
++        path = self.directory / filename
++        path.write_bytes(payload)
++        metadata = dict(projection_profile_version=3, scope="qwen3_next_components",
++                        source_sha256=_profiles.producer_identity(self.root),
++                        profile_sha256=hashlib.sha256(payload).hexdigest(),
++                        precision="bf16", invocation=invocation)
++        metadata.update(metadata_update or {})
++        Path(str(path) + ".projections.json").write_text(json.dumps(metadata))
++        return path
++
++    def write_json(self, data):
++        path = Path(self.temp.name) / "runtime.json"
++        path.write_text(json.dumps(data))
++        return path
++
++
++class QwenAICBProfileTests(ProfileFixtures):
++    def test_metadata_source_version_scope_precision_payload_and_invocation_are_checked(self):
++        variants = [
++            ({"source_sha256": "wrong"}, {}, "source changed"),
++            ({"projection_profile_version": 2}, {}, "Legacy"),
++            ({"scope": "all_layers"}, {}, "Legacy"),
++            ({"precision": "fp8"}, {}, "FP8"),
++            ({"profile_sha256": "wrong"}, {}, "hash differs"),
++            ({}, {"world_size": 8}, "mismatch"),
++        ]
++        for metadata, invocation, message in variants:
++            with self.subTest(metadata=metadata, invocation=invocation):
++                self.directory.mkdir(parents=True, exist_ok=True)
++                self.write_profile(16, metadata_update=metadata,
++                                   invocation_update=invocation)
++                with self.assertRaisesRegex(ValueError, message):
++                    QwenAICBProfiles(self.root).load(4, 1, 1, 4, 1, 16, "decode")
++                for path in self.directory.iterdir():
++                    path.unlink()
++
++    def test_csv_requires_all_48_layers_two_components_and_finite_positive_compute(self):
++        cases = [
++            (lambda b: b.replace(b"0\tmoe", b"0\tattention", 1), "Duplicate"),
++            (lambda b: b.replace(b"47\tmoe\t16.0\t17.0\n", b""), "48"),
++            (lambda b: b.replace(b"0\tattention\t16.0\t17.0", b"0\tattention\tnan\t17.0"), "Nonfinite"),
++            (lambda b: b.replace(b"0\tattention\t16.0\t17.0", b"0\tattention\t-1\t17.0"), "Nonfinite"),
++            (lambda b: b.replace(b"0\tattention\t16.0\t17.0", b"0\tattention\t0\t17.0"), "zero compute"),
++        ]
++        for mutate, message in cases:
++            with self.subTest(message=message):
++                payload_update = lambda b, mutate=mutate: mutate(b)
++                self.write_profile(16, payload_update=payload_update)
++                with self.assertRaisesRegex(ValueError, message):
++                    QwenAICBProfiles(self.root).load(4, 1, 1, 4, 1, 16, "decode")
++                for path in self.directory.iterdir():
++                    path.unlink()
++
++    def test_decode_exact_points_and_interpolation_ignore_request_history(self):
++        self.write_profile(10, value=10)
++        self.write_profile(20, value=20)
++        profiles = QwenAICBProfiles(self.root)
++        exact = profiles.load(4, 1, 1, 4, 1, 10, "decode")
++        self.assertEqual(exact[0]["attention"]["comp_time"], 10)
++        self.assertEqual(profiles.load(4, 1, 1, 4, 1, 20, "decode")[0]["moe"]["comp_time"], 20)
++        interpolated = profiles.load(4, 1, 1, 4, 1, 15, "decode")
++        fresh = QwenAICBProfiles(self.root).load(4, 1, 1, 4, 1, 15, "decode")
++        self.assertEqual(interpolated, fresh)
++        self.assertEqual(interpolated[0]["attention"]["comp_time"], 15)
++
++    def test_prefill_interpolates_context_then_chunk_size(self):
++        for seq in (10, 20):
++            for context in (0, 100):
++                self.write_profile(seq, phase="prefill", context=context)
++        result = QwenAICBProfiles(self.root).load(4, 1, 1, 4, 1, 15, "prefill", context=25)
++        self.assertEqual(result[0]["attention"]["comp_time"], 65)
++
++    def test_moe_time_scope_sets_ep_communication_flag_and_rejects_unknown_scope(self):
++        self.write_profile(16, metadata_update={"moe_time_scope": "compute_only"})
++        data = QwenAICBProfiles(self.root).load(4, 1, 1, 4, 1, 16, "decode")
++        self.assertEqual(data[0]["moe"]["includes_ep_comm"], 0.0)
++        for path in self.directory.iterdir():
++            path.unlink()
++
++        self.write_profile(16, metadata_update={"moe_time_scope": "compute_and_ep_comm"})
++        data = QwenAICBProfiles(self.root).load(4, 1, 1, 4, 1, 16, "decode")
++        self.assertEqual(data[0]["moe"]["includes_ep_comm"], 1.0)
++        for path in self.directory.iterdir():
++            path.unlink()
++
++        self.write_profile(16, metadata_update={"moe_time_scope": "unknown"})
++        with self.assertRaisesRegex(ValueError, "Unknown Qwen MoE timing scope"):
++            QwenAICBProfiles(self.root).load(4, 1, 1, 4, 1, 16, "decode")
++
++    def test_decode_interpolation_rejects_mixed_moe_timing_scopes(self):
++        self.write_profile(10, metadata_update={"moe_time_scope": "compute_only"})
++        self.write_profile(20, metadata_update={"moe_time_scope": "compute_and_ep_comm"})
++        with self.assertRaisesRegex(ValueError, "different MoE timing scopes"):
++            QwenAICBProfiles(self.root).load(4, 1, 1, 4, 1, 15, "decode")
++
++    def test_out_of_range_never_uses_nearest_point_and_batch_pp_are_rejected(self):
++        self.write_profile(10)
++        self.write_profile(20)
++        profiles = QwenAICBProfiles(self.root)
++        for query in (9, 21):
++            with self.subTest(query=query), self.assertRaisesRegex(ValueError, "outside measured range"):
++                profiles.load(4, 1, 1, 4, 1, query, "decode")
++        with self.assertRaisesRegex(ValueError, "batch1 and PP1"):
++            profiles.load(4, 1, 2, 4, 1, 15, "decode")
++        with self.assertRaisesRegex(ValueError, "batch1 and PP1"):
++            profiles.load(4, 1, 1, 4, 2, 15, "decode")
++
++    def test_prefill_context_out_of_range_is_rejected(self):
++        for context in (10, 20):
++            self.write_profile(16, phase="prefill", context=context)
++        with self.assertRaisesRegex(ValueError, "outside measured range"):
++            QwenAICBProfiles(self.root).load(4, 1, 1, 4, 1, 16, "prefill", context=5)
++
++
++class RuntimeProfileTests(ProfileFixtures):
++    def boundary_data(self):
++        return dict(schema="qwen_worker_critical_perimeter_v2",
++                    scope="host_iteration_wall_minus_model_gpu",
++                    configuration=dict(model="qwen3-next-80B", world_size=4, tp=1,
++                                       pp=1, ep=4, batch_size=1),
++                    phases={"decode": [
++                        dict(tokens=1, critical_perimeter_ms=1.5),
++                        dict(tokens=3, critical_perimeter_ms=3.5)],
++                            "prefill": [
++                        dict(tokens=1, critical_perimeter_ms=11.0),
++                        dict(tokens=3, critical_perimeter_ms=31.0)]})
++
++    def request_boundary_data(self):
++        data = self.boundary_data()
++        data.update(schema="qwen_worker_request_perimeter_v3",
++                    scope="host_iteration_wall_minus_model_gpu_plus_request_io",
++                    request_io_ms=3.0, inter_chunk_gap_ms=2.0, inter_decode_gap_ms=0.5)
++        data["phases"] = {
++            "prefill_first": [dict(tokens=8, critical_perimeter_ms=4.0),
++                              dict(tokens=16, critical_perimeter_ms=6.0)],
++            "prefill_next": [dict(tokens=8, critical_perimeter_ms=6.0)],
++            "decode": [dict(tokens=1, critical_perimeter_ms=9.0)],
++        }
++        return data
++
++    def test_request_perimeter_adds_io_once_and_separate_iteration_gaps(self):
++        profile = RuntimeBoundaryProfile(self.write_json(self.request_boundary_data()))
++        args = (4, 1, 1, 4)
++        self.assertEqual(profile.estimate("prefill", 16, *args, context=0), 9.0)
++        self.assertEqual(profile.estimate("prefill", 8, *args, context=25), 8.0)
++        self.assertEqual(profile.estimate("decode", 1, *args, context=0), 9.5)
++
++    def test_request_perimeter_rejects_negative_io_gap_and_context(self):
++        args = (4, 1, 1, 4)
++        data = self.request_boundary_data()
++        data["request_io_ms"] = -0.1
++        profile = RuntimeBoundaryProfile(self.write_json(data))
++        with self.assertRaisesRegex(ValueError, "Invalid request IO or inter-iteration time"):
++            profile.estimate("prefill", 8, *args, context=0)
++
++        data = self.request_boundary_data()
++        data["inter_chunk_gap_ms"] = -0.1
++        profile = RuntimeBoundaryProfile(self.write_json(data))
++        with self.assertRaisesRegex(ValueError, "Invalid request IO or inter-iteration time"):
++            profile.estimate("prefill", 8, *args, context=25)
++
++        profile = RuntimeBoundaryProfile(self.write_json(self.request_boundary_data()))
++        with self.assertRaisesRegex(ValueError, "non-negative integer"):
++            profile.estimate("prefill", 8, *args, context=-1)
++
++    def test_worker_boundary_validates_schema_scope_configuration_and_phase_interpolates(self):
++        data = self.boundary_data()
++        profile = RuntimeBoundaryProfile(self.write_json(data))
++        self.assertEqual(profile.estimate("decode", 2, 4, 1, 1, 4), 2.5)
++        self.assertEqual(profile.estimate("prefill", 2, 4, 1, 1, 4), 21.0)
++        for update, message in (({"schema": "qwen_worker_perimeter_v1"}, "Unsupported"),
++                                ({"scope": "model_only"}, "boundary")):
++            invalid = dict(data)
++            invalid.update(update)
++            with self.subTest(update=update), self.assertRaisesRegex(ValueError, message):
++                RuntimeBoundaryProfile(self.write_json(invalid))
++        with self.assertRaisesRegex(ValueError, "configuration differs"):
++            profile.estimate("decode", 2, 8, 1, 1, 4)
++
++    def test_worker_boundary_rejects_invalid_times_and_unmeasured_range(self):
++        data = self.boundary_data()
++        data["phases"]["decode"][0]["critical_perimeter_ms"] = float("nan")
++        profile = RuntimeBoundaryProfile(self.write_json(data))
++        with self.assertRaisesRegex(ValueError, "Invalid worker perimeter time"):
++            profile.estimate("decode", 1, 4, 1, 1, 4)
++        data["phases"]["decode"][0]["critical_perimeter_ms"] = 1.5
++        profile = RuntimeBoundaryProfile(self.write_json(data))
++        with self.assertRaisesRegex(ValueError, "outside measured range"):
++            profile.estimate("decode", 4, 4, 1, 1, 4)
++
++    def test_moe_communication_uses_phase_modes_interpolates_and_validates_padded_profiles(self):
++        data = dict(world_size=4, dtype="bfloat16", profiles=[])
++        for mode, timing in (("eager", 1.0), ("cuda_graph", 5.0)):
++            for tokens, value in ((2, timing), (4, timing + 2)):
++                data["profiles"].append(dict(mode=mode, active_tokens=tokens,
++                                             sizes=[tokens] * 4, median_ms=value))
++        profile = RuntimeMoECommunication(self.write_json(data))
++        args = (4, 1, 1, 4)
++        self.assertEqual(profile.estimate("prefill", 3, *args), 2.0)
++        self.assertEqual(profile.estimate("decode", 3, *args), 6.0)
++        with self.assertRaisesRegex(ValueError, "WS4 TP1 PP1 EP4"):
++            profile.estimate("decode", 3, 8, 1, 1, 4)
++        data["profiles"].append(dict(mode="cuda_graph", active_tokens=8,
++                                     sizes=[8, 8, 7, 8], median_ms=1.0))
++        profile = RuntimeMoECommunication(self.write_json(data))
++        with self.assertRaisesRegex(ValueError, "outside measured range"):
++            profile.estimate("decode", 8, *args)
++        data["dtype"] = "fp8"
++        with self.assertRaisesRegex(ValueError, "four-rank BF16"):
++            RuntimeMoECommunication(self.write_json(data))
++
++    def test_moe_communication_rejects_invalid_selected_timing_and_out_of_range(self):
++        data = dict(world_size=4, dtype="bfloat16", profiles=[
++            dict(mode="eager", active_tokens=2, sizes=[2] * 4, median_ms=1.0),
++            dict(mode="eager", active_tokens=4, sizes=[4] * 4, median_ms=0.0)])
++        profile = RuntimeMoECommunication(self.write_json(data))
++        with self.assertRaisesRegex(ValueError, "Invalid MoE communication timing"):
++            profile.estimate("prefill", 2, 4, 1, 1, 4)
++        data["profiles"][1]["median_ms"] = 3.0
++        profile = RuntimeMoECommunication(self.write_json(data))
++        with self.assertRaisesRegex(ValueError, "outside measured range"):
++            profile.estimate("prefill", 1, 4, 1, 1, 4)
++
++
++if __name__ == "__main__":
++    unittest.main()
+diff --git a/vidur-alibabacloud/tests/test_qwen_aicb_wiring.py b/vidur-alibabacloud/tests/test_qwen_aicb_wiring.py
+new file mode 100644
+index 0000000..a0e27b9
+--- /dev/null
++++ b/vidur-alibabacloud/tests/test_qwen_aicb_wiring.py
+@@ -0,0 +1,234 @@
++"""CPU-only wiring checks for Qwen AICB paths in ExecutionTime."""
++import ast
++import importlib.util
++import json
++import tempfile
++import unittest
++from unittest.mock import Mock, patch
++import sys
++from pathlib import Path
++from types import SimpleNamespace
++from typing import Dict
++from collections import OrderedDict
++from enum import Enum
++
++
++ROOT = Path(__file__).resolve().parents[1]
++SOURCE = ROOT / "vidur" / "entities" / "execution_time.py"
++PROFILE_SOURCE = ROOT / "vidur" / "entities" / "qwen_aicb_profiles.py"
++AIOB_WORKLOAD_SOURCE = ROOT.parent / "aicb" / "workload_generator" / "Vidur_workload_generator.py"
++METHODS = (
++    "_load_aicb_data",
++    "_get_mlp_layer_execution_time_from_aicb",
++    "_get_moe_layer_execution_time_from_aicb",
++    "_get_cpu_overhead",
++    "_get_moe_comm_time",
++)
++
++
++def load_methods():
++    tree = ast.parse(SOURCE.read_text(), filename=str(SOURCE))
++    cls = next(n for n in tree.body if isinstance(n, ast.ClassDef) and n.name == "ExecutionTime")
++    nodes = [n for n in cls.body if isinstance(n, ast.FunctionDef) and n.name in METHODS]
++    assert len(nodes) == len(METHODS)
++    holder = ast.ClassDef(name="Harness", bases=[], keywords=[], body=nodes, decorator_list=[])
++    module = ast.fix_missing_locations(ast.Module(body=[holder], type_ignores=[]))
++    spec = importlib.util.spec_from_file_location("qwen_aicb_profiles_for_wiring", str(PROFILE_SOURCE))
++    profiles = importlib.util.module_from_spec(spec)
++    spec.loader.exec_module(profiles)
++    env = {"QwenAICBProfiles": profiles.QwenAICBProfiles,
++           "RuntimeBoundaryProfile": profiles.RuntimeBoundaryProfile,
++           "RuntimeMoECommunication": profiles.RuntimeMoECommunication,
++           "_AICB_ROOT": "/unused/aicb/root", "Dict": Dict}
++    exec(compile(module, str(SOURCE), "exec"), env)
++    return env["Harness"], env
++
++
++class CacheMustNotBeUsed(object):
++    def get(self, *args, **kwargs):
++        raise AssertionError("Qwen must bypass the legacy global AICB cache")
++
++
++class FakeQwenProfiles(object):
++    instances = []
++
++    def __init__(self, root, profile_dir):
++        self.root = root
++        self.profile_dir = profile_dir
++        self.calls = []
++        self.instances.append(self)
++
++    def load(self, *args, **kwargs):
++        self.calls.append((args, kwargs))
++        return {"loaded": True}
++
++
++class WorkloadLayerType(Enum):
++    ATTENTION = "attention"
++    MOE = "moe"
++
++
++def load_workload_method():
++    tree = ast.parse(AIOB_WORKLOAD_SOURCE.read_text(), filename=str(AIOB_WORKLOAD_SOURCE))
++    cls = next(n for n in tree.body if isinstance(n, ast.ClassDef) and n.name == "VidurWorkload")
++    method = next(n for n in cls.body
++                  if isinstance(n, ast.FunctionDef) and n.name == "workload_generate_aiob")
++
++    def layer_type(name):
++        if "attention" in name:
++            return WorkloadLayerType.ATTENTION
++        if "moe" in name:
++            return WorkloadLayerType.MOE
++        return None
++
++    env = {
++        "OrderedDict": OrderedDict,
++        "LayerType": WorkloadLayerType,
++        "_get_model_details": lambda model: model.layers,
++        "_extract_layer_type": layer_type,
++        "_get_aiob_compute_time": lambda cache, phase, name: cache["forward"][name],
++        "_get_layer_comm_size": lambda layer_type, tp, ep: 0,
++    }
++    holder = ast.ClassDef(name="WorkloadHarness", bases=[], keywords=[], body=[method], decorator_list=[])
++    module = ast.fix_missing_locations(ast.Module(body=[holder], type_ignores=[]))
++    exec(compile(module, str(AIOB_WORKLOAD_SOURCE), "exec"), env)
++    return env["WorkloadHarness"]
++
++
++class QwenAICBWiringTests(unittest.TestCase):
++    @classmethod
++    def setUpClass(cls):
++        cls.Harness, cls.env = load_methods()
++
++    def setUp(self):
++        FakeQwenProfiles.instances = []
++        self.obj = self.Harness()
++        self.obj._replica_config = SimpleNamespace(
++            model_name="Qwen3-Next-80B", context_len=37)
++        self.obj._config = SimpleNamespace(aicb_profile_dir="/profiles")
++        self.obj._aicb_data = None
++        self.obj._get_aicb_params = lambda: (
++            "Qwen3-Next-80B", None, 1, 1, 4, 4, 1, 128, "prefill")
++        self.env["_GLOBAL_AICB_CACHE"] = CacheMustNotBeUsed()
++        self.env["QwenAICBProfiles"] = FakeQwenProfiles
++
++    def test_qwen_loader_calls_profile_store_with_context_and_bypasses_global_cache(self):
++        result = self.obj._load_aicb_data()
++        self.assertEqual(result, {"loaded": True})
++        self.assertEqual(len(FakeQwenProfiles.instances), 1)
++        store = FakeQwenProfiles.instances[0]
++        self.assertEqual((store.root, store.profile_dir), ("/unused/aicb/root", "/profiles"))
++        self.assertEqual(store.calls, [((4, 1, 1, 4, 1, 128, "prefill", 37), {})])
++
++    def write_json(self, value):
++        directory = tempfile.TemporaryDirectory()
++        self.addCleanup(directory.cleanup)
++        path = Path(directory.name) / "profile.json"
++        path.write_text(json.dumps(value))
++        return str(path)
++
++    @staticmethod
++    def boundary_profile():
++        return {
++            "schema": "qwen_worker_critical_perimeter_v2",
++            "scope": "host_iteration_wall_minus_model_gpu",
++            "configuration": {"model": "qwen3-next-80B", "world_size": 4,
++                              "tp": 1, "pp": 1, "ep": 4, "batch_size": 1},
++            "phases": {"prefill": [{"tokens": 128,
++                                     "critical_perimeter_ms": 2.5}]}}
++
++    def test_cpu_overhead_uses_only_measured_perimeter_in_milliseconds(self):
++        path = self.write_json(self.boundary_profile())
++        self.obj._config = SimpleNamespace(backend="aicb", skip_cpu_overhead_modeling=False,
++                                           aicb_cpu_overhead_profile=path)
++        self.obj._replica_config.model_name = "qwen3-next-80B"
++        self.obj._schedule_time = 1e8
++        self.obj._sampler_e2e_time = 2e8
++        self.obj._prepare_inputs_e2e_time = 3e8
++        self.obj._process_model_outputs_time = 4e8
++        self.obj._ray_comm_time = 5e8
++        self.assertEqual(self.obj._get_cpu_overhead(), 2.5)
++
++    def test_cpu_overhead_disabled_is_zero_and_enabled_without_profile_errors(self):
++        self.obj._config = SimpleNamespace(backend="aicb", skip_cpu_overhead_modeling=True,
++                                           aicb_cpu_overhead_profile=None)
++        self.obj._replica_config.model_name = "qwen3-next-80B"
++        self.assertEqual(self.obj._get_cpu_overhead(), 0.0)
++        self.obj._config.skip_cpu_overhead_modeling = False
++        with self.assertRaisesRegex(ValueError, "Qwen CPU modeling requires"):
++            self.obj._get_cpu_overhead()
++
++    def test_qwen_mlp_component_is_zero_without_loading_profiles(self):
++        self.obj._replica_config.model_name = "qwen3-next-80B"
++        self.assertEqual(self.obj._get_mlp_layer_execution_time_from_aicb(7), 0.0)
++        self.assertIsNone(self.obj._aicb_data)
++        self.assertEqual(FakeQwenProfiles.instances, [])
++
++    def test_moe_profile_with_embedded_ep_communication_skips_communication_estimate(self):
++        self.obj._aicb_data = {0: {"moe": {"comp_time": 3000000.0,
++                                             "comm_size": 123456.0,
++                                             "includes_ep_comm": 1.0}}}
++        self.obj._get_moe_comm_time = Mock(
++            side_effect=AssertionError("profile time already includes EP communication"))
++        self.assertAlmostEqual(self.obj._get_moe_layer_execution_time_from_aicb(0), 0.003)
++        self.obj._get_moe_comm_time.assert_not_called()
++
++    def test_qwen_moe_communication_uses_runtime_measurement_and_converts_ms_to_seconds(self):
++        data = {"world_size": 4, "dtype": "bfloat16", "profiles": [
++            {"mode": "eager", "active_tokens": 128, "sizes": [128] * 4, "median_ms": 1.0},
++            {"mode": "cuda_graph", "active_tokens": 1, "sizes": [1] * 4, "median_ms": 2.75}]}
++        path = self.write_json(data)
++        self.obj._config = SimpleNamespace(aicb_moe_comm_profile=path)
++        self.obj._replica_config.model_name = "qwen3-next-80B"
++        # Decode communication is keyed by batch size, and uses CUDA graph data.
++        self.obj._get_aicb_params = lambda: (
++            "Qwen3-Next-80B", None, 1, 1, 4, 4, 1, 128, "decode")
++        self.assertAlmostEqual(self.obj._get_moe_comm_time(999999), 0.00275)
++
++    def test_moe_csv_retains_external_router_and_accepts_filtered_zero(self):
++        module_name = "workload_generator.mocked_model.inference.qwen3_next_moe"
++        profile = SimpleNamespace(load_critical_moe_profile=lambda args: {0: 2.0})
++        for router in (None, 13.0):
++            with self.subTest(router_ns=router), patch.dict(sys.modules, {module_name: profile}):
++                obj = load_workload_method()()
++                obj.model = SimpleNamespace(layers=[SimpleNamespace(layer_id=0, layer_name="layer0_moe")])
++                obj.args = SimpleNamespace(model_name="Qwen3-Next-80B", phase="prefill",
++                                           full_attention_interval=1, moe_compute_profile="measured.json")
++                obj.compute_cache = {"forward": {"layer0_moe": 1}, "moe_norm": 11.0}
++                if router is not None:
++                    obj.compute_cache["moe_route"] = router
++                obj.tp = 1
++                obj.get_comm_size = lambda: (0, 0, 0)
++                obj.workload_generate_aiob()
++                self.assertEqual(obj.vidur_layers[0][2], 2000011.0 + (router or 0))
++
++    def test_prefill_gdn_norms_are_subtracted_once_while_full_attention_norms_remain(self):
++        Harness = load_workload_method()
++        names = ["layer0_attention_gdn", "layer0_moe_gdn",
++                 "layer1_attention_full", "layer1_moe_full",
++                 "layer2_attention_gdn", "layer2_moe_gdn"]
++        layers = [SimpleNamespace(layer_id=i // 2, layer_name=name)
++                  for i, name in enumerate(names)]
++        values = dict(zip(names, (100.0, 200.0, 300.0, 400.0, 500.0, 600.0)))
++        obj = Harness()
++        obj.model = SimpleNamespace(layers=layers)
++        obj.args = SimpleNamespace(model_name="Qwen3-Next-80B", phase="prefill",
++                                   full_attention_interval=2, moe_compute_profile=None)
++        obj.compute_cache = {"forward": values, "attention_norm": 7.0, "moe_norm": 11.0}
++        obj.vidur_layers = []
++        obj.tp = 1
++        obj.get_comm_size = lambda: (0, 0, 0)
++        obj.workload_generate_aiob()
++        costs = {(row[0], row[1].value): row[2] for row in obj.vidur_layers}
++        self.assertEqual(costs, {
++            (0, "attention"): 93.0,
++            (0, "moe"): 189.0,
++            (1, "attention"): 300.0,
++            (1, "moe"): 400.0,
++            (2, "attention"): 493.0,
++            (2, "moe"): 589.0,
++        })
++
++
++if __name__ == "__main__":
++    unittest.main()
+diff --git a/vidur-alibabacloud/vidur/config/config.py b/vidur-alibabacloud/vidur/config/config.py
+index 7b91975..1d84ca3 100644
+--- a/vidur-alibabacloud/vidur/config/config.py
++++ b/vidur-alibabacloud/vidur/config/config.py
+@@ -770,6 +770,18 @@ class BaseExecutionTimePredictorConfig(BasePolyConfig):
+         default="../astra-sim-alibabacloud/inputs/config/SimAI.conf",
+         metadata={"help": "Path to the simai config file."},
+     )
++    aicb_profile_dir: Optional[str] = field(
++        default=None,
++        metadata={"help": "Directory of measured, validated Qwen AICB component profiles."},
++    )
++    aicb_moe_comm_profile: Optional[str] = field(
++        default=None,
++        metadata={"help": "Four-rank Qwen AG/RS microbenchmark JSON for the target deployment."},
++    )
++    aicb_cpu_overhead_profile: Optional[str] = field(
++        default=None,
++        metadata={"help": "Measured Qwen worker perimeter profile; required when CPU modeling is enabled."},
++    )
+     aicb_force_bs1: bool = field(
+         default=False,
+         metadata={"help": "AICB fallback switch: force bs=1 for CSV generation. "
+diff --git a/vidur-alibabacloud/vidur/entities/execution_time.py b/vidur-alibabacloud/vidur/entities/execution_time.py
+index d9a99b0..e8026f1 100644
+--- a/vidur-alibabacloud/vidur/entities/execution_time.py
++++ b/vidur-alibabacloud/vidur/entities/execution_time.py
+@@ -1,4 +1,5 @@
+ from vidur.entities.base_entity import BaseEntity
++from vidur.entities.qwen_aicb_profiles import QwenAICBProfiles, RuntimeBoundaryProfile, RuntimeMoECommunication
+ from vidur.config import (
+     BaseExecutionTimePredictorConfig,
+     BaseReplicaSchedulerConfig,
+@@ -545,6 +546,9 @@ class ExecutionTime(BaseEntity):
+     # def _get_mlp_layer_execution_time_from_dpsk_and_aiob(self) -> float:
+     # def _get_mlp_layer_execution_time_from_aicb(self) -> float:
+     def _get_mlp_layer_execution_time_from_aicb(self, layer_id) -> float:
++        if self._replica_config.model_name == "qwen3-next-80B":
++            # Its shared and routed experts are both in the MoE component.
++            return 0.0
+         if self._aicb_data is None:
+             self._aicb_data = self._load_aicb_data()
+         
+@@ -588,7 +592,8 @@ class ExecutionTime(BaseEntity):
+         # Unit: Byte / 单位Byte
+         moe_comm_size = layer_data.get('comm_size', 0.0) 
+ 
+-        moe_comm_time = self._get_moe_comm_time(moe_comm_size)
++        moe_comm_time = (0.0 if layer_data.get("includes_ep_comm",0.0)
++                         else self._get_moe_comm_time(moe_comm_size))
+         moe_time = moe_comp_time + moe_comm_time
+         return moe_time if moe_time > 0 else 1e-6
+ 
+@@ -602,6 +607,15 @@ class ExecutionTime(BaseEntity):
+         return self._replica_config.expert_model_parallel_size > gpus_per_node
+ 
+     def _get_moe_comm_time(self, moe_comm_size: float) -> float:
++        if getattr(self._replica_config, "model_name", None) == "qwen3-next-80B":
++            _, _, tp, pp, ws, ep, bs, seq, phase = self._get_aicb_params()
++            if ep == 1:
++                return 0.0
++            path = self._config.aicb_moe_comm_profile
++            if not path:
++                raise ValueError("Qwen AG/RS timing requires --execution_time_predictor_config_aicb_moe_comm_profile")
++            tokens = seq if phase == "prefill" else bs
++            return RuntimeMoECommunication(path).estimate(phase,tokens,ws,tp,pp,ep)*1e-3
+         # Link is chosen by topology (cross-node -> RDMA, intra-node -> NVLink),
+         # not by prefill/decode. A fixed per-layer latency models launch/sync cost.
+         # 按拓扑选择链路：跨机用 RDMA，机内用 NVLink；与 prefill/decode 无关。
+@@ -890,6 +904,14 @@ class ExecutionTime(BaseEntity):
+ 
+         # Get current parameters / 获取当前参数
+         model_name, _, tp, pp, ws, ep, bs, seq, phase = self._get_aicb_params()
++        if model_name == "Qwen3-Next-80B":
++            # Use the measured disk grid, never history-dependent legacy caches.
++            profiles = QwenAICBProfiles(_AICB_ROOT, self._config.aicb_profile_dir)
++            self._aicb_data = profiles.load(
++                ws, tp, pp, ep, bs, seq, phase,
++                getattr(self._replica_config, "context_len", 0))
++            return self._aicb_data
++
+         
+         # === Step 1+2: Try global cache (exact match or interpolation) ===
+         # === 步骤1+2: 尝试从全局缓存获取 (精确匹配 或 插值) ===
+@@ -1208,6 +1230,20 @@ class ExecutionTime(BaseEntity):
+             )
+ 
+     def _get_cpu_overhead(self) -> float:
++        if (self._config.backend == "aicb"
++                and self._replica_config.model_name == "qwen3-next-80B"):
++            if self._config.skip_cpu_overhead_modeling:
++                return 0.0
++            path = self._config.aicb_cpu_overhead_profile
++            if not path:
++                raise ValueError("Qwen CPU modeling requires --random_forrest_execution_time_predictor_config_aicb_cpu_overhead_profile")
++            _, _, tp, pp, ws, ep, bs, seq, phase = self._get_aicb_params()
++            if bs != 1:
++                raise ValueError("Qwen worker perimeter is measured for batch1")
++            tokens = seq if phase == "prefill" else bs
++            return RuntimeBoundaryProfile(path).estimate(
++                phase, tokens, ws, tp, pp, ep,
++                context=getattr(self._replica_config, "context_len", 0))
+         return (
+             self._schedule_time
+             + self._sampler_e2e_time
+diff --git a/vidur-alibabacloud/vidur/entities/qwen_aicb_profiles.py b/vidur-alibabacloud/vidur/entities/qwen_aicb_profiles.py
+new file mode 100644
+index 0000000..60090d0
+--- /dev/null
++++ b/vidur-alibabacloud/vidur/entities/qwen_aicb_profiles.py
+@@ -0,0 +1,208 @@
++"""Validated Qwen profiles. No nearest-neighbor or cross-model fallbacks.
++
++Interpolation uses measured files on disk rather than the history of previous
++requests. CSV payloads and producer source identity are checked before use.
++This module deliberately has no CUDA, torch, Ray, or simulator imports.
++"""
++import bisect
++import csv
++import hashlib
++import json
++import math
++from pathlib import Path
++
++
++def producer_identity(aicb_root):
++    folder = Path(aicb_root) / "workload_generator/mocked_model/inference"
++    return hashlib.sha256(b"".join((folder / n).read_bytes() for n in (
++        "qwen3_next_projections.py", "AiobQwen3Next.py",
++        "qwen3_next_attention.py", "qwen3_next_moe.py"))).hexdigest()
++
++
++def interpolate(low, high, alpha):
++    if set(low) != set(high):
++        raise ValueError("Qwen profile layer layouts differ")
++    result = {}
++    for layer, parts in low.items():
++        if set(parts) != set(high[layer]):
++            raise ValueError("Qwen profile component layouts differ")
++        if any(parts[name].get("includes_ep_comm",0) != high[layer][name].get("includes_ep_comm",0) for name in parts):
++            raise ValueError("Cannot interpolate Qwen profiles with different MoE timing scopes")
++        result[layer] = {name: {
++            key: value * (1-alpha) + high[layer][name][key] * alpha
++            for key, value in fields.items()} for name, fields in parts.items()}
++    return result
++
++
++def bracket(points, value):
++    points = sorted(points)
++    if value in points:
++        return value, value
++    index = bisect.bisect_left(points, value)
++    if index == 0 or index == len(points):
++        raise ValueError("Qwen profile query {} is outside measured range {}".format(value, points))
++    return points[index-1], points[index]
++
++
++class QwenAICBProfiles:
++    def __init__(self, aicb_root, profile_dir=None):
++        self.root = Path(aicb_root)
++        self.directory = Path(profile_dir) if profile_dir else self.root / "results/workload"
++        self.source = producer_identity(self.root)
++        self._validated = {}
++
++    def _read(self, path, expected):
++        path = Path(path)
++        sidecar = Path(str(path)+".projections.json")
++        payload = path.read_bytes()
++        metadata = json.loads(sidecar.read_text())
++        identity = hashlib.sha256(payload+sidecar.read_bytes()).hexdigest()
++        if metadata.get("projection_profile_version") != 3 or metadata.get("scope") != "qwen3_next_components":
++            raise ValueError("Legacy Qwen AICB profile: regenerate {}".format(path))
++        if metadata.get("source_sha256") != self.source:
++            raise ValueError("Qwen producer source changed: regenerate {}".format(path))
++        if metadata.get("profile_sha256") != hashlib.sha256(payload).hexdigest():
++            raise ValueError("Qwen profile payload hash differs: {}".format(path))
++        if metadata.get("precision") != "bf16":
++            raise ValueError("BF16 Qwen execution cannot consume an FP8 component profile")
++        invocation = metadata.get("invocation", {})
++        for key, value in expected.items():
++            if invocation.get(key) != value:
++                raise ValueError("Qwen profile {} mismatch for {}: {} != {}".format(path, key, invocation.get(key), value))
++        if identity in self._validated:
++            return self._validated[identity]
++        rows = csv.DictReader(payload.decode().splitlines(), delimiter="\t")
++        result = {}
++        for row in rows:
++            layer = int(row["layer_id"])
++            name = row["layer_name"]
++            if name in result.setdefault(layer, {}):
++                raise ValueError("Duplicate Qwen profile component: {}/{}".format(layer, name))
++            values = {key: float(row[key]) for key in ("comp_time", "comm_size")}
++            if name == "moe":
++                scope = metadata.get("moe_time_scope", "compute_only")
++                if scope not in ("compute_only", "compute_and_ep_comm"):
++                    raise ValueError("Unknown Qwen MoE timing scope")
++                values["includes_ep_comm"] = float(scope == "compute_and_ep_comm")
++            if any(not math.isfinite(v) or v < 0 for v in values.values()):
++                raise ValueError("Nonfinite or negative Qwen timing/traffic")
++            result[layer][name] = values
++        if set(result) != set(range(48)) or any(set(p) != {"attention", "moe"} for p in result.values()):
++            raise ValueError("Qwen3-Next-80B requires all 48 attention/MoE layer rows")
++        if any(p[n]["comp_time"] <= 0 for p in result.values() for n in p):
++            raise ValueError("Qwen component profile contains zero compute time")
++        self._validated[identity] = result
++        return result
++
++    def load(self, ws, tp, pp, ep, bs, seq, phase, context=0):
++        if bs != 1 or pp != 1:
++            raise ValueError("Validated Qwen AICB profiles currently require batch1 and PP1")
++        prefix = "vidur-Qwen3-Next-80B-world_size{}-tp{}-pp{}-ep{}-bs{}-seq".format(ws,tp,pp,ep,bs)
++        candidates = {}
++        for path in self.directory.glob(prefix+"*-"+phase+".csv"):
++            sidecar = Path(str(path)+".projections.json")
++            if not sidecar.is_file():
++                continue
++            inv = json.loads(sidecar.read_text()).get("invocation", {})
++            tokens = inv.get("seq_length")
++            ctx = inv.get("context_length", 0) if phase == "prefill" else 0
++            if isinstance(tokens, int) and isinstance(ctx, int):
++                point = tokens, ctx
++                if point in candidates:
++                    raise ValueError("Ambiguous Qwen profiles at {}".format(point))
++                candidates[point] = path
++        if not candidates:
++            raise FileNotFoundError("No validated Qwen AICB profiles in {}".format(self.directory))
++        expected = dict(model_name="Qwen3-Next-80B", world_size=ws,
++                        tensor_model_parallel_size=tp,pipeline_model_parallel=pp,
++                        expert_model_parallel_size=ep,micro_batch=bs,phase=phase)
++
++        def read_point(tokens, ctx):
++            return self._read(candidates[(tokens,ctx)], dict(expected,seq_length=tokens,context_length=ctx))
++
++        if phase == "decode":
++            lo, hi = bracket([p[0] for p in candidates if p[1]==0], seq)
++            a=read_point(lo,0)
++            return a if lo==hi else interpolate(a,read_point(hi,0),(seq-lo)/(hi-lo))
++        if phase != "prefill":
++            raise ValueError("Unknown Qwen profile phase")
++        # Interpolate each chunk size along the existing-context axis first.
++        # Only token sizes that bracket this context participate.
++        by_tokens = {}
++        for tokens in sorted({p[0] for p in candidates}):
++            points = [p[1] for p in candidates if p[0]==tokens]
++            if min(points) <= context <= max(points):
++                by_tokens[tokens] = points
++        lo,hi=bracket(by_tokens,seq)
++        def read_tokens(tokens):
++            a,b=bracket(by_tokens[tokens],context)
++            low=read_point(tokens,a)
++            return low if a==b else interpolate(low,read_point(tokens,b),(context-a)/(b-a))
++        a=read_tokens(lo)
++        return a if lo==hi else interpolate(a,read_tokens(hi),(seq-lo)/(hi-lo))
++
++
++class RuntimeBoundaryProfile:
++    """Net execution perimeter; includes waits/GPU work outside model.forward.
++
++    These timings must not be summed with CPU function wall times that already
++    wait for the model. They replace the old five empirical overhead formulas.
++    """
++    def __init__(self, path):
++        self.data=json.loads(Path(path).read_text())
++        schemas = {"qwen_worker_critical_perimeter_v2": "host_iteration_wall_minus_model_gpu",
++                   "qwen_worker_request_perimeter_v3": "host_iteration_wall_minus_model_gpu_plus_request_io"}
++        schema = self.data.get("schema")
++        if schema not in schemas:
++            raise ValueError("Unsupported worker perimeter profile")
++        if self.data.get("scope") != schemas[schema]:
++            raise ValueError("Worker perimeter profile has incompatible timing boundary")
++
++    def estimate(self, phase, tokens, ws, tp, pp, ep, context=0):
++        expected=dict(model="qwen3-next-80B",world_size=ws,tp=tp,pp=pp,ep=ep,batch_size=1)
++        if self.data.get("configuration") != expected:
++            raise ValueError("Worker perimeter profile configuration differs")
++        if phase not in ("prefill", "decode"):
++            raise ValueError("Unknown worker perimeter phase")
++        if isinstance(context, bool) or not isinstance(context, int) or context < 0:
++            raise ValueError("Worker perimeter context must be a non-negative integer")
++        extra = 0.0
++        key = phase
++        if self.data["schema"] == "qwen_worker_request_perimeter_v3" and phase == "prefill":
++            key = "prefill_first" if context == 0 else "prefill_next"
++            extra = self.data["request_io_ms"] if context == 0 else self.data["inter_chunk_gap_ms"]
++        elif self.data["schema"] == "qwen_worker_request_perimeter_v3":
++            extra = self.data["inter_decode_gap_ms"]
++        if not math.isfinite(extra) or extra < 0:
++            raise ValueError("Invalid request IO or inter-iteration time")
++        points=self.data.get("phases",{}).get(key,[])
++        by_tokens={p['tokens']:p for p in points}
++        lo,hi=bracket(by_tokens,tokens)
++        def cost(k):
++            p=by_tokens[k]
++            values=[p['critical_perimeter_ms']]
++            if any(not math.isfinite(v) or v<0 for v in values):
++                raise ValueError("Invalid worker perimeter time")
++            return sum(values)
++        a=cost(lo)
++        return extra + (a if lo==hi else a+(cost(hi)-a)*(tokens-lo)/(hi-lo))
++
++
++class RuntimeMoECommunication:
++    """Phase-aware, max-rank AG(hidden,router)+RS(hidden) measurements."""
++    def __init__(self, path):
++        self.data=json.loads(Path(path).read_text())
++        if self.data.get("world_size") != 4 or self.data.get("dtype") != "bfloat16":
++            raise ValueError("MoE communication profile must be four-rank BF16 AG/RS")
++
++    def estimate(self, phase, tokens, ws, tp, pp, ep):
++        if (ws,tp,pp,ep) != (4,1,1,4):
++            raise ValueError("Measured Qwen communication requires WS4 TP1 PP1 EP4")
++        mode="eager" if phase=="prefill" else "cuda_graph"
++        points={p['active_tokens']:p['median_ms'] for p in self.data['profiles']
++                if p['mode']==mode and p['sizes']==[p['active_tokens']]*4}
++        lo,hi=bracket(points,tokens)
++        if any(not math.isfinite(v) or v<=0 for v in points.values()):
++            raise ValueError("Invalid MoE communication timing")
++        a=points[lo]
++        return a if lo==hi else a+(points[hi]-a)*(tokens-lo)/(hi-lo)
+diff --git a/vidur-alibabacloud/vidur/execution_time_predictor/base_execution_time_predictor.py b/vidur-alibabacloud/vidur/execution_time_predictor/base_execution_time_predictor.py
+index bab93ea..6e47f8b 100644
+--- a/vidur-alibabacloud/vidur/execution_time_predictor/base_execution_time_predictor.py
++++ b/vidur-alibabacloud/vidur/execution_time_predictor/base_execution_time_predictor.py
+@@ -213,6 +213,12 @@ class BaseExecutionTimePredictor(ABC):
+                 replica_config.decode_last_seq = decode_last_seq
+                 logger.debug(f"[AICB first-last interpolation] decode current seq={seq}, last iter seq={decode_last_seq}")
+             
++            replica_config.context_len = 0
++            if replica_config.model_name == "qwen3-next-80B" and replica_config.phase == "prefill":
++                prefills = [r for r in batch.requests if not r._is_prefill_complete]
++                if len(prefills) != 1:
++                    raise ValueError("Validated Qwen profiles require one prefill request")
++                replica_config.context_len = prefills[0].num_processed_prefill_tokens
+             replica_config.batch_size = bs
+             replica_config.seq_len = seq
+             
+diff --git a/vidur-alibabacloud/vidur/execution_time_predictor/sklearn_execution_time_predictor.py b/vidur-alibabacloud/vidur/execution_time_predictor/sklearn_execution_time_predictor.py
+index 30e96c1..ea7246f 100644
+--- a/vidur-alibabacloud/vidur/execution_time_predictor/sklearn_execution_time_predictor.py
++++ b/vidur-alibabacloud/vidur/execution_time_predictor/sklearn_execution_time_predictor.py
+@@ -885,6 +885,15 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
+         if self._config.skip_cpu_overhead_modeling:
+             return {}
+ 
++        if self._replica_config.model_name == "qwen3-next-80B":
++            if not self._config.aicb_cpu_overhead_profile:
++                raise ValueError("Qwen CPU modeling requires a measured worker perimeter profile")
++            # ExecutionTime applies the net perimeter once. Inclusive CPU
++            # function wall times contain GPU waits and cannot be summed here.
++            return {name: {(size,): 0.0 for size in range(1, self._config.prediction_max_batch_size + 1)}
++                    for name in ("schedule", "sampler_e2e", "prepare_inputs_e2e",
++                                 "process_model_outputs", "ray_comm_time")}
++
+         # Store CPU overhead predictions / 存储CPU开销预测结果
+         predictions = {}
+ 
+-- 
+2.34.1
+

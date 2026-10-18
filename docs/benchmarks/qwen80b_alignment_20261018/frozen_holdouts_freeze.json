@@ -1,0 +1,60 @@
+{
+  "commits": {
+    "aicb": {
+      "head": "db9353e6e924422baa02962aaceacdbde24e8309",
+      "branch": "codex/qwen80b-runtime-profile-20261016",
+      "files": [
+        "docs/qwen3_next_projection_profiles.md",
+        "tests/test_qwen3_next_attention.py",
+        "tests/test_qwen3_next_moe.py",
+        "tests/test_qwen3_next_projection_integration.py",
+        "utils/utils.py",
+        "workload_generator/Vidur_workload_generator.py",
+        "workload_generator/mocked_model/inference/AiobQwen3Next.py",
+        "workload_generator/mocked_model/inference/MockedQwen3Next.py",
+        "workload_generator/mocked_model/inference/qwen3_next_attention.py",
+        "workload_generator/mocked_model/inference/qwen3_next_moe.py",
+        "workload_generator/mocked_model/inference/qwen3_next_projections.py"
+      ]
+    },
+    "simai": {
+      "head": "e4a84a4e33e014c4ac0ad2c05ee5691238869c13",
+      "branch": "codex/qwen80b-aicb-alignment-20261016",
+      "files": [
+        "aicb",
+        "vidur-alibabacloud/tests/test_qwen_aicb_profiles_validation.py",
+        "vidur-alibabacloud/tests/test_qwen_aicb_wiring.py",
+        "vidur-alibabacloud/vidur/config/config.py",
+        "vidur-alibabacloud/vidur/entities/execution_time.py",
+        "vidur-alibabacloud/vidur/entities/qwen_aicb_profiles.py",
+        "vidur-alibabacloud/vidur/execution_time_predictor/base_execution_time_predictor.py",
+        "vidur-alibabacloud/vidur/execution_time_predictor/sklearn_execution_time_predictor.py"
+      ]
+    }
+  },
+  "profile_sha256": {
+    "phase_profile_v5/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq512-ctx8192-prefill.csv": "72188e2265cafaafa3860b4c822d680fa3d337d4844b9662874f3b39f72c22d8",
+    "phase_profile_v5/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq512-ctx512-prefill.csv": "3d8783dd06ada60cf288a3ee14ea4e5c0e64ea6a26d9d751355398ba9010c9c2",
+    "phase_profile_v5/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq8192-decode.csv.projections.json": "8006cf6b33c2c4e5eba8d50d7cc6dc89e4a0f9a5e13932b2c0f8ad49ac5c6999",
+    "phase_profile_v5/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq2048-decode.csv.projections.json": "f76ce189b3b691532d9478d6422dbccafc519a0c687a02b721c514f7cff15309",
+    "phase_profile_v5/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq256-decode.csv": "d1b4ac631a093b06393f6a32307d1cf088ce2a14f8fba5d52d97302b53b78cd6",
+    "phase_profile_v5/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq512-prefill.csv": "f26b9c2712a8d93f03f6b64f50463ead03b4eeb7eaf8000a2ab33a06cda8d319",
+    "phase_profile_v5/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq512-ctx512-prefill.csv.projections.json": "2356a9ca2869fcf026ede80c6e31eba32c919a4ecea5520b9f0ce7c574633b93",
+    "phase_profile_v5/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq256-decode.csv.projections.json": "c8148162f63b77a0bf7fef2e251a3d5f2de061c9e12ad906efc382b0be5acee5",
+    "phase_profile_v5/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq256-prefill.csv": "1b4e92e5a715f002ee49ac6cd4a361661b34b85c54415a5f2f8a37b3afe714c5",
+    "phase_profile_v5/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq512-ctx8192-prefill.csv.projections.json": "47eaa583af69410b3a40a1039e3bba59a8d9068b874b86024deb9b7ef79dbb4b",
+    "phase_profile_v5/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq2048-decode.csv": "24445275a11243c6729c9325e3631dfd6a8a46174bfb0534839a4e003426b1c5",
+    "phase_profile_v5/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq8192-decode.csv": "4ad8718e9de31f1cf4b3a61162d4f6ec7b64503d5e0676acffe8cdf0bec12c18",
+    "phase_profile_v5/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq512-decode.csv.projections.json": "2dd2ec30af475cd1bdb6c658a45ae3103cb030c2d5dedd744b8035a10cca159c",
+    "phase_profile_v5/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq512-prefill.csv.projections.json": "416194e19fe6ecbc9666ed1c1f5472d67f7fe2943b0c094f0262c4cc8c6af711",
+    "phase_profile_v5/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq256-prefill.csv.projections.json": "7f2811af44fc7fa07b1b813a828d7d79cd56919b4283ced5768861574d45bfe3",
+    "phase_profile_v5/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq4096-decode.csv.projections.json": "65f570bfba1536d296c8c6fb18178bcc22abfc01cf5d9f33a44c30099b84c8cd",
+    "phase_profile_v5/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq512-decode.csv": "19c39a6153e07bd60ed19f74cedfcd5e1827f11141bf246362d04cd9b6f75ca9",
+    "phase_profile_v5/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq8446-decode.csv.projections.json": "4a49fddb7dc4da40e5541df1267001be4dafcd21ebd322340d93ac4abaf04bc9",
+    "phase_profile_v5/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq1024-decode.csv": "90cad6711cc270042fef1e9271f7c69121e0b255996f8ebfb2cff75d011c147b",
+    "phase_profile_v5/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq4096-decode.csv": "478b67da24b693e6d5d314f8dfb1e7485439969cdf8dd428d7b14558a9b3f72c",
+    "phase_profile_v5/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq1024-decode.csv.projections.json": "d627ce8fac0e365aa3d4f820e42f6ceab6dd7f326241df0a31976b9a655fac8c",
+    "phase_profile_v5/workload/vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq8446-decode.csv": "64d9fe5c29940389cfe74d43c55a22de32396de2c630bccdd28cc48e79cee8e1"
+  },
+  "cpu_profile_sha256": "409b6efc3b947b3da56c1cf22c01f49527d532c99c4d14d6c28edb1a81f5cfe6"
+}

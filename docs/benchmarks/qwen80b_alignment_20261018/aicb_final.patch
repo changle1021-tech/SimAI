@@ -1,0 +1,1591 @@
+From db9353e6e924422baa02962aaceacdbde24e8309 Mon Sep 17 00:00:00 2001
+From: 101 <101@example.com>
+Date: Sun, 18 Oct 2026 21:22:45 +0700
+Subject: [PATCH] fix(qwen3-next): align runtime component profiling and timing
+ scope
+
+---
+ docs/qwen3_next_projection_profiles.md        | 185 ++++++++-------
+ tests/test_qwen3_next_attention.py            |  97 +++++++-
+ tests/test_qwen3_next_moe.py                  |  22 +-
+ .../test_qwen3_next_projection_integration.py | 157 +++++++++++--
+ utils/utils.py                                |   3 +-
+ .../Vidur_workload_generator.py               |  39 +++-
+ .../mocked_model/inference/AiobQwen3Next.py   | 131 +++--------
+ .../mocked_model/inference/MockedQwen3Next.py |   2 +-
+ .../inference/qwen3_next_attention.py         | 210 +++++++++++++++++-
+ .../mocked_model/inference/qwen3_next_moe.py  | 148 +++++++++++-
+ .../inference/qwen3_next_projections.py       |  90 ++++++--
+ 11 files changed, 845 insertions(+), 239 deletions(-)
+
+diff --git a/docs/qwen3_next_projection_profiles.md b/docs/qwen3_next_projection_profiles.md
+index ad3a8f9..828c142 100644
+--- a/docs/qwen3_next_projection_profiles.md
++++ b/docs/qwen3_next_projection_profiles.md
+@@ -1,86 +1,107 @@
+-# Qwen3-Next projection profiling
+-
+-The projection generator derives local widths from model configuration instead
+-of using individual head dimensions as complete projection sizes. For the
+-default configuration at TP1:
+-
+-| Projection | K | N |
+-| --- | ---: | ---: |
+-| GDN QKVZ | 2048 | 12288 |
+-| GDN b/a | 2048 | 64 |
+-| GDN output | 4096 | 2048 |
+-| Full-attention QKV, output gate enabled | 2048 | 9216 |
+-| Full-attention output | 4096 | 2048 |
+-
+-GDN output quantization uses the complete local value-head width. Full-attention
+-KV heads are replicated when TP exceeds the number of KV heads, as in vLLM.
+-Disabling `attn_output_gate` gives QKV N=5120 at TP1. Query normalization and the
+-attention kernel still use 16 query heads; the gate does not add attention heads.
+-
+-## Precision and output gate
+-
+-`workload_generator/Vidur_workload_generator.py` accepts the following
+-Qwen3-Next options:
+-
+-- `--projection_precision bf16`: BF16 linear projections, without FP8 input
+-  quantization. This is the default for a `torch_dtype=bfloat16` model config.
+-- `--projection_precision fp8`: retain the explicit DeepGEMM FP8 projection path
+-  and its input quantization. This is a component-level profiling control,
+-  not a claim that an entire FP8 serving model uses these kernels.
+-- `--attn_output_gate` / `--no_attn_output_gate`: override the model config.
+-  An omitted option preserves the config, with vLLM's default of enabled.
+-
+-The full-attention output sigmoid and multiplication are profiled together in
+-`atten_output_gate`. The existing statistics parser includes this entry once in
+-`attention_layer`; it is not also added to `atten_o`.
+-
+-Projection/gate callbacks use CUDA Graph device events around the complete
+-callback, including every kernel that a linear implementation emits. Input
+-creation and JIT/warmup are outside the measured interval. A 128 MiB cache flush
+-precedes the start event on each replay; its time is excluded. The helper returns
+-the median of 30 measurements in **seconds**. Existing AIOB output converts this
+-to microseconds, the workload CSV uses nanoseconds, and Vidur reads seconds.
+-This isolated device region does not measure model-forward CPU launch gaps.
+-
+-Other operators retain their existing profiling paths. In particular, choosing
+-BF16 projections does not change routed-expert DeepGEMM kernels or make the whole
+-profile equivalent to a BF16 serving runtime.
+-
+-## Existing profiles
+-
+-Generated AIOB statistics and workload CSVs receive a `.projections.json` sidecar
+-containing version, precision, local shapes, invocation parameters, timing scope,
+-source identity, and a SHA256 of the actual statistics/CSV payload.
+-
+-The Qwen3-Next workload entry point rejects missing or incompatible statistics
+-metadata. Existing projection timings cannot be repaired by attaching new
+-metadata or changing a dtype label: regenerate them explicitly with the corrected
+-generator on permitted GPU resources. Missing tables do not automatically enable
+-profiling in this entry point.
+-
+-Vidur's independent CSV/JSON/in-memory caches are outside this AICB change. They
+-must be regenerated/invalidated separately before expecting simulations to use
+-new timings. An already cached Vidur table will not be updated by checking out
+-this commit. Runtime/library/GPU provenance for the entire profile also needs
+-validation when producing replacement tables; this sidecar identifies only the
+-projection change, not every component in the workload.
+-
+-## CPU verification
+-
+-From the repository root, with no GPU dependencies required:
++# Qwen3-Next profiles and execution boundaries
++
++The validated configuration is Qwen3-Next-80B-A3B BF16, TP1/PP1/DP4/EP4,
++one active request, prefill chunks of at most 512 tokens, H100 and vLLM 0.11.2.
++The original projection shape helpers also cover TP2/4; that does not imply that
++the complete runtime calibration has been validated at those configurations.
++
++## Profiling and units
++
++At TP1 the GDN QKVZ projection is [2048,12288], b/a is [2048,64], and
++output is [4096,2048]. Full-attention QKV (including output gate) is
++[2048,9216], and output is [4096,2048]. The default projection precision
++follows the model BF16 dtype. Explicit FP8 projection microbenchmarks are a
++separate experiment; the full native GDN prefill chain is BF16.
++
++Prefill uses eager stream regions, retaining host launch gaps. GDN profiling
++includes compiled QKV ordering/materialization, the native GDN op, projections,
++gated norm and both decoder norms. The CSV writer removes the separately
++measured norms for GDN layers, so they are included once. Full attention uses
++vLLM's paged FA3 path, K/V cache writes, Q/K norm and the output gate. The
++hybrid BF16 cache page size is derived from the GDN state; it is 544 at TP1.
++
++Decode uses CUDA Graph timing. Events are outside replay: compare a graph of
++32 (128 MiB flush + callback) pairs with 32 flushes, alternating measurement
++order. Divide the median difference by 32. Events captured inside each callback
++inflate short kernels; warm repetitions without per-call flush can retain
++weights in L2. Input allocation and warmup/compilation are outside the interval.
++
++The helpers return seconds; AIOB statistics use microseconds; workload CSV
++`comp_time` uses nanoseconds. Vidur converts CSV values back to seconds.
++
++## MoE and communication
++
++BF16 routed experts use native fused-expert kernels. Expert routing is over
++DP-padded gathered tokens, while the router linear uses local tokens. Shared
++experts run on local tokens and can overlap routed experts on another stream;
++adding their separate timings is not the runtime critical path.
++
++`--moe_compute_profile PATH` supplies measurements for all 48 layers from real
++routes. The profile checks model layout, producer identity and (for combined
++native profiles) runtime source identity. `compute_only` profiles receive
++separate EP AG(hidden, router) + RS(hidden) communication in Vidur.
++`compute_and_ep_comm` profiles already include it and receive zero additional
++EP time. Combined timing must not be described as compute-only timing. Native FusedMoE
++replay begins after the external router linear; the profiler retains that linear
++when `router_linear_included_by_phase` is false. Compute-only calibration
++already includes it.
++
++The communication payload is BF16 hidden states plus router logits, not a
++DeepEP FP8 top-k payload. A runtime profile is specific to four ranks padded to
++the same size, even if only one rank owns a request. Independent collectives and
++independent compute do not necessarily add to the complete MoE duration.
++
++## Identity, cache and context
++
++Statistics and CSVs carry `.projections.json` sidecars with version 3, precision,
++shapes, phase/context, invocation, timing scope, four component-source hashes,
++MoE calibration hash and the actual payload hash. A changed payload or source
++requires regeneration. Do not repair old timings by changing their metadata.
++
++Vidur's Qwen loader bypasses the old persistent/global lookup caches. It checks
++all 48 attention/MoE rows and rejects missing data, incompatible layouts,
++nonfinite values and unsupported batch/PP settings. Interpolation is linear
++between measured points and independent of request history; out-of-range
++queries fail. Prefill has separate chunk and existing-context axes. Decode's
++sequence axis is the current KV length.
++
++## CPU and request boundaries
++
++CPU modeling is enabled with
++`--no-random_forrest_execution_time_predictor_config_skip_cpu_overhead_modeling`
++and requires `--random_forrest_execution_time_predictor_config_aicb_cpu_overhead_profile PATH`.
++The old five empirical CPU formulas are bypassed for Qwen. Inclusive CPU
++bookkeeping can wait on the GPU and must not be added to model time again.
++
++Worker perimeter v2 is host iteration wall time minus model GPU elapsed. It is
++kept for reproducing earlier experiments. Request perimeter v3 distinguishes
++first prefill, later prefill and decode. It adds measured client/worker request
++IO once at context=0, and measured inter-chunk gaps at later chunks. Request IO
++comes from aligned monotonic timestamps, not an E2E residual fit. The schema
++and timing scope must agree; v1 GPU-only boundaries are rejected.
++
++## Reproduction
++
++From the AICB root, using the vLLM 0.11.2 environment and an independently
++validated four-rank MoE profile:
+ 
+ ```bash
+-CUDA_VISIBLE_DEVICES='' python3 -m unittest discover -s tests -p 'test_qwen3_next_projection*.py' -v
++CUDA_VISIBLE_DEVICES=4 OMP_NUM_THREADS=1 TORCHINDUCTOR_COMPILE_THREADS=2 \
++python -m workload_generator.Vidur_workload_generator \
++  Qwen3-Next-80B scripts/inference_configs/qwen3_next_default.json \
++  --seq_length 512 --context_length 0 --micro_batch 1 --world_size 4 \
++  --tensor_model_parallel_size 1 --expert_model_parallel_size 4 \
++  --moe_compute_profile /absolute/path/moe_profile.json \
++  --aiob_enable --phase prefill --result_dir /absolute/path/workload
+ ```
+ 
+-The suite verifies TP1/2/4 widths, KV replication, invalid head layouts, precision
+-dispatch, query-gate math, actual AIOB forward argument wiring, configuration
+-overrides, gate aggregation and units, and rejection of legacy/mismatched
+-profiles. GPU callbacks are replaced with CPU fakes; heavy AIOB methods are
+-extracted from the production source to test their wiring without importing
+-CUDA packages.
+-
+-These tests do not validate new GPU kernel execution, CUDA Graph capture on a
+-particular device, or post-fix TTFT/TPOT. Those require a subsequent run on
+-permitted resources. Convolution, GDN recurrent/chunk paths, shared experts,
+-communication, and worker overhead remain separate issues.
++CPU verification (GPU callbacks are replaced by fakes):
++
++```bash
++CUDA_VISIBLE_DEVICES='' python3 -m unittest discover -s tests -p 'test_qwen3_next*.py' -v
++```
++
++These tests establish contracts and wiring. GPU correctness, observer overhead
++and prediction errors require the corresponding raw measurements and a
++separate uninstrumented validation set; unit test success alone establishes
++none of those results.
+diff --git a/tests/test_qwen3_next_attention.py b/tests/test_qwen3_next_attention.py
+index af9fc9d..43c988a 100644
+--- a/tests/test_qwen3_next_attention.py
++++ b/tests/test_qwen3_next_attention.py
+@@ -14,6 +14,25 @@ from workload_generator.mocked_model.inference.qwen3_next_attention import (
+ 
+ ROOT = Path(__file__).resolve().parents[1]
+ AIOB = ROOT / "workload_generator/mocked_model/inference/AiobQwen3Next.py"
++ATTENTION_HELPERS = ROOT / "workload_generator/mocked_model/inference/qwen3_next_attention.py"
++
++
++def function_node(path, class_name, method_name):
++    tree = ast.parse(path.read_text())
++    cls = next(node for node in tree.body
++               if isinstance(node, ast.ClassDef) and node.name == class_name)
++    return next(node for node in cls.body
++                if isinstance(node, ast.FunctionDef) and node.name == method_name)
++
++
++def called_functions(node):
++    names = []
++    for item in ast.walk(node):
++        if isinstance(item, ast.Call):
++            func = item.func
++            names.append(func.id if isinstance(func, ast.Name) else
++                         func.attr if isinstance(func, ast.Attribute) else "")
++    return names
+ 
+ 
+ def args(tp=1):
+@@ -38,12 +57,78 @@ class AttentionShapeTests(unittest.TestCase):
+         gdn = next(n for n in tree.body if isinstance(n, ast.ClassDef) and n.name == "Qwen3NextGatedDeltaNet")
+         conv = next(n for n in gdn.body if isinstance(n, ast.FunctionDef) and n.name == "_causal_conv")
+         core = next(n for n in gdn.body if isinstance(n, ast.FunctionDef) and n.name == "_fused_gdn_core")
+-        self.assertIn("benchmark_gdn_conv", ast.unparse(conv))
+-        self.assertIn("benchmark_gdn_core", ast.unparse(core))
+-        attn = next(n for n in tree.body if isinstance(n, ast.ClassDef) and n.name == "Qwen3NextAttention")
+-        attn_src = ast.unparse(attn)
+-        self.assertIn("BatchPrefillWithPagedKVCacheWrapper", attn_src)
+-        self.assertIn("benchmark_kv_cache_save", attn_src)
++        self.assertIn("benchmark_gdn_conv", called_functions(conv))
++        self.assertIn("benchmark_gdn_core", called_functions(core))
++        gdn_forward = next(n for n in gdn.body if isinstance(n, ast.FunctionDef) and n.name == "forward")
++        gdn_calls = called_functions(gdn_forward)
++        self.assertIn("benchmark_gdn_native_core", gdn_calls)
++        self.assertNotIn("benchmark_gdn_conv", gdn_calls)
++        self.assertNotIn("benchmark_gdn_core", gdn_calls)
++        self.assertNotIn("_fused_gdn_gating", gdn_calls)
++        attn_forward = function_node(AIOB, "Qwen3NextAttention", "forward")
++        self.assertIn("benchmark_kv_cache_save", called_functions(attn_forward))
++        attn_core = function_node(AIOB, "Qwen3NextAttention", "_attn_core")
++        core_call = next(n for n in ast.walk(attn_core)
++                         if isinstance(n, ast.Call) and isinstance(n.func, ast.Name)
++                         and n.func.id == "benchmark_flash_attention")
++        self.assertEqual(len(core_call.args), 3)
++        self.assertIsInstance(core_call.args[0], ast.Attribute)
++        self.assertEqual(core_call.args[0].attr, "args")
++        self.assertEqual([arg.id for arg in core_call.args[1:]], ["kv_lens", "q_lens"])
++
++    def test_flash_attention_uses_paged_flash_callback_with_scheduler_outside(self):
++        helper = ast.parse(ATTENTION_HELPERS.read_text())
++        flash = next(n for n in helper.body if isinstance(n, ast.FunctionDef)
++                     and n.name == "benchmark_flash_attention")
++        run = next(n for n in flash.body if isinstance(n, ast.FunctionDef) and n.name == "run")
++        flash_call = next(n for n in ast.walk(run) if isinstance(n, ast.Call)
++                          and isinstance(n.func, ast.Name) and n.func.id == "flash_attn_varlen_func")
++        self.assertIn("block_table", [kw.arg for kw in flash_call.keywords])
++        self.assertIn("scheduler_metadata", [kw.arg for kw in flash_call.keywords])
++        scheduler_calls = [n for n in ast.walk(flash) if isinstance(n, ast.Call)
++                           and isinstance(n.func, ast.Name) and n.func.id == "get_scheduler_metadata"]
++        benchmark_calls = [n for n in ast.walk(flash) if isinstance(n, ast.Call)
++                           and isinstance(n.func, ast.Name) and n.func.id == "benchmark_component"]
++        self.assertEqual(len(scheduler_calls), 1)
++        self.assertEqual(len(benchmark_calls), 1)
++        self.assertLess(scheduler_calls[0].lineno, benchmark_calls[0].lineno)
++
++    def test_attention_core_routes_through_flash_helper(self):
++        attn_core = function_node(AIOB, "Qwen3NextAttention", "_attn_core")
++        core_call = next(n for n in ast.walk(attn_core) if isinstance(n, ast.Call)
++                         and isinstance(n.func, ast.Name)
++                         and n.func.id == "benchmark_flash_attention")
++        self.assertEqual(len(core_call.args), 3)
++        self.assertIsInstance(core_call.args[0], ast.Attribute)
++        self.assertEqual(core_call.args[0].attr, "args")
++        self.assertEqual([arg.id for arg in core_call.args[1:]], ["kv_lens", "q_lens"])
++
++    def test_rotary_and_qk_norm_keep_vllm_arguments(self):
++        rotary = function_node(AIOB, "Qwen3NextAttention", "_rotary_emb")
++        rope_call = next(n for n in ast.walk(rotary) if isinstance(n, ast.Call)
++                         and isinstance(n.func, ast.Name) and n.func.id == "get_rope")
++        rotary_factor = next(kw.value for kw in rope_call.keywords
++                             if kw.arg == "partial_rotary_factor")
++        self.assertIsInstance(rotary_factor, ast.Attribute)
++        self.assertEqual(rotary_factor.attr, "partial_rotary_factor")
++        qk_norm = function_node(AIOB, "Qwen3NextAttention", "_qk_norm")
++        norm_call = next(n for n in ast.walk(qk_norm) if isinstance(n, ast.Call)
++                         and isinstance(n.func, ast.Name) and n.func.id == "GemmaRMSNormTest")
++        self.assertGreaterEqual(len(norm_call.args), 4)
++        self.assertIsInstance(norm_call.args[3], ast.Constant)
++        self.assertIsNone(norm_call.args[3].value)
++
++    def test_moe_router_and_expert_selection_use_expected_token_counts(self):
++        forward = function_node(AIOB, "Qwen3NextSparseMoeBlock", "forward")
++        calls = [n for n in ast.walk(forward) if isinstance(n, ast.Call)
++                 and isinstance(n.func, ast.Attribute)]
++        route_gate = next(n for n in calls if n.func.attr == "_route_gate")
++        select = next(n for n in calls if n.func.attr == "_select_experts")
++        self.assertEqual(route_gate.args[0].id, "local_tokens")
++        self.assertEqual(select.args[0].id, "tokens")
++        gathered = next(n for n in ast.walk(forward) if isinstance(n, ast.Call)
++                        and isinstance(n.func, ast.Name) and n.func.id == "gathered_tokens")
++        self.assertEqual(gathered.args[0].id, "local_tokens")
+ 
+ 
+ if __name__ == "__main__":
+diff --git a/tests/test_qwen3_next_moe.py b/tests/test_qwen3_next_moe.py
+index 77f32d6..bef1476 100644
+--- a/tests/test_qwen3_next_moe.py
++++ b/tests/test_qwen3_next_moe.py
+@@ -1,10 +1,14 @@
+ """CPU tests for the Qwen3-Next MoE load and layout contracts."""
+ 
+ import random
++import json
++import tempfile
++from pathlib import Path
+ from types import SimpleNamespace
+ import unittest
+ 
+ from workload_generator.mocked_model.inference.qwen3_next_moe import (
++    critical_profile_includes_router,
+     expected_local_routes,
+     gathered_tokens,
+     moe_parallel_layout,
+@@ -55,6 +59,20 @@ class ExpertLoadTests(unittest.TestCase):
+                 sample_expert_loads(bad, 4)
+ 
+ 
++class ProfileScopeTests(unittest.TestCase):
++    def test_router_inclusion_follows_profile_scope_and_requires_boolean(self):
++        with tempfile.TemporaryDirectory() as directory:
++            path = Path(directory) / "profile.json"
++            cfg = SimpleNamespace(moe_compute_profile=str(path), phase="prefill")
++            for scope, included in (("compute_only", True), ("compute_and_ep_comm", False)):
++                path.write_text(json.dumps({"time_scope_by_phase": {"prefill": scope}}))
++                self.assertEqual(critical_profile_includes_router(cfg), included)
++            path.write_text(json.dumps({"time_scope_by_phase": {"prefill": "compute_and_ep_comm"},
++                                        "router_linear_included_by_phase": {"prefill": "false"}}))
++            with self.assertRaisesRegex(ValueError, "boolean"):
++                critical_profile_includes_router(cfg)
++
++
+ class SharedExpertWiringTests(unittest.TestCase):
+     def test_moe_forward_returns_shared_expert_time(self):
+         import ast
+@@ -66,7 +84,9 @@ class SharedExpertWiringTests(unittest.TestCase):
+         moe = next(n for n in tree.body if isinstance(n, ast.ClassDef)
+                    and n.name == "Qwen3NextSparseMoeBlock")
+         forward = next(n for n in moe.body if isinstance(n, ast.FunctionDef) and n.name == "forward")
+-        self.assertIn("benchmark_shared_expert", ast.unparse(forward))
++        called = [n.func.id for n in ast.walk(forward)
++                  if isinstance(n, ast.Call) and isinstance(n.func, ast.Name)]
++        self.assertIn("benchmark_shared_expert", called)
+ 
+     def test_shared_expert_defaults_to_moe_intermediate_size(self):
+         from workload_generator.mocked_model.inference.qwen3_next_moe import benchmark_shared_expert
+diff --git a/tests/test_qwen3_next_projection_integration.py b/tests/test_qwen3_next_projection_integration.py
+index 6412556..28c8c0a 100644
+--- a/tests/test_qwen3_next_projection_integration.py
++++ b/tests/test_qwen3_next_projection_integration.py
+@@ -2,7 +2,7 @@
+ 
+ import ast
+ import copy
+-from contextlib import nullcontext, redirect_stdout
++from contextlib import contextmanager, redirect_stdout
+ import io
+ import json
+ import math
+@@ -34,7 +34,7 @@ def load_profiling_classes():
+     # Keep the actual method bodies. Replace only GPU base classes/imports so
+     # the production forward/parameter wiring can run on a CPU-only machine.
+     nodes = []
+-    names = ("Qwen3NextGatedDeltaNet", "Qwen3NextAttention", "Qwen3NextModel")
++    names = ("Qwen3NextGatedDeltaNet", "Qwen3NextAttention", "Qwen3NextModel", "Qwen3NextSparseMoeBlock")
+     for node in ast.parse(AIOB.read_text()).body:
+         if isinstance(node, ast.ClassDef) and node.name in names:
+             node = copy.deepcopy(node)
+@@ -43,8 +43,14 @@ def load_profiling_classes():
+     env = {
+         "InferencePhase": InferencePhase,
+         "benchmark_projection": Mock(return_value=1.0),
++        "critical_profile_includes_router": Mock(return_value=True),
+         "benchmark_input_quantization": Mock(return_value=0.0),
++        "benchmark_gdn_conv": Mock(return_value=100.0),
++        "benchmark_gdn_core": Mock(return_value=200.0),
++        "benchmark_gdn_gating": Mock(return_value=300.0),
+         "benchmark_attention_output_gate": Mock(return_value=2.0),
++        "benchmark_gdn_native_core": Mock(return_value=7.0),
++        "benchmark_gdn_compiled_chain": Mock(return_value=13.0),
+         "benchmark_kv_cache_save": Mock(return_value=0.0),
+         "projection_precision": projections.projection_precision,
+         "projection_shapes": projections.projection_shapes,
+@@ -59,20 +65,103 @@ def load_profiling_classes():
+ 
+ class ProjectionBackendTests(unittest.TestCase):
+     def test_region_uses_device_events_and_flush_outside_timed_interval(self):
++        order = []
++        capture = {"graph": None}
++        start, end = Mock(), Mock()
++        def record(name):
++            self.assertIsNone(capture["graph"], "CUDA events must be recorded outside graph capture")
++            order.append((name, None))
++        start.record.side_effect = lambda: record("start")
++        end.record.side_effect = lambda: record("end")
++        start.elapsed_time.side_effect = [102.0, 38.0, 42.0, 106.0, 110.0, 46.0]
++        torch = Mock()
++        torch.empty.return_value.zero_.side_effect = lambda: order.append(("flush", capture["graph"]))
++        graph, baseline = Mock(), Mock()
++        graph.replay.side_effect = lambda: order.append(("graph_replay", None))
++        baseline.replay.side_effect = lambda: order.append(("baseline_replay", None))
++        torch.cuda.CUDAGraph.side_effect = [graph, baseline]
++        torch.cuda.Event.side_effect = [start, end]
++        @contextmanager
++        def graph_capture(value):
++            self.assertIsNone(capture["graph"])
++            capture["graph"] = value
++            order.append(("capture_start", value))
++            try:
++                yield
++            finally:
++                order.append(("capture_end", value))
++                capture["graph"] = None
++        torch.cuda.graph.side_effect = graph_capture
++        callback = Mock(side_effect=lambda: order.append(("kernel", capture["graph"])))
++        with patch.dict(sys.modules, {"torch": torch}):
++            seconds = projections.benchmark_gpu_region(callback, warmup=1, samples=3)
++        first_event = order.index(("start", None))
++        graph_kernels = [i for i, item in enumerate(order) if item == ("kernel", graph)]
++        self.assertEqual(len(graph_kernels), 32)
++        self.assertEqual(len([item for item in order if item == ("flush", graph)]), 32)
++        self.assertEqual(len([item for item in order if item == ("flush", baseline)]), 32)
++        self.assertEqual([order[i - 1] for i in graph_kernels], [("flush", graph)] * 32)
++        self.assertEqual(order[:first_event].count(("kernel", None)), 1)
++        self.assertEqual(callback.call_count, 33)
++        self.assertEqual(order[first_event:].count(("graph_replay", None)), 3)
++        self.assertEqual(order[first_event:].count(("baseline_replay", None)), 3)
++        self.assertEqual(start.record.call_count, 6)
++        self.assertEqual(end.record.call_count, 6)
++        self.assertEqual([(total-base)/32.0 for total, base in
++                          zip((102, 106, 110), (38, 42, 46))], [2.0, 2.0, 2.0])
++        self.assertEqual(seconds, 0.002)
++        self.assertEqual(torch.cuda.CUDAGraph.call_count, 2)
++
++    def test_eager_region_calls_callback_each_sample_and_flushes_before_start(self):
+         order = []
+         start, end = Mock(), Mock()
+         start.record.side_effect = lambda: order.append("start")
+         end.record.side_effect = lambda: order.append("end")
+-        start.elapsed_time.side_effect = [2.0, 1.0, 3.0]
++        end.synchronize.side_effect = lambda: order.append("end_sync")
++        start.elapsed_time.side_effect = [1.0, 3.0]
+         torch = Mock()
++        torch.cuda.synchronize.side_effect = lambda: order.append("sync")
+         torch.empty.return_value.zero_.side_effect = lambda: order.append("flush")
+         torch.cuda.Event.side_effect = [start, end]
+-        torch.cuda.graph.return_value = nullcontext()
++
++        def callback():
++            order.append("callback")
++
+         with patch.dict(sys.modules, {"torch": torch}):
+-            seconds = projections.benchmark_gpu_region(lambda: order.append("kernel"), warmup=1, samples=3)
+-        self.assertEqual(order, ["kernel", "flush", "start", "kernel", "end"])
++            seconds = projections.benchmark_gpu_region(
++                callback, warmup=1, samples=2, timing_mode="eager"
++            )
++
++        self.assertEqual(order, [
++            "callback", "sync",
++            "flush", "sync", "start", "callback", "end", "end_sync",
++            "flush", "sync", "start", "callback", "end", "end_sync",
++        ])
+         self.assertEqual(seconds, 0.002)
+-        self.assertEqual(torch.cuda.CUDAGraph.return_value.replay.call_count, 3)
++        torch.cuda.CUDAGraph.return_value.replay.assert_not_called()
++        torch.cuda.graph.assert_not_called()
++
++    def test_component_dispatches_timing_mode_by_phase(self):
++        callback = Mock()
++        with patch.object(projections, "benchmark_gpu_region", return_value=0.25) as timer:
++            self.assertEqual(projections.benchmark_component(config(phase="prefill"), callback), 0.25)
++            timer.assert_called_once_with(callback, timing_mode="eager")
++
++            timer.reset_mock()
++            self.assertEqual(projections.benchmark_component(config(phase="decode"), callback), 0.25)
++            timer.assert_called_once_with(callback, timing_mode="cuda_graph")
++
++            timer.reset_mock()
++            self.assertEqual(projections.benchmark_component(SimpleNamespace(), callback), 0.25)
++            timer.assert_called_once_with(callback, timing_mode="cuda_graph")
++
++    def test_region_rejects_unknown_timing_mode(self):
++        torch = Mock()
++        with patch.dict(sys.modules, {"torch": torch}):
++            with self.assertRaisesRegex(ValueError, "timing_mode must be cuda_graph or eager"):
++                projections.benchmark_gpu_region(Mock(), timing_mode="invalid")
++        torch.cuda.synchronize.assert_not_called()
++        torch.empty.assert_not_called()
+ 
+     def test_bf16_runs_linear_with_correct_weight_orientation(self):
+         torch = Mock()
+@@ -80,7 +169,7 @@ class ProjectionBackendTests(unittest.TestCase):
+         x, weight = object(), object()
+         torch.randn.side_effect = [x, weight]
+         with patch.dict(sys.modules, {"torch": torch}), patch.object(
+-            projections, "benchmark_gpu_region", side_effect=lambda fn: (fn(), 0.001)[1]
++            projections, "benchmark_gpu_region", side_effect=lambda fn, **kwargs: (fn(), 0.001)[1]
+         ):
+             self.assertEqual(projections.benchmark_projection(config(), 512, 2048, 12288), 0.001)
+         self.assertEqual(torch.randn.call_args_list[0].args, (512, 2048))
+@@ -99,7 +188,7 @@ class ProjectionBackendTests(unittest.TestCase):
+         )
+         torch = Mock()
+         with patch.dict(sys.modules, {"torch": torch, "utils.deepgemm_utils": backend}), patch.object(
+-            projections, "benchmark_gpu_region", side_effect=lambda fn: (fn(), 0.002)[1]
++            projections, "benchmark_gpu_region", side_effect=lambda fn, **kwargs: (fn(), 0.002)[1]
+         ):
+             value = projections.benchmark_projection(config(projection_precision="fp8"), 1, 4096, 2048)
+         self.assertEqual(value, 0.002)
+@@ -129,7 +218,7 @@ class ProjectionBackendTests(unittest.TestCase):
+         torch.sigmoid.side_effect = lambda x: Tensor([1 / (1 + math.exp(-v)) for v in x.values])
+         measured = []
+         with patch.dict(sys.modules, {"torch": torch}), patch.object(
+-            projections, "benchmark_gpu_region", side_effect=lambda fn: (measured.append(fn()), 0.003)[1]
++            projections, "benchmark_gpu_region", side_effect=lambda fn, **kwargs: (measured.append(fn()), 0.003)[1]
+         ):
+             projections.benchmark_attention_output_gate(config(), 1, 4096)
+         self.assertAlmostEqual(measured[0].values[0], 1.0)
+@@ -140,6 +229,22 @@ class ProjectionBackendTests(unittest.TestCase):
+ 
+ 
+ class ProjectionWiringTests(unittest.TestCase):
++    def test_moe_profile_keeps_external_router_only_when_excluded_from_profile(self):
++        for included in (False, True):
++            with self.subTest(router_in_profile=included):
++                env = load_profiling_classes()
++                env["critical_profile_includes_router"].return_value = included
++                cls = env["Qwen3NextSparseMoeBlock"]
++                obj = cls.__new__(cls)
++                obj.args = config(moe_compute_profile="profile.json")
++                obj._route_gate = Mock(return_value=0.003)
++                expected = 0.0 if included else 0.003
++                self.assertEqual(obj.forward(), (expected, 0.0, 0.0, 0.0))
++                if included:
++                    obj._route_gate.assert_not_called()
++                else:
++                    obj._route_gate.assert_called_once_with(512)
++
+     def test_gdn_forward_profiles_both_phases_and_uses_value_width(self):
+         for tp in (1, 2, 4):
+             for phase, m in (("prefill", 512), ("decode", 2)):
+@@ -151,17 +256,31 @@ class ProjectionWiringTests(unittest.TestCase):
+                                       linear_num_value_heads=64)
+                     obj.tp = tp
+                     obj.shapes = projections.projection_shapes(obj.args)
+-                    for name in ("_causal_conv", "_fused_gdn_gating", "_fused_gdn_core", "_norm"):
++                    for name in ("_norm",):
+                         setattr(obj, name, Mock(return_value=0))
+-                    obj.forward()
++                    values = obj.forward()
+                     calls = env["benchmark_projection"].call_args_list
+-                    self.assertEqual([c.args[1:] for c in calls], [
+-                        (m, 2048, 20480 // tp),
+-                        (m, 2048, 128 // tp),
+-                        (m, 8192 // tp, 2048),
+-                    ])
+-                    self.assertEqual([c.args[1:] for c in env["benchmark_input_quantization"].call_args_list],
+-                                     [(m, 2048), (m, 8192 // tp)])
++                    if phase == "prefill":
++                        env["benchmark_gdn_compiled_chain"].assert_called_once_with(obj.args, m)
++                        self.assertEqual(values, (0.0, 0.0, 13.0, 0.0))
++                        self.assertEqual(calls, [])
++                        env["benchmark_input_quantization"].assert_not_called()
++                        env["benchmark_gdn_native_core"].assert_not_called()
++                    else:
++                        env["benchmark_gdn_compiled_chain"].assert_not_called()
++                        self.assertEqual([c.args[1:] for c in calls], [
++                            (m, 2048, 20480 // tp),
++                            (m, 2048, 128 // tp),
++                            (m, 8192 // tp, 2048),
++                        ])
++                        self.assertEqual([c.args[1:] for c in env["benchmark_input_quantization"].call_args_list],
++                                         [(m, 2048), (m, 8192 // tp)])
++                        env["benchmark_gdn_native_core"].assert_called_once_with(obj.args, phase, m)
++                    env["benchmark_gdn_conv"].assert_not_called()
++                    env["benchmark_gdn_core"].assert_not_called()
++                    env["benchmark_gdn_gating"].assert_not_called()
++                    self.assertEqual(values[1], 0.0)
++                    self.assertEqual(values[2], 13.0 if phase == "prefill" else 7.0)
+ 
+     def test_attention_forward_keeps_gate_separate_and_kv_replication(self):
+         env = load_profiling_classes()
+diff --git a/utils/utils.py b/utils/utils.py
+index 1eeb5fe..eeafe59 100755
+--- a/utils/utils.py
++++ b/utils/utils.py
+@@ -346,7 +346,8 @@ def get_compute_path(args):
+     if not os.path.isdir(result_dir):
+         os.makedirs(result_dir)
+     phase = args.phase
+-    filename = f"{args.model_name}-world_size{args.world_size}-tp{args.tensor_model_parallel_size}-pp1-ep{args.expert_model_parallel_size}-bpg{args.micro_batch}-seq{args.seq_length}-{phase}.txt"
++    ctx = f"-ctx{args.context_length}" if getattr(args, "context_length", 0) else ""
++    filename = f"{args.model_name}-world_size{args.world_size}-tp{args.tensor_model_parallel_size}-pp{args.pipeline_model_parallel}-ep{args.expert_model_parallel_size}-bpg{args.micro_batch}-seq{args.seq_length}{ctx}-{phase}.txt"
+     filepath = os.path.join(result_dir, filename)
+     return filepath
+ 
+diff --git a/workload_generator/Vidur_workload_generator.py b/workload_generator/Vidur_workload_generator.py
+index b4044e6..babc5dd 100644
+--- a/workload_generator/Vidur_workload_generator.py
++++ b/workload_generator/Vidur_workload_generator.py
+@@ -119,6 +119,13 @@ class VidurWorkload():
+         elif phase == InferencePhase.PREFILL.value:
+             m = self.args.seq_length
+         tp_comm_size = 2 * m * self.args.hidden_size
++        if self.args.model_name == "Qwen3-Next-80B":
++            dp = self.args.world_size // self.tp // self.args.pipeline_model_parallel
++            # Native AG/RS communicates hidden states and router logits in BF16.
++            # It does not dispatch top-k FP8 token copies as DeepEP does.
++            dispatch = (dp - 1) * m * 2 * (self.args.hidden_size + self.args.num_experts)
++            combine = (dp - 1) * m * 2 * self.args.hidden_size
++            return tp_comm_size, dispatch, combine
+         ep_combine_size = tp_comm_size * self.topk // self.tp
+         ep_dispatch_size = ep_combine_size
+ 
+@@ -158,6 +165,29 @@ class VidurWorkload():
+         self.vidur_layers = [[layer_id, layer_type, comp_sum, comm_sum]
+                 for (layer_id, layer_type), (comp_sum, comm_sum) in items]
+         
++        if self.args.model_name == "Qwen3-Next-80B" and getattr(self.args,"moe_compute_profile",None):
++            from workload_generator.mocked_model.inference.qwen3_next_moe import load_critical_moe_profile
++            measured = load_critical_moe_profile(self.args)
++            # Native FusedMoE replay starts after router linear. AIOB retains
++            # that linear in moe_route only when the replay excludes it.
++            norm_ns = self.compute_cache["moe_norm"]
++            for row in self.vidur_layers:
++                if row[1].value == "moe":
++                    # The statistics parser omits exactly-zero entries. A
++                    # profile which includes router compute intentionally
++                    # produces no separate moe_route entry.
++                    row[2] = norm_ns + self.compute_cache.get("moe_route", 0) + measured[row[0]] * 1e6
++
++        if self.args.model_name == "Qwen3-Next-80B" and self.args.phase == "prefill":
++            # The compiled GDN chain already includes both decoder norms.
++            for row in self.vidur_layers:
++                is_gdn = (row[0]+1) % self.args.full_attention_interval != 0
++                if is_gdn:
++                    if row[1].value == "attention":
++                        row[2] -= self.compute_cache["attention_norm"]
++                    elif row[1].value == "moe":
++                        row[2] -= self.compute_cache["moe_norm"]
++
+         # Comm part
+         tp_comm_size, ep_dispatch_size, ep_combine_size = self.get_comm_size()
+         tp_comm_size = tp_comm_size if self.tp > 1 else 0
+@@ -190,6 +220,10 @@ if __name__ == "__main__":
+     # Add arguments that has default value
+     parser.add_argument("--aiob_enable", action="store_true", default=False, help="Enable AIOB")
+     parser.add_argument("--aiob_forward_loops", type=int, default=1, help="Number of AIOB forward loops")
++    parser.add_argument("--profile_seed", type=int, default=42, help="Deterministic component profiling seed")
++    parser.add_argument("--moe_compute_profile", default=None, help="Measured real-route MoE critical-compute JSON")
++    parser.add_argument("--context_length", type=int, default=0, help="Existing KV tokens before a Qwen3-Next prefill chunk")
++    parser.add_argument("--block_size", type=int, default=None, help="Qwen3-Next KV block override; default derives hybrid state-page alignment")
+     parser.add_argument("--projection_precision", choices=["bf16", "fp8"], default=None,
+                         help="Qwen3-Next projection precision (default: model torch_dtype)")
+     gate_options = parser.add_mutually_exclusive_group()
+@@ -230,7 +264,8 @@ if __name__ == "__main__":
+     result_dir = args.result_dir
+     if not os.path.isdir(result_dir):
+         os.makedirs(result_dir)
+-    filename = f"vidur-{args.model_name}-world_size{args.world_size}-tp{args.tensor_model_parallel_size}-pp{args.pipeline_model_parallel}-ep{args.expert_model_parallel_size}-bs{args.micro_batch}-seq{args.seq_length}-{phase}"
++    ctx = f"-ctx{args.context_length}" if getattr(args, "context_length", 0) else ""
++    filename = f"vidur-{args.model_name}-world_size{args.world_size}-tp{args.tensor_model_parallel_size}-pp{args.pipeline_model_parallel}-ep{args.expert_model_parallel_size}-bs{args.micro_batch}-seq{args.seq_length}{ctx}-{phase}"
+     
+     if args.aiob_enable:
+         if "Qwen3-Moe" in model_name:
+@@ -251,7 +286,7 @@ if __name__ == "__main__":
+ 
+     else:
+         aiob_dir = "results/aiob_outputs"
+-        aiob_output_filename = f"{args.model_name}-world_size{args.world_size}-tp{args.tensor_model_parallel_size}-pp{args.pipeline_model_parallel}-ep{args.expert_model_parallel_size}-bpg{args.micro_batch}-seq{args.seq_length}-{phase}.txt"
++        aiob_output_filename = f"{args.model_name}-world_size{args.world_size}-tp{args.tensor_model_parallel_size}-pp{args.pipeline_model_parallel}-ep{args.expert_model_parallel_size}-bpg{args.micro_batch}-seq{args.seq_length}{ctx}-{phase}.txt"
+         aiob_output_filepath = os.path.join(aiob_dir,aiob_output_filename)
+         if not os.path.exists(aiob_output_filepath):
+             print(f"aiob not enabled, and {aiob_output_filepath} not found. Using default compute time.")
+diff --git a/workload_generator/mocked_model/inference/AiobQwen3Next.py b/workload_generator/mocked_model/inference/AiobQwen3Next.py
+index 369ca02..129a6f9 100644
+--- a/workload_generator/mocked_model/inference/AiobQwen3Next.py
++++ b/workload_generator/mocked_model/inference/AiobQwen3Next.py
+@@ -10,14 +10,15 @@ from typing import Optional, Union, Tuple
+ from workload_generator.mocked_model.inference.qwen3_next_projections import (
+     projection_shapes, projection_precision, benchmark_projection,
+     benchmark_input_quantization, benchmark_attention_output_gate,
+-    write_projection_metadata, benchmark_gpu_region,
++    write_projection_metadata, benchmark_gpu_region, benchmark_component,
+ )
+ from workload_generator.mocked_model.inference.qwen3_next_moe import (
+     moe_parallel_layout, gathered_tokens, benchmark_routed_experts,
+     benchmark_shared_expert,
++    critical_profile_includes_router,
+ )
+ from workload_generator.mocked_model.inference.qwen3_next_attention import (
+-    benchmark_gdn_conv, benchmark_gdn_core, benchmark_kv_cache_save,
++    benchmark_gdn_conv, benchmark_gdn_core, benchmark_kv_cache_save, benchmark_flash_attention, benchmark_gdn_native_core, benchmark_gdn_compiled_chain,
+ )
+ # import triton
+ import numpy as np
+@@ -37,12 +38,12 @@ def GemmaRMSNormTest(
+         hidden_size,
+         variance_epsilon: float,
+         x: torch.Tensor,
+-        residual: Optional[torch.Tensor]):
++        residual: Optional[torch.Tensor], timing_mode="cuda_graph"):
+     gemmaRMSNormImpl = GemmaRMSNorm(hidden_size, variance_epsilon)
+     gemmaRMSNormImpl = gemmaRMSNormImpl.to(x.device)
+     def test_func():
+         gemmaRMSNormImpl.forward_cuda(x, residual)
+-    t = bench_kineto(test_func, "triton_red_fused__to_copy_add_mean_mul_pow_rsqrt_0", suppress_kineto_output=True)
++    t = benchmark_gpu_region(test_func, timing_mode=timing_mode)
+     return t
+ 
+ # modified from test_causal_conv1d.py
+@@ -125,32 +126,14 @@ class Qwen3NextGatedDeltaNet(torch.nn.Module):
+         return benchmark_gdn_conv(self.args, phase, m)
+ 
+     def _fused_gdn_gating(self, m):
+-        A_log = torch.empty(
+-                divide(self.args.linear_num_value_heads, self.tp),
+-                dtype=torch.float32,
+-            )
+-        a = torch.randn(m, self.args.linear_num_value_heads//self.tp, device='cuda', dtype=torch.bfloat16)
+-        dt_bias = torch.ones(self.args.linear_num_value_heads // self.tp)
+-
+-        batch, num_heads = a.shape
+-        seq_len=1
+-        grid = (batch, seq_len, triton.cdiv(num_heads, 8))
+-        g = torch.empty_like(a, dtype=torch.float32)
++        from vllm.model_executor.models.qwen3_next import fused_gdn_gating
++        heads = self.args.linear_num_value_heads // self.tp
++        A_log = torch.zeros(heads, device="cuda", dtype=torch.float32)
++        dt_bias = torch.ones(heads, device="cuda", dtype=torch.float32)
++        a = torch.randn(m, heads, device="cuda", dtype=torch.bfloat16)
++        b = torch.randn_like(a)
++        return benchmark_component(self.args, lambda: fused_gdn_gating(A_log, a, b, dt_bias))
+ 
+-        def test_func():
+-            fused_gdn_gating_kernel[grid](g,
+-                                  A_log,
+-                                  a,
+-                                  dt_bias,
+-                                  seq_len,
+-                                  num_heads,
+-                                  1.0,
+-                                  20.0,
+-                                  8,
+-                                  num_warps=1)
+-        t = bench_kineto(test_func, "fused_gdn_gating_kernel", suppress_kineto_output=True)
+-        return t
+-    
+     def _fused_gdn_core(self):
+         phase = getattr(self.args, "phase", InferencePhase.DECODE.value)
+         return benchmark_gdn_core(self.args, phase, self.args.micro_batch, self.args.seq_length)
+@@ -164,7 +147,7 @@ class Qwen3NextGatedDeltaNet(torch.nn.Module):
+ 
+         def test_func():
+             self.norm(core_attn_out, z)
+-        t = bench_kineto(test_func, "layer_norm_fwd_kernel", suppress_kineto_output=True)
++        t = benchmark_component(self.args, test_func)
+         return t
+     
+     def forward(self):
+@@ -174,6 +157,9 @@ class Qwen3NextGatedDeltaNet(torch.nn.Module):
+         elif phase == InferencePhase.PREFILL.value:
+             m = self.args.seq_length
+ 
++        if phase == InferencePhase.PREFILL.value:
++            return 0.0, 0.0, benchmark_gdn_compiled_chain(self.args, m), 0.0
++
+         # 1. qkv
+         qkv_quant = self._attn_quant(True, m)
+         
+@@ -188,12 +174,12 @@ class Qwen3NextGatedDeltaNet(torch.nn.Module):
+         attn_qkv = qkv_quant+qkvz_proj+ba_proj
+ 
+         # 2. Causal Convolution
+-        attn_causal_conv = self._causal_conv(m)
++        attn_causal_conv = 0.0  # included in the native custom-op region
+ 
+         # 3. Recurrent Attention
+-        gdn_gating = self._fused_gdn_gating(m)
++        gdn_gating = 0.0  # native custom op computes both g and beta
+         #fused_recurrent_gated_delta_rule
+-        gdn_core = self._fused_gdn_core()
++        gdn_core = benchmark_gdn_native_core(self.args, phase, m)
+ 
+         attn_gdn = gdn_gating + gdn_core
+ 
+@@ -239,7 +225,8 @@ class Qwen3NextAttention(torch.nn.Module):
+         x = torch.randn(m,n, device='cuda', dtype=torch.bfloat16)
+         x = x.view(*x.shape[:-1], x.shape[-1] // head_dim, head_dim)
+         residual = torch.rand_like(x, device='cuda', dtype=torch.bfloat16)
+-        return GemmaRMSNormTest(head_dim,self.args.rms_norm_eps,x, residual)
++        return GemmaRMSNormTest(head_dim, self.args.rms_norm_eps, x, None,
++                                timing_mode="eager" if self.args.phase == "prefill" else "cuda_graph")
+             
+     def _rotary_emb(self, m):
+         head_dim = self.args.head_dim
+@@ -255,6 +242,7 @@ class Qwen3NextAttention(torch.nn.Module):
+                 max_position=self.args.max_position_embeddings,
+                 base=self.args.rope_theta,
+                 rope_scaling=self.args.rope_scaling,
++                partial_rotary_factor=self.args.partial_rotary_factor,
+                 dual_chunk_attention_config = getattr(self.args, 
+                                         "dual_chunk_attention_config",
+                                         None),
+@@ -262,64 +250,11 @@ class Qwen3NextAttention(torch.nn.Module):
+         def test_func():
+             rotary_emb(pos, q, k)
+ 
+-        t = bench_kineto(test_func, 'rotary_embedding_kernel', suppress_kineto_output=True)
++        t = benchmark_component(self.args, test_func)
+         return t
+ 
+     def _attn_core(self, kv_lens, q_lens):
+-        block_size = 32
+-        
+-        head_size = self.args.head_dim
+-        num_query_heads = self.shapes.attention_query_heads
+-        num_kv_heads = self.shapes.attention_kv_heads
+-        dtype = torch.bfloat16
+-        prefill = any(q > 1 for q in q_lens)
+-
+-        torch.set_default_device("cuda")
+-        num_seqs = len(kv_lens)
+-        assert num_query_heads % num_kv_heads == 0
+-        soft_cap = None
+-
+-        kv_indptr = [0]
+-        for seq_len in kv_lens:
+-            assert seq_len > 0
+-            kv_indptr.append(kv_indptr[-1] + (seq_len + block_size - 1) // block_size)
+-        num_blocks = kv_indptr[-1]
+-        kv_indices = torch.randperm(num_blocks, dtype=torch.int32)
+-        kv_last_page_lens = [seq_len % block_size or block_size for seq_len in kv_lens]
+-        key_value_cache = torch.randn(num_blocks, 2, block_size, num_kv_heads, head_size, dtype=dtype)
+-
+-        kv_indptr = torch.tensor(kv_indptr, dtype=torch.int32)
+-        kv_last_page_lens = torch.tensor(kv_last_page_lens, dtype=torch.int32)
+-        query = torch.randn(sum(q_lens), num_query_heads, head_size, dtype=dtype)
+-        
+-        # 128 MB 
+-        workspace_buffer = torch.empty(128 * 1024 * 1024, dtype=torch.int8)
+-        if prefill:
+-            qo_indptr = torch.tensor([0] + list(np.cumsum(q_lens)), dtype=torch.int32)
+-            wrapper = flashinfer.BatchPrefillWithPagedKVCacheWrapper(workspace_buffer, "NHD")
+-            wrapper.plan(qo_indptr, kv_indptr, kv_indices, kv_last_page_lens,
+-                         num_query_heads, num_kv_heads, head_size, block_size,
+-                         causal=True, q_data_type=dtype, kv_data_type=dtype,
+-                         logits_soft_cap=soft_cap)
+-        else:
+-            wrapper = flashinfer.\
+-                BatchDecodeWithPagedKVCacheWrapper(workspace_buffer, "NHD",
+-                        use_tensor_cores=(
+-                            (num_query_heads//num_kv_heads) > 4)
+-                        )
+-            wrapper.plan(kv_indptr,
+-                        kv_indices,
+-                        kv_last_page_lens,
+-                        num_query_heads,
+-                        num_kv_heads,
+-                        head_size,
+-                        block_size,
+-                        "NONE",
+-                        q_data_type=dtype,
+-                        kv_data_type=dtype,
+-                        logits_soft_cap=soft_cap)
+-        torch.set_default_device("cpu")
+-        return benchmark_gpu_region(lambda: wrapper.run(query, key_value_cache))
++        return benchmark_flash_attention(self.args, kv_lens, q_lens)
+ 
+     def forward(self):
+         phase = getattr(self.args, "phase", InferencePhase.DECODE.value)
+@@ -329,7 +264,7 @@ class Qwen3NextAttention(torch.nn.Module):
+             q_lens = [1] * m
+         elif phase == InferencePhase.PREFILL.value:
+             m = self.args.seq_length
+-            kv_lens = [self.args.seq_length]
++            kv_lens = [self.args.seq_length + getattr(self.args, "context_length", 0)]
+             q_lens = [m]
+ 
+         # qkv
+@@ -369,7 +304,7 @@ class Qwen3NextSparseMoeBlock(torch.nn.Module):
+         # ReplicatedLinear [hidden -> num_experts], BF16 like the served model
+         x = torch.randn(tokens, self.hidden_size, device='cuda', dtype=torch.bfloat16)
+         w = torch.randn(self.num_experts, self.hidden_size, device='cuda', dtype=torch.bfloat16)
+-        return benchmark_gpu_region(lambda: F.linear(x, w))
++        return benchmark_component(self.args, lambda: F.linear(x, w))
+ 
+     def _select_experts(self, tokens):
+         # FusedMoE.select_experts
+@@ -381,7 +316,7 @@ class Qwen3NextSparseMoeBlock(torch.nn.Module):
+                        gating_output=router_logits,
+                        topk=self.topk,
+                        renormalize=True)
+-        return benchmark_gpu_region(test_func)
++        return benchmark_component(self.args, test_func)
+ 
+     def forward(self):
+         phase = getattr(self.args, "phase", InferencePhase.DECODE.value)
+@@ -390,9 +325,14 @@ class Qwen3NextSparseMoeBlock(torch.nn.Module):
+         elif phase == InferencePhase.PREFILL.value:
+             local_tokens = self.args.seq_length
+ 
+-        # vLLM AG/RS EP: router and top-k run after the DP all-gather.
++        if getattr(self.args,"moe_compute_profile",None):
++            # Per-layer measured critical compute is installed by the CSV writer.
++            router = (0.0 if critical_profile_includes_router(self.args)
++                      else self._route_gate(local_tokens))
++            return router, 0.0, 0.0, 0.0
++        # Router linear runs locally; top-k runs after the DP all-gather.
+         tokens = gathered_tokens(local_tokens, self.dp)
+-        route_gate = self._route_gate(tokens)
++        route_gate = self._route_gate(local_tokens)
+         route_select_experts = self._select_experts(tokens)
+         routed_experts = benchmark_routed_experts(self.args, local_tokens)
+         shared_expert = benchmark_shared_expert(self.args, local_tokens)
+@@ -422,7 +362,8 @@ class Qwen3NextModel(torch.nn.Module):
+         hidden_size = self.args.hidden_size
+         x = torch.randn(m,hidden_size, device='cuda', dtype=torch.bfloat16)
+         residual = torch.randn(m,hidden_size, device='cuda', dtype=torch.bfloat16)
+-        return GemmaRMSNormTest(hidden_size, self.args.rms_norm_eps, x, residual)
++        return GemmaRMSNormTest(hidden_size, self.args.rms_norm_eps, x, residual,
++                                timing_mode="eager" if self.args.phase == "prefill" else "cuda_graph")
+     
+     def forward(self):
+         for i in range(self.aiob_forward_loops):
+diff --git a/workload_generator/mocked_model/inference/MockedQwen3Next.py b/workload_generator/mocked_model/inference/MockedQwen3Next.py
+index 4505bda..6237097 100644
+--- a/workload_generator/mocked_model/inference/MockedQwen3Next.py
++++ b/workload_generator/mocked_model/inference/MockedQwen3Next.py
+@@ -76,7 +76,7 @@ class Qwen3NextParams(MockedParamsBase):
+ 
+         # These projection options are specific to Qwen3-Next. An omitted CLI
+         # option must not override a value loaded from the model config.
+-        for name in ("projection_precision", "attn_output_gate"):
++        for name in ("projection_precision", "attn_output_gate", "profile_seed", "context_length", "block_size", "moe_compute_profile"):
+             value = getattr(args, name, None)
+             if value is not None:
+                 setattr(self, name, value)
+diff --git a/workload_generator/mocked_model/inference/qwen3_next_attention.py b/workload_generator/mocked_model/inference/qwen3_next_attention.py
+index 8468a45..9fc83b3 100644
+--- a/workload_generator/mocked_model/inference/qwen3_next_attention.py
++++ b/workload_generator/mocked_model/inference/qwen3_next_attention.py
+@@ -7,13 +7,34 @@ explicit profiling function is called.
+ import types
+ 
+ from workload_generator.mocked_model.inference.qwen3_next_projections import (
+-    benchmark_gpu_region,
++    benchmark_component,
++    projection_precision,
+     projection_shapes,
+ )
+ 
+ CONV_BLOCK_M = 8
+ 
+ 
++def hybrid_cache_block_size(args, alignment=16):
++    """Match the hybrid manager's attention page to one BF16 GDN state page.
++
++    The target model uses BF16 conv and SSM cache. Round to FlashAttention's
++    token-block alignment; at TP1 this is 544, not the ordinary default 16.
++    """
++    explicit = getattr(args, "block_size", None)
++    if explicit is not None:
++        if explicit <= 0 or explicit % alignment:
++            raise ValueError("block_size must be a positive multiple of {}".format(alignment))
++        return explicit
++    shapes = projection_shapes(args)
++    tp = args.tensor_model_parallel_size
++    conv_bytes = gdn_conv_dim(args) * (args.linear_conv_kernel_dim - 1) * 2
++    state_bytes = (args.linear_num_value_heads // tp) * args.linear_key_head_dim * args.linear_value_head_dim * 2
++    kv_token_bytes = 2 * shapes.attention_kv_heads * args.head_dim * 2
++    page_tokens = (conv_bytes + state_bytes + kv_token_bytes - 1) // kv_token_bytes
++    return (page_tokens + alignment - 1) // alignment * alignment
++
++
+ def gdn_conv_dim(args):
+     """Channels of the GDN causal conv: q, k (key heads) and v (value heads)."""
+     shapes = projection_shapes(args)
+@@ -55,7 +76,7 @@ def benchmark_gdn_conv(args, phase, tokens):
+         x = torch.randn(tokens, dim, device="cuda", dtype=torch.bfloat16)
+         state = torch.randn(tokens, dim, width - 1, device="cuda", dtype=torch.bfloat16)
+         indices = torch.arange(tokens, device="cuda", dtype=torch.int32)
+-        return benchmark_gpu_region(lambda: causal_conv1d_update(
++        return benchmark_component(args, lambda: causal_conv1d_update(
+             x, state, weight, None, activation="silu", conv_state_indices=indices))
+ 
+     x = torch.randn(tokens, dim, device="cuda", dtype=torch.bfloat16).T
+@@ -64,7 +85,7 @@ def benchmark_gdn_conv(args, phase, tokens):
+     cache_indices = torch.zeros(1, device="cuda", dtype=torch.int32)
+     has_initial_state = torch.zeros(1, device="cuda", dtype=torch.bool)
+     metadata = conv_prefill_metadata(tokens)
+-    return benchmark_gpu_region(lambda: causal_conv1d_fn(
++    return benchmark_component(args, lambda: causal_conv1d_fn(
+         x, weight, None, state, query_start_loc, cache_indices=cache_indices,
+         has_initial_state=has_initial_state, activation="silu", metadata=metadata))
+ 
+@@ -91,21 +112,22 @@ def benchmark_gdn_core(args, phase, batch, tokens):
+ 
+     if phase == "decode":
+         indices = torch.arange(seq_batch, device="cuda", dtype=torch.int32)
+-        return benchmark_gpu_region(lambda: fused_recurrent_gated_delta_rule(
++        return benchmark_component(args, lambda: fused_recurrent_gated_delta_rule(
+             q, k, v, g, beta, initial_state=state, inplace_final_state=True,
+             ssm_state_indices=indices, use_qk_l2norm_in_kernel=True))
+ 
+     cu_seqlens = torch.tensor([0, tokens], device="cuda", dtype=torch.int32)
+-    return benchmark_gpu_region(lambda: chunk_gated_delta_rule(
++    return benchmark_component(args, lambda: chunk_gated_delta_rule(
+         q, k, v, g, beta, initial_state=state, output_final_state=True,
+         cu_seqlens=cu_seqlens, head_first=False, use_qk_l2norm_in_kernel=True))
+ 
+ 
+-def benchmark_kv_cache_save(args, tokens, block_size=32):
++def benchmark_kv_cache_save(args, tokens, block_size=None):
+     """Write this step's K/V into the paged cache (reshape_and_cache_flash)."""
+     import torch
+     from vllm import _custom_ops as ops
+ 
++    block_size = block_size or hybrid_cache_block_size(args)
+     shapes = projection_shapes(args)
+     heads, head_dim = shapes.attention_kv_heads, args.head_dim
+     num_blocks = (tokens + block_size - 1) // block_size + 1
+@@ -115,5 +137,179 @@ def benchmark_kv_cache_save(args, tokens, block_size=32):
+     value_cache = torch.zeros_like(key_cache)
+     slots = torch.arange(tokens, device="cuda", dtype=torch.int64)
+     scale = torch.ones(1, device="cuda", dtype=torch.float32)
+-    return benchmark_gpu_region(lambda: ops.reshape_and_cache_flash(
++    return benchmark_component(args, lambda: ops.reshape_and_cache_flash(
+         key, value, key_cache, value_cache, slots, "auto", scale, scale))
++
++
++def benchmark_flash_attention(args, kv_lens, q_lens):
++    """The paged FlashAttention path selected by the vLLM H100 backend.
++
++    Plan/scheduler metadata belongs to input preparation, outside the model
++    region, just as in FlashAttentionMetadataBuilder.build().
++    """
++    import torch
++    from vllm import envs
++    from vllm.attention.utils.fa_utils import (
++        flash_attn_varlen_func, get_flash_attn_version, get_scheduler_metadata)
++
++    shapes = projection_shapes(args)
++    block_size = hybrid_cache_block_size(args)
++    heads, kv_heads, head_dim = shapes.attention_query_heads, shapes.attention_kv_heads, args.head_dim
++    num_blocks = sum((n + block_size - 1) // block_size for n in kv_lens)
++    max_blocks = max((n + block_size - 1) // block_size for n in kv_lens)
++    cache = torch.randn(2, num_blocks, block_size, kv_heads, head_dim, device="cuda", dtype=torch.bfloat16)
++    query = torch.randn(sum(q_lens), heads, head_dim, device="cuda", dtype=torch.bfloat16)
++    output = torch.empty_like(query)
++    block_table = torch.zeros(len(q_lens), max_blocks, device="cuda", dtype=torch.int32)
++    offset = 0
++    for i, length in enumerate(kv_lens):
++        count = (length + block_size - 1) // block_size
++        block_table[i, :count] = torch.arange(offset, offset + count, device="cuda", dtype=torch.int32)
++        offset += count
++    cu_q = torch.tensor([0] + list(__import__('itertools').accumulate(q_lens)), device="cuda", dtype=torch.int32)
++    lengths = torch.tensor(kv_lens, device="cuda", dtype=torch.int32)
++    version = get_flash_attn_version()
++    splits = envs.VLLM_FLASH_ATTN_MAX_NUM_SPLITS_FOR_CUDA_GRAPH if args.phase == "decode" else 0
++    scheduler = None
++    if version == 3:
++        scheduler = get_scheduler_metadata(
++            batch_size=len(q_lens), max_seqlen_q=max(q_lens), max_seqlen_k=max(kv_lens),
++            num_heads_q=heads, num_heads_kv=kv_heads, headdim=head_dim,
++            cache_seqlens=lengths, qkv_dtype=torch.bfloat16, cu_seqlens_q=cu_q,
++            page_size=block_size, causal=True, window_size=(-1, -1), num_splits=splits)
++
++    def run():
++        return flash_attn_varlen_func(
++            q=query, k=cache[0], v=cache[1], out=output,
++            cu_seqlens_q=cu_q, max_seqlen_q=max(q_lens), seqused_k=lengths,
++            max_seqlen_k=max(kv_lens), softmax_scale=head_dim ** -.5,
++            causal=True, alibi_slopes=None, window_size=(-1, -1), softcap=0.0,
++            block_table=block_table, scheduler_metadata=scheduler,
++            fa_version=version, num_splits=splits)
++    return benchmark_component(args, run)
++
++
++def _make_gdn_native_core(args, phase, tokens):
++    """Profile vLLM's complete GDN custom op, including cache state copies.
++
++    The kernel-only chunk helper omits Q/K/V contiguous copies, initial-state
++    gathering/zeroing, cache writeback and output copies. Prefill executes this
++    Python custom-op body eagerly; decode captures the identical body in Graph.
++    """
++    import torch
++    from vllm.model_executor.models.qwen3_next import Qwen3NextGatedDeltaNet
++    from vllm.v1.attention.backends.gdn_attn import GDNAttentionMetadata
++    from vllm.forward_context import ForwardContext, override_forward_context
++
++    _ensure_triton_allocator()
++    tp = args.tensor_model_parallel_size
++    obj = Qwen3NextGatedDeltaNet.__new__(Qwen3NextGatedDeltaNet)
++    torch.nn.Module.__init__(obj)
++    obj.tp_size = tp
++    obj.num_k_heads, obj.num_v_heads = args.linear_num_key_heads, args.linear_num_value_heads
++    obj.head_k_dim, obj.head_v_dim = args.linear_key_head_dim, args.linear_value_head_dim
++    obj.key_dim = obj.num_k_heads * obj.head_k_dim
++    obj.value_dim = obj.num_v_heads * obj.head_v_dim
++    obj.prefix = "aicb.gdn"
++    obj.activation = "silu"
++    dim = gdn_conv_dim(args)
++    obj.conv1d = torch.nn.Conv1d(dim, dim, args.linear_conv_kernel_dim,
++                               groups=dim, bias=False, device="cuda", dtype=torch.bfloat16)
++    heads = obj.num_v_heads // tp
++    obj.A_log = torch.nn.Parameter(torch.zeros(heads, device="cuda", dtype=torch.float32))
++    obj.dt_bias = torch.nn.Parameter(torch.ones(heads, device="cuda", dtype=torch.float32))
++    sequences = tokens if phase == "decode" else 1
++    obj.kv_cache = [(torch.zeros(sequences, args.linear_conv_kernel_dim-1, dim,
++                                device="cuda", dtype=torch.bfloat16),
++                     torch.zeros(sequences, heads, obj.head_k_dim, obj.head_v_dim,
++                                 device="cuda", dtype=torch.bfloat16))]
++    conv = conv_prefill_metadata(tokens)
++    metadata = GDNAttentionMetadata(
++        num_prefills=int(phase == "prefill"), num_prefill_tokens=tokens if phase == "prefill" else 0,
++        num_decodes=sequences if phase == "decode" else 0,
++        num_decode_tokens=tokens if phase == "decode" else 0,
++        num_spec_decodes=0, num_spec_decode_tokens=0, num_actual_tokens=tokens,
++        has_initial_state=torch.full((sequences,), bool(getattr(args,"context_length",0)), device="cuda",dtype=torch.bool),
++        non_spec_query_start_loc=(torch.arange(tokens+1,device="cuda",dtype=torch.int32) if phase=="decode"
++                                  else torch.tensor([0,tokens],device="cuda",dtype=torch.int32)),
++        non_spec_state_indices_tensor=torch.arange(sequences,device="cuda",dtype=torch.int32),
++        nums_dict=conv.nums_dict, batch_ptr=conv.batch_ptr,
++        token_chunk_offset_ptr=conv.token_chunk_offset_ptr)
++    context = ForwardContext(no_compile_layers={obj.prefix:obj},
++                             attn_metadata={obj.prefix:metadata},virtual_engine=0)
++    mixed = torch.randn(tokens, dim, device="cuda", dtype=torch.bfloat16)
++    a = torch.randn(tokens, heads, device="cuda", dtype=torch.bfloat16)
++    b = torch.randn_like(a)
++    output = torch.zeros(tokens,heads,obj.head_v_dim,device="cuda",dtype=torch.bfloat16)
++    return obj, context, (mixed, b, a, output)
++
++
++def benchmark_gdn_native_core(args, phase, tokens):
++    import torch
++    from vllm.forward_context import override_forward_context
++    obj, context, inputs = _make_gdn_native_core(args, phase, tokens)
++    with torch.inference_mode(), override_forward_context(context):
++        return benchmark_component(args, lambda: obj._forward_core(*inputs))
++
++
++def benchmark_gdn_compiled_chain(args, tokens):
++    """Prefill's two compiled regions around the native GDN custom op.
++
++    Include QKV ordering/materialization, zeroing the output, native gated RMS
++    norm, projections and both decoder norms. Isolated GEMMs omit this launch
++    and allocation work. Compilation/warmup are outside the timed callback.
++    """
++    if projection_precision(args) != "bf16":
++        raise ValueError("The native GDN prefill chain is measured for BF16; an FP8 projection profile cannot label this chain")
++    import torch
++    from vllm.forward_context import override_forward_context
++    from vllm.model_executor.layers.layernorm import RMSNormGated, GemmaRMSNorm
++
++    class TupleLinear(torch.nn.Module):
++        def __init__(self, inputs, outputs):
++            super().__init__()
++            self.weight = torch.nn.Parameter(torch.randn(outputs, inputs, device="cuda", dtype=torch.bfloat16)*.02,
++                                             requires_grad=False)
++        def forward(self, x):
++            return torch.nn.functional.linear(x, self.weight), None
++
++    obj, context, _ = _make_gdn_native_core(args, "prefill", tokens)
++    shapes = projection_shapes(args)
++    obj.in_proj_qkvz = TupleLinear(args.hidden_size, shapes.gdn_qkvz_size)
++    obj.in_proj_ba = TupleLinear(args.hidden_size, shapes.gdn_ba_size)
++    obj.out_proj = TupleLinear(shapes.gdn_value_size, args.hidden_size)
++    obj.norm = RMSNormGated(args.linear_value_head_dim, eps=args.rms_norm_eps,
++                           group_size=None, norm_before_gate=True,
++                           device="cuda", dtype=torch.bfloat16)
++    # vLLM compiles the native expression into its surrounding FX region.
++    # The FLA autograd wrapper is a different path and cannot be traced here.
++    obj.norm._forward_method = obj.norm.forward_native
++    pre = GemmaRMSNorm(args.hidden_size, args.rms_norm_eps).to(device="cuda", dtype=torch.bfloat16)
++    post = GemmaRMSNorm(args.hidden_size, args.rms_norm_eps).to(device="cuda", dtype=torch.bfloat16)
++    x = torch.randn(tokens, args.hidden_size, device="cuda", dtype=torch.bfloat16)
++    residual = torch.randn_like(x)
++    heads = args.linear_num_value_heads // args.tensor_model_parallel_size
++
++    def before_core():
++        hidden, res = pre.forward_native(x, residual)
++        qkv, _ = obj.in_proj_qkvz(hidden)
++        ba, _ = obj.in_proj_ba(hidden)
++        q, k, v, z, b, a = obj.fix_query_key_value_ordering(qkv, ba)
++        mixed = torch.cat((q.flatten(1), k.flatten(1), v.flatten(1)), dim=-1)
++        core = torch.zeros(tokens, heads, args.linear_value_head_dim, device="cuda", dtype=torch.bfloat16)
++        return mixed, b, a, core, z, res
++
++    def after_core(core, z, res):
++        attn = obj.norm(core.reshape(-1, args.linear_value_head_dim),
++                        z.reshape(-1, args.linear_value_head_dim)).reshape(tokens, shapes.gdn_value_size)
++        out, _ = obj.out_proj(attn)
++        return post.forward_native(out, res)
++
++    with torch.inference_mode(), override_forward_context(context):
++        before = torch.compile(before_core, fullgraph=True, dynamic=True)
++        after = torch.compile(after_core, fullgraph=True, dynamic=True)
++        def run():
++            mixed, b, a, core, z, res = before()
++            torch.ops.vllm.gdn_attention_core(mixed, b, a, core, obj.prefix)
++            return after(core, z, res)
++        return benchmark_component(args, run)
+diff --git a/workload_generator/mocked_model/inference/qwen3_next_moe.py b/workload_generator/mocked_model/inference/qwen3_next_moe.py
+index 0261c68..eaa63cb 100644
+--- a/workload_generator/mocked_model/inference/qwen3_next_moe.py
++++ b/workload_generator/mocked_model/inference/qwen3_next_moe.py
+@@ -8,7 +8,7 @@ import math
+ import random
+ 
+ from workload_generator.mocked_model.inference.qwen3_next_projections import (
+-    benchmark_gpu_region,
++    benchmark_component,
+     projection_precision,
+ )
+ 
+@@ -90,7 +90,8 @@ def benchmark_routed_experts(args, local_tokens):
+     x = torch.randn(tokens, hidden, device="cuda", dtype=torch.bfloat16)
+     w1 = torch.randn(local_experts, 2 * inter, hidden, device="cuda", dtype=torch.bfloat16) * 0.02
+     w2 = torch.randn(local_experts, hidden, inter, device="cuda", dtype=torch.bfloat16) * 0.02
+-    topk_ids = sample_routing(tokens, num_experts, topk)
++    generator = torch.Generator(device="cuda").manual_seed(getattr(args, "profile_seed", 42))
++    topk_ids = sample_routing(tokens, num_experts, topk, generator=generator)
+     topk_weights = torch.full((tokens, topk), 1.0 / topk, device="cuda", dtype=torch.float32)
+     expert_map = torch.full((num_experts,), -1, device="cuda", dtype=torch.int32)
+     expert_map[:local_experts] = torch.arange(local_experts, device="cuda", dtype=torch.int32)
+@@ -99,7 +100,7 @@ def benchmark_routed_experts(args, local_tokens):
+         fused_experts(x, w1, w2, topk_weights, topk_ids,
+                       global_num_experts=num_experts, expert_map=expert_map)
+ 
+-    return benchmark_gpu_region(run)
++    return benchmark_component(args, run)
+ 
+ 
+ def _benchmark_routed_experts_fp8(args, local_tokens, dp, ep, local_experts):
+@@ -107,7 +108,7 @@ def _benchmark_routed_experts_fp8(args, local_tokens, dp, ep, local_experts):
+ 
+     hidden, inter = args.hidden_size, args.moe_intermediate_size
+     mean = expected_local_routes(local_tokens, dp, args.num_experts_per_tok, ep) / local_experts
+-    loads = sample_expert_loads(mean, local_experts)
++    loads = sample_expert_loads(mean, local_experts, random.Random(getattr(args, "profile_seed", 42)))
+     expected_m = max(1, math.ceil(mean))
+     decode = getattr(args, "phase", "decode") == "decode"
+     bench = bench_masked if decode else bench_contiguous
+@@ -144,4 +145,141 @@ def benchmark_shared_expert(args, local_tokens):
+         gate = torch.sigmoid(F.linear(x, w_gate))
+         return down * gate
+ 
+-    return benchmark_gpu_region(run)
++    return benchmark_component(args, run)
++
++
++def benchmark_moe_critical_compute(args, local_tokens, route_ids, ep_rank, samples=12):
++    """Replay one layer's measured routes and native shared-stream dependency.
++
++    Returns compute seconds for this EP shard. Communication is measured by a
++    separate four-rank AG/RS benchmark; max across EP shards is taken per layer,
++    then samples are averaged. Never sum the four ranks' elapsed times.
++    """
++    import torch
++    import torch.nn.functional as F
++    from vllm.model_executor.layers.fused_moe.fused_moe import fused_experts, fused_topk
++    from workload_generator.mocked_model.inference.qwen3_next_projections import benchmark_gpu_region
++
++    dp, ep, local_experts = moe_parallel_layout(args)
++    if args.tensor_model_parallel_size != 1:
++        raise ValueError("Measured MoE critical compute currently requires TP1")
++    tokens = gathered_tokens(local_tokens, dp)
++    hidden, inter, topk = args.hidden_size, args.moe_intermediate_size, args.num_experts_per_tok
++    route_ids = route_ids.to(device="cuda", dtype=torch.int64)
++    if tuple(route_ids.shape) != (tokens, topk):
++        raise ValueError("Routing corpus shape differs from padded DP token layout")
++    x = torch.randn(tokens, hidden, device="cuda", dtype=torch.bfloat16)
++    local_x = x[:local_tokens]
++    w1 = torch.randn(local_experts,2*inter,hidden,device="cuda",dtype=torch.bfloat16)*.02
++    w2 = torch.randn(local_experts,hidden,inter,device="cuda",dtype=torch.bfloat16)*.02
++    router_w = torch.randn(args.num_experts,hidden,device="cuda",dtype=torch.bfloat16)*.02
++    logits = torch.full((tokens,args.num_experts),-10.,device="cuda",dtype=torch.bfloat16)
++    logits.scatter_(1,route_ids,10.)
++    expert_map = torch.full((args.num_experts,),-1,device="cuda",dtype=torch.int32)
++    offset = ep_rank*local_experts
++    expert_map[offset:offset+local_experts] = torch.arange(local_experts,device="cuda",dtype=torch.int32)
++    shared_inter = args.shared_expert_intermediate_size
++    up_w = torch.randn(2*shared_inter,hidden,device="cuda",dtype=torch.bfloat16)*.02
++    down_w = torch.randn(hidden,shared_inter,device="cuda",dtype=torch.bfloat16)*.02
++    gate_w = torch.randn(1,hidden,device="cuda",dtype=torch.bfloat16)*.02
++    overlap = local_tokens <= getattr(args,"shared_expert_stream_token_threshold",256)
++    stream = torch.cuda.Stream() if overlap else None
++    def shared(z):
++        up = F.linear(z,up_w)
++        act = torch.empty(local_tokens,shared_inter,device="cuda",dtype=torch.bfloat16)
++        torch.ops._C.silu_and_mul(act,up)
++        out = F.linear(act,down_w)
++        return torch.sigmoid(F.linear(z,gate_w))*out
++    def run():
++        if overlap:
++            z = local_x.clone()
++            z.record_stream(stream)
++            stream.wait_stream(torch.cuda.current_stream())
++        F.linear(local_x,router_w)
++        weights, ids, _ = fused_topk(x,logits,topk,renormalize=True)
++        routed = fused_experts(x,w1,w2,weights,ids,global_num_experts=args.num_experts,expert_map=expert_map)
++        if overlap:
++            with torch.cuda.stream(stream):out = shared(z)
++            torch.cuda.current_stream().wait_stream(stream)
++        else:
++            out = shared(local_x)
++        # Reduction/scatter is excluded. The final local add is included.
++        out + local_x
++        return routed
++    with torch.inference_mode():
++        return benchmark_gpu_region(run,warmup=3,samples=samples,
++                                    timing_mode="eager" if args.phase=="prefill" else "cuda_graph")
++
++
++def critical_profile_identity():
++    import inspect, hashlib
++    from workload_generator.mocked_model.inference.qwen3_next_projections import benchmark_gpu_region
++    return hashlib.sha256("".join(inspect.getsource(fn) for fn in (
++        benchmark_moe_critical_compute, benchmark_gpu_region,
++        moe_parallel_layout, gathered_tokens)).encode()).hexdigest()
++
++
++def critical_profile_includes_router(args):
++    """Native FusedMoE replay starts after the external router linear.
++
++    The compute-only helper above includes the router. Scope is explicit so
++    the workload writer neither loses that linear nor adds it twice.
++    """
++    import json
++    from pathlib import Path
++    data = json.loads(Path(args.moe_compute_profile).read_text())
++    scope = data.get("time_scope_by_phase", {}).get(args.phase, "compute_only")
++    if scope not in ("compute_only", "compute_and_ep_comm"):
++        raise ValueError("Unknown Qwen MoE timing scope")
++    included = data.get("router_linear_included_by_phase", {}).get(
++        args.phase, scope == "compute_only")
++    if not isinstance(included, bool):
++        raise ValueError("MoE router-linear scope must be a boolean")
++    return included
++
++
++def load_critical_moe_profile(args):
++    import json, math
++    from pathlib import Path
++    path = getattr(args,"moe_compute_profile",None)
++    if not path:
++        return None
++    data = json.loads(Path(path).read_text())
++    if data.get("schema") not in ("qwen_moe_critical_compute_v1", "qwen_moe_critical_compute_v2") or data.get("producer_sha256") != critical_profile_identity():
++        raise ValueError("Stale or incompatible Qwen MoE critical-compute profile")
++    if projection_precision(args) != "bf16":
++        raise ValueError("Native Qwen MoE replay is measured in BF16")
++    scope = data.get("time_scope_by_phase",{}).get(args.phase,"compute_only")
++    if scope not in ("compute_only", "compute_and_ep_comm"):
++        raise ValueError("Unknown Qwen MoE timing scope")
++    if scope == "compute_and_ep_comm" and data.get("native_runtime_source_sha256") != native_moe_runtime_identity():
++        raise ValueError("Native vLLM MoE runtime changed; regenerate the replay profile")
++    expected = dict(world_size=args.world_size,tp=args.tensor_model_parallel_size,
++                    pp=args.pipeline_model_parallel,ep=args.expert_model_parallel_size,
++                    hidden_size=args.hidden_size,num_experts=args.num_experts,
++                    topk=args.num_experts_per_tok,intermediate_size=args.moe_intermediate_size,
++                    shared_intermediate_size=args.shared_expert_intermediate_size,precision="bf16")
++    if data.get("configuration") != expected:
++        raise ValueError("Qwen MoE profile parallelism/shape/precision differs")
++    tokens = args.seq_length if args.phase=="prefill" else args.micro_batch
++    rows = data["phases"][args.phase].get(str(tokens))
++    if rows is None or set(rows) != {str(i) for i in range(args.num_hidden_layers)}:
++        raise ValueError("Qwen MoE profile is missing measured tokens or layers")
++    if any(not math.isfinite(v) or v<=0 for v in rows.values()):
++        raise ValueError("Invalid Qwen MoE compute times")
++    return {int(k):v for k,v in rows.items()}
++
++
++def native_moe_runtime_identity():
++    """Native module/collective sources used by the four-rank replay producer."""
++    import hashlib
++    import vllm
++    from pathlib import Path
++    root = Path(vllm.__file__).parent
++    paths = (
++        "model_executor/models/qwen3_next.py", "model_executor/models/qwen2_moe.py",
++        "model_executor/layers/fused_moe/layer.py", "model_executor/layers/fused_moe/fused_moe.py",
++        "model_executor/layers/fused_moe/unquantized_fused_moe_method.py",
++        "distributed/parallel_state.py", "distributed/device_communicators/cuda_communicator.py",
++        "distributed/device_communicators/all2all.py")
++    return hashlib.sha256(b"".join((root/name).read_bytes() for name in paths)).hexdigest()
+diff --git a/workload_generator/mocked_model/inference/qwen3_next_projections.py b/workload_generator/mocked_model/inference/qwen3_next_projections.py
+index 9d81172..23b2e90 100644
+--- a/workload_generator/mocked_model/inference/qwen3_next_projections.py
++++ b/workload_generator/mocked_model/inference/qwen3_next_projections.py
+@@ -11,7 +11,7 @@ from pathlib import Path
+ from statistics import median
+ 
+ 
+-PROJECTION_PROFILE_VERSION = 2
++PROJECTION_PROFILE_VERSION = 3
+ CACHE_FLUSH_BYTES = 128 * 1024 * 1024
+ 
+ 
+@@ -90,8 +90,8 @@ def projection_precision(args):
+     raise ValueError("Qwen3-Next projections support bf16 or fp8, got {!r}".format(value))
+ 
+ 
+-def benchmark_gpu_region(fn, warmup=5, samples=30):
+-    """Return seconds for one device region, excluding Python launch gaps.
++def benchmark_gpu_region(fn, warmup=5, samples=30, timing_mode="cuda_graph"):
++    """Return seconds for one cold-cache callback in the selected execution mode.
+ 
+     Capture the entire callback so multi-kernel linear implementations and both
+     sigmoid/multiply operations are included. Compilation and allocation of
+@@ -101,24 +101,65 @@ def benchmark_gpu_region(fn, warmup=5, samples=30):
+ 
+     if warmup < 1 or samples < 1:
+         raise ValueError("warmup and samples must be positive")
++    if timing_mode not in ("cuda_graph", "eager"):
++        raise ValueError("timing_mode must be cuda_graph or eager")
+     for _ in range(warmup):
+         fn()
+     torch.cuda.synchronize()
+     flush = torch.empty(CACHE_FLUSH_BYTES, device="cuda", dtype=torch.uint8)
+-    start = torch.cuda.Event(enable_timing=True, external=True)
+-    end = torch.cuda.Event(enable_timing=True, external=True)
++    start = torch.cuda.Event(enable_timing=True)
++    end = torch.cuda.Event(enable_timing=True)
++    if timing_mode == "eager":
++        # vLLM's prefill custom ops run on the host for every invocation.
++        # A Graph replay removes that launch work and its GPU idle gaps.
++        timings = []
++        for _ in range(samples):
++            flush.zero_()
++            torch.cuda.synchronize()
++            start.record()
++            fn()
++            end.record()
++            end.synchronize()
++            timings.append(start.elapsed_time(end))
++        return median(timings) / 1000.0
++    # Event nodes captured inside a graph add several microseconds even to
++    # an empty callback. Time outside replay and amortize launch/event cost.
++    # Flush before *each* invocation so repeated weights do not stay in L2.
++    repeats = 32
+     graph = torch.cuda.CUDAGraph()
+     with torch.cuda.graph(graph):
+-        flush.zero_()
++        for _ in range(repeats):
++            flush.zero_()
++            fn()
++    baseline = torch.cuda.CUDAGraph()
++    with torch.cuda.graph(baseline):
++        for _ in range(repeats):
++            flush.zero_()
++    def elapsed(g):
+         start.record()
+-        fn()
++        g.replay()
+         end.record()
++        end.synchronize()
++        return start.elapsed_time(end)
+     timings = []
+-    for _ in range(samples):
+-        graph.replay()
+-        torch.cuda.synchronize()
+-        timings.append(start.elapsed_time(end))
+-    return median(timings) / 1000.0
++    for i in range(samples):
++        # Alternate order to reduce drift in clocks and temperature.
++        if i % 2:
++            base = elapsed(baseline)
++            total = elapsed(graph)
++        else:
++            total = elapsed(graph)
++            base = elapsed(baseline)
++        timings.append((total - base) / repeats)
++    seconds = median(timings) / 1000.0
++    if seconds <= 0:
++        raise ValueError("GPU region is below the cold Graph timing resolution")
++    return seconds
++
++
++def benchmark_component(args, fn):
++    mode = "eager" if getattr(args, "phase", "decode") == "prefill" else "cuda_graph"
++    return benchmark_gpu_region(fn, timing_mode=mode)
+ 
+ 
+ def benchmark_projection(args, m, k, n):
+@@ -128,7 +169,7 @@ def benchmark_projection(args, m, k, n):
+     if precision == "bf16":
+         x = torch.randn(m, k, device="cuda", dtype=torch.bfloat16)
+         weight = torch.randn(n, k, device="cuda", dtype=torch.bfloat16)
+-        return benchmark_gpu_region(lambda: torch.nn.functional.linear(x, weight))
++        return benchmark_component(args, lambda: torch.nn.functional.linear(x, weight))
+ 
+     from utils.deepgemm_utils import construct, deep_gemm, calc_diff
+ 
+@@ -143,7 +184,7 @@ def benchmark_projection(args, m, k, n):
+     diff = calc_diff(out, reference)
+     if not diff < 0.001:
+         raise ValueError("FP8 projection check failed for M/K/N={}/{}/{}: {}".format(m, k, n, diff))
+-    return benchmark_gpu_region(run)
++    return benchmark_component(args, run)
+ 
+ 
+ def benchmark_input_quantization(args, m, width):
+@@ -153,7 +194,7 @@ def benchmark_input_quantization(args, m, width):
+     from vllm.model_executor.layers.quantization.utils.fp8_utils import per_token_group_quant_fp8
+ 
+     x = torch.randn(m, width, device="cuda", dtype=torch.bfloat16)
+-    return benchmark_gpu_region(
++    return benchmark_component(args,
+         lambda: per_token_group_quant_fp8(x, 128, column_major_scales=True)
+     )
+ 
+@@ -165,25 +206,34 @@ def benchmark_attention_output_gate(args, m, width):
+ 
+     output = torch.randn(m, width, device="cuda", dtype=torch.bfloat16)
+     gate = torch.randn_like(output)
+-    return benchmark_gpu_region(lambda: output * torch.sigmoid(gate))
++    return benchmark_component(args, lambda: output * torch.sigmoid(gate))
+ 
+ 
+ def projection_metadata(args):
+     """Identity of these projection components, not of all MoE compute."""
+-    sources = [Path(__file__), Path(__file__).with_name("AiobQwen3Next.py")]
++    sources = [Path(__file__).with_name(name) for name in (
++        "qwen3_next_projections.py", "AiobQwen3Next.py",
++        "qwen3_next_attention.py", "qwen3_next_moe.py",
++    )]
+     source_hash = hashlib.sha256(b"".join(p.read_bytes() for p in sources)).hexdigest()
+     return {
+         "projection_profile_version": PROJECTION_PROFILE_VERSION,
+-        "scope": "qwen3_next_projections_only",
++        "scope": "qwen3_next_components",
++        "gdn_time_scope": ("compiled_chain_with_input_and_post_norm" if getattr(args,"phase",None)=="prefill" else "components"),
++        "moe_time_scope": (json.loads(Path(args.moe_compute_profile).read_text()).get("time_scope_by_phase",{}).get(args.phase,"compute_only")
++                           if getattr(args,"moe_compute_profile",None) else "compute_only"),
++        "moe_compute_profile_sha256": (hashlib.sha256(Path(args.moe_compute_profile).read_bytes()).hexdigest()
++                                        if getattr(args,"moe_compute_profile",None) else None),
+         "precision": projection_precision(args),
+-        "timing_scope": "cuda_graph_device_region_seconds",
++        "timing_scope": "eager_stream_region_seconds" if getattr(args, "phase", "decode") == "prefill" else "cuda_graph_device_region_seconds",
+         "cache_flush_bytes": CACHE_FLUSH_BYTES,
+         "source_sha256": source_hash,
+         "shapes": asdict(projection_shapes(args)),
+         "invocation": {name: getattr(args, name, None) for name in (
+             "model_name", "world_size", "tensor_model_parallel_size",
+             "pipeline_model_parallel", "expert_model_parallel_size",
+-            "micro_batch", "seq_length", "phase",
++            "micro_batch", "seq_length", "phase", "context_length",
++            "profile_seed", "block_size",
+         )},
+     }
+ 
+-- 
+2.34.1
+

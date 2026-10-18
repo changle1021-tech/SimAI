@@ -1,0 +1,218 @@
+[
+  {
+    "input_tokens": 512,
+    "output_tokens": 256,
+    "samples": 8,
+    "cpu_calibration_held_out": false,
+    "ttft_ms": {
+      "actual": 105.940236,
+      "predicted": 108.14672365771482,
+      "error_pct": 2.0827664172041516,
+      "min": 101.850912,
+      "max": 112.701215
+    },
+    "tpot_ms": {
+      "actual": 9.14225907254902,
+      "predicted": 9.27694777817416,
+      "error_pct": 1.4732540891294832,
+      "min": 9.085987164705882,
+      "max": 9.187131815686275
+    },
+    "e2e_ms": {
+      "actual": 2436.4011975000003,
+      "predicted": 2473.768407092126,
+      "error_pct": 1.5337051069613805,
+      "min": 2418.777639,
+      "max": 2449.45383
+    }
+  },
+  {
+    "input_tokens": 2048,
+    "output_tokens": 256,
+    "samples": 8,
+    "cpu_calibration_held_out": false,
+    "ttft_ms": {
+      "actual": 389.23024999999996,
+      "predicted": 387.60769067583004,
+      "error_pct": -0.41686362356726514,
+      "min": 376.380347,
+      "max": 414.072414
+    },
+    "tpot_ms": {
+      "actual": 9.155130521568628,
+      "predicted": 9.307253912939789,
+      "error_pct": 1.6616190344066917,
+      "min": 9.129320878431372,
+      "max": 9.239803047058823
+    },
+    "e2e_ms": {
+      "actual": 2721.1590775,
+      "predicted": 2760.957438475476,
+      "error_pct": 1.4625517965689783,
+      "min": 2712.366025,
+      "max": 2763.057771
+    }
+  },
+  {
+    "input_tokens": 8192,
+    "output_tokens": 256,
+    "samples": 8,
+    "cpu_calibration_held_out": false,
+    "ttft_ms": {
+      "actual": 1505.6574879999998,
+      "predicted": 1507.776294748291,
+      "error_pct": 0.1407230240063173,
+      "min": 1455.830187,
+      "max": 1592.997525
+    },
+    "tpot_ms": {
+      "actual": 9.186346403921569,
+      "predicted": 9.367560809424162,
+      "error_pct": 1.972649381316982,
+      "min": 9.156886819607843,
+      "max": 9.272325556862743
+    },
+    "e2e_ms": {
+      "actual": 3846.171921,
+      "predicted": 3896.5043011514526,
+      "error_pct": 1.3086357340564847,
+      "min": 3797.066661,
+      "max": 3957.440542
+    }
+  },
+  {
+    "input_tokens": 256,
+    "output_tokens": 64,
+    "samples": 8,
+    "cpu_calibration_held_out": false,
+    "ttft_ms": {
+      "actual": 113.74705850000001,
+      "predicted": 114.31135926135255,
+      "error_pct": 0.49610141026419363,
+      "min": 111.003422,
+      "max": 118.027892
+    },
+    "tpot_ms": {
+      "actual": 9.10238442063492,
+      "predicted": 9.27202857504916,
+      "error_pct": 1.863733133811185,
+      "min": 9.060083238095237,
+      "max": 9.159563492063493
+    },
+    "e2e_ms": {
+      "actual": 686.907841,
+      "predicted": 698.4491594894496,
+      "error_pct": 1.6801844149351597,
+      "min": 683.401399,
+      "max": 693.482245
+    }
+  },
+  {
+    "input_tokens": 1024,
+    "output_tokens": 128,
+    "samples": 8,
+    "cpu_calibration_held_out": true,
+    "ttft_ms": {
+      "actual": 204.6628305,
+      "predicted": 201.27454893041988,
+      "error_pct": -1.6555431981969626,
+      "min": 190.09191,
+      "max": 216.816446
+    },
+    "tpot_ms": {
+      "actual": 9.12817416535433,
+      "predicted": 9.287749817236664,
+      "error_pct": 1.74816616107083,
+      "min": 9.070342496062992,
+      "max": 9.230332708661416
+    },
+    "e2e_ms": {
+      "actual": 1362.550103,
+      "predicted": 1380.818775719476,
+      "error_pct": 1.3407707121560364,
+      "min": 1342.025407,
+      "max": 1389.0687
+    }
+  },
+  {
+    "input_tokens": 4096,
+    "output_tokens": 128,
+    "samples": 8,
+    "cpu_calibration_held_out": true,
+    "ttft_ms": {
+      "actual": 791.536719,
+      "predicted": 760.5839389666504,
+      "error_pct": -3.910466727614892,
+      "min": 728.172134,
+      "max": 803.217258
+    },
+    "tpot_ms": {
+      "actual": 9.213169846456694,
+      "predicted": 9.333943893408541,
+      "error_pct": 1.31088484164108,
+      "min": 9.088237031496062,
+      "max": 9.26698716535433
+    },
+    "e2e_ms": {
+      "actual": 1964.4291779999999,
+      "predicted": 1945.994813429535,
+      "error_pct": -0.9384082041192787,
+      "min": 1882.378237,
+      "max": 1979.928578
+    }
+  },
+  {
+    "input_tokens": 1536,
+    "output_tokens": 192,
+    "samples": 8,
+    "cpu_calibration_held_out": true,
+    "ttft_ms": {
+      "actual": 304.4580865,
+      "predicted": 294.428204603125,
+      "error_pct": -3.2943391361933805,
+      "min": 285.77652,
+      "max": 319.144408
+    },
+    "tpot_ms": {
+      "actual": 9.149367557591622,
+      "predicted": 9.297809567236662,
+      "error_pct": 1.6224291866148821,
+      "min": 9.08524797382199,
+      "max": 9.229257204188482
+    },
+    "e2e_ms": {
+      "actual": 2051.458861,
+      "predicted": 2070.3098319453275,
+      "error_pct": 0.9189056287552511,
+      "min": 2021.058883,
+      "max": 2081.932534
+    }
+  },
+  {
+    "input_tokens": 3072,
+    "output_tokens": 192,
+    "samples": 8,
+    "cpu_calibration_held_out": true,
+    "ttft_ms": {
+      "actual": 601.0040245,
+      "predicted": 574.0441540212402,
+      "error_pct": -4.4858053157279425,
+      "min": 557.351906,
+      "max": 626.057486
+    },
+    "tpot_ms": {
+      "actual": 9.204564371727749,
+      "predicted": 9.320791225439786,
+      "error_pct": 1.2627089019990212,
+      "min": 9.10301317277487,
+      "max": 9.268912492146598
+    },
+    "e2e_ms": {
+      "actual": 2358.5228085,
+      "predicted": 2354.3152780802393,
+      "error_pct": -0.17839685096946445,
+      "min": 2296.027422,
+      "max": 2396.419772
+    }
+  }
+]

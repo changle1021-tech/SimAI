@@ -1,0 +1,90 @@
+[
+  {
+    "input_tokens": 256,
+    "prefill_chunks": 1,
+    "predicted_model_ms": 99.62323174719238,
+    "native_model_gpu_median_ms": 101.10262298583984,
+    "model_error_pct": -1.4632570302895775,
+    "predicted_prefill_perimeter_including_io_ms": 14.688127514160163,
+    "native_decode_model_ms": 7.7325439453125,
+    "predicted_decode_model_mean_ms": 7.827190092276336,
+    "predicted_decode_perimeter_ms": 1.4448384827728271
+  },
+  {
+    "input_tokens": 512,
+    "prefill_chunks": 1,
+    "predicted_model_ms": 93.57017686035154,
+    "native_model_gpu_median_ms": 92.99263763427734,
+    "model_error_pct": 0.6210590867908872,
+    "predicted_prefill_perimeter_including_io_ms": 14.576546797363283,
+    "native_decode_model_ms": 7.731743812561035,
+    "predicted_decode_model_mean_ms": 7.832109295401335,
+    "predicted_decode_perimeter_ms": 1.4448384827728271
+  },
+  {
+    "input_tokens": 1024,
+    "prefill_chunks": 2,
+    "predicted_model_ms": 184.5863697207031,
+    "native_model_gpu_median_ms": 197.9021759033203,
+    "model_error_pct": -6.7284789173426285,
+    "predicted_prefill_perimeter_including_io_ms": 16.688179209716797,
+    "native_decode_model_ms": 7.750207901000977,
+    "predicted_decode_model_mean_ms": 7.842911334463835,
+    "predicted_decode_perimeter_ms": 1.4448384827728271
+  },
+  {
+    "input_tokens": 1536,
+    "prefill_chunks": 3,
+    "predicted_model_ms": 275.6283929810546,
+    "native_model_gpu_median_ms": 286.4047393798828,
+    "model_error_pct": -3.7626285173076757,
+    "predicted_prefill_perimeter_including_io_ms": 18.799811622070308,
+    "native_decode_model_ms": 7.7618560791015625,
+    "predicted_decode_model_mean_ms": 7.852971084463835,
+    "predicted_decode_perimeter_ms": 1.4448384827728271
+  },
+  {
+    "input_tokens": 2048,
+    "prefill_chunks": 4,
+    "predicted_model_ms": 366.6962466414062,
+    "native_model_gpu_median_ms": 375.1835250854492,
+    "model_error_pct": -2.2621671466277693,
+    "predicted_prefill_perimeter_including_io_ms": 20.91144403442382,
+    "native_decode_model_ms": 7.7794880867004395,
+    "predicted_decode_model_mean_ms": 7.86241543016696,
+    "predicted_decode_perimeter_ms": 1.4448384827728271
+  },
+  {
+    "input_tokens": 3072,
+    "prefill_chunks": 6,
+    "predicted_model_ms": 548.9094451621094,
+    "native_model_gpu_median_ms": 566.7391662597656,
+    "model_error_pct": -3.146018867078615,
+    "predicted_prefill_perimeter_including_io_ms": 25.134708859130843,
+    "native_decode_model_ms": 7.774784088134766,
+    "predicted_decode_model_mean_ms": 7.875952742666961,
+    "predicted_decode_perimeter_ms": 1.4448384827728271
+  },
+  {
+    "input_tokens": 4096,
+    "prefill_chunks": 8,
+    "predicted_model_ms": 731.2259652828125,
+    "native_model_gpu_median_ms": 736.7313003540039,
+    "model_error_pct": -0.7472649890870819,
+    "predicted_prefill_perimeter_including_io_ms": 29.357973683837866,
+    "native_decode_model_ms": 7.78982400894165,
+    "predicted_decode_model_mean_ms": 7.88910541063571,
+    "predicted_decode_perimeter_ms": 1.4448384827728271
+  },
+  {
+    "input_tokens": 8192,
+    "prefill_chunks": 16,
+    "predicted_model_ms": 1461.5252617656251,
+    "native_model_gpu_median_ms": 1474.2887878417969,
+    "model_error_pct": -0.8657412429254219,
+    "predicted_prefill_perimeter_including_io_ms": 46.25103298266598,
+    "native_decode_model_ms": 7.8245439529418945,
+    "predicted_decode_model_mean_ms": 7.922722326651336,
+    "predicted_decode_perimeter_ms": 1.4448384827728271
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "results": [
+      {
+        "rank": 0,
+        "tokens": 256,
+        "median_ms": {
+          "without_output_add": 41.86212921142578,
+          "with_output_add": 41.37620735168457
+        }
+      }
+    ]
+  },
+  {
+    "results": [
+      {
+        "rank": 0,
+        "tokens": 512,
+        "median_ms": {
+          "without_output_add": 35.50641632080078,
+          "with_output_add": 35.885520935058594
+        }
+      }
+    ]
+  }
+]

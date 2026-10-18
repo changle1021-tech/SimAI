@@ -1,0 +1,100 @@
+{
+  "schema": "qwen_worker_request_perimeter_v3",
+  "scope": "host_iteration_wall_minus_model_gpu_plus_request_io",
+  "configuration": {
+    "model": "qwen3-next-80B",
+    "world_size": 4,
+    "tp": 1,
+    "pp": 1,
+    "ep": 4,
+    "batch_size": 1
+  },
+  "phases": {
+    "prefill_first": [
+      {
+        "tokens": 512,
+        "critical_perimeter_ms": 8.715886297363284,
+        "samples": 9,
+        "range_ms": [
+          2.7268986274414004,
+          8.949916110351566
+        ]
+      },
+      {
+        "tokens": 256,
+        "critical_perimeter_ms": 8.827467014160163,
+        "samples": 3,
+        "range_ms": [
+          8.758909115234374,
+          8.903233445312495
+        ]
+      }
+    ],
+    "prefill_next": [
+      {
+        "tokens": 512,
+        "critical_perimeter_ms": 1.9817364123535128,
+        "samples": 54,
+        "range_ms": [
+          1.768278079101563,
+          2.3888723964843734
+        ]
+      }
+    ],
+    "decode": [
+      {
+        "tokens": 1,
+        "critical_perimeter_ms": 1.328405482772827,
+        "samples": 12,
+        "range_ms": [
+          1.3159621088256834,
+          1.43048304623413
+        ]
+      }
+    ]
+  },
+  "request_io_ms": 5.8606605,
+  "inter_chunk_gap_ms": 0.129896,
+  "source_sha256": {
+    "timers/fresh_p2048_o256/dp0.json": "160fc5bb19d9a8934669f18dffcc1a3cca48e2e28b5596e7db01cbbe32d84ad4",
+    "timers/fresh_p2048_o256/dp1.json": "1e608d1fdafe1b6d591df06c509d4dbe7981abb2f9c77d3bd3b2426bc4bf580b",
+    "timers/fresh_p512_o256/dp0.json": "bcfccbeb4c48ff480db3609372a1bea6dd0eeb5b0233effb885bcb7a66cb8404",
+    "timers/fresh_p512_o256/dp1.json": "9f18b8edbad600ae0a73490e41ab4f8a9b9613e145897ec26d611e84dacf3962",
+    "timers/fresh_p8192_o256/dp0.json": "265b1e6efe7e5c72c200d39a4b2cbb97b6364f124b7bacbb16a645676c083c23",
+    "timers/fresh_p8192_o256/dp1.json": "e1be8a15b9da7337f21afa9921fe239e9454b1e435ac5d9d4376867a9650aa9f",
+    "timers/fresh_p256_o64/dp0.json": "1df8264501d42c6840e1a7e30e5075f13516415effabc9bee3a53a00cebeda61",
+    "timers/fresh_p256_o64/dp1.json": "c3b19cb3387bc40ee1f220758ac7b741c6ef2583378275cb25f7cd845a72ff67"
+  },
+  "calibration_input_lengths": [
+    256,
+    512,
+    2048,
+    8192
+  ],
+  "held_out_input_lengths": [
+    1024,
+    1536,
+    3072,
+    4096
+  ],
+  "notes": [
+    "Worker first/continuation boundaries measured separately. Model GPU time subtracted exactly once.",
+    "Request IO is measured from aligned CLOCK_MONOTONIC client/worker timestamps; added once at context=0.",
+    "Uses calibration requests only; no client E2E fitting or residual constants."
+  ],
+  "inter_decode_gap_ms": 0.11643300000000001,
+  "inter_decode_gap_request_medians_ms": [
+    0.116505,
+    0.115733,
+    0.123818,
+    0.11398,
+    0.115573,
+    0.119401,
+    0.116516,
+    0.116361,
+    0.120774,
+    0.115945,
+    0.115722,
+    0.122548
+  ]
+}

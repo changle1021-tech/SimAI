@@ -1,0 +1,93 @@
+Wrote 3 Vidur-compatible rows: /tmp/tmpor3yx38b/send_recv.csv
+Wrote 3 Vidur-compatible rows: /tmp/tmprf22dsce/all_reduce.csv
+INFO 10-18 21:20:14 sklearn_execution_time_predictor.py:254] Attention data filtering: original 1 rows, filtered 1 rows. Model config: n_embd=4096, n_q_head=32, n_kv_head=32, block_size=16, tp_workers=1
+test_export_matches_vidur_schema_and_preserves_order_and_measurements (test_collectives_csv_schema.CollectivesCsvSchemaTests) ... ok
+test_mixed_batch_keeps_rounded_query (test_decode_communication_query.DecodeCommunicationQueryTests) ... ok
+test_pipeline_stage_selects_its_own_prediction_cache (test_decode_communication_query.DecodeCommunicationQueryTests) ... ok
+test_prefill_keeps_rounded_query (test_decode_communication_query.DecodeCommunicationQueryTests) ... ok
+test_pure_decode_uses_cuda_graph_token_boundaries (test_decode_communication_query.DecodeCommunicationQueryTests) ... ok
+test_cache_training_uses_padded_tokens (test_integrated_profiling.IntegratedProfilingTests) ... ok
+test_kernel_sum_excludes_parents_and_conditioning (test_integrated_profiling.IntegratedProfilingTests) ... ok
+test_no_legacy_switches_or_separate_profile_parameters (test_integrated_profiling.IntegratedProfilingTests) ... ok
+test_original_model_families_and_tp_shapes (test_integrated_profiling.IntegratedProfilingTests) ... ok
+test_projection_rope_and_kv_lookup_use_same_native_shape (test_integrated_profiling.IntegratedProfilingTests) ... ok
+test_standard_csv_requires_real_kv_cost_and_graph_shape (test_integrated_profiling.IntegratedProfilingTests) ... ok
+test_cross_node_uses_rdma_bandwidth (test_moe_comm_time.MoECommunicationTests) ... ok
+test_explicit_gpus_per_node_overrides_sku (test_moe_comm_time.MoECommunicationTests) ... ok
+test_fixed_latency_is_added_per_layer (test_moe_comm_time.MoECommunicationTests) ... ok
+test_intra_node_uses_nvlink_bandwidth (test_moe_comm_time.MoECommunicationTests) ... ok
+test_layer_time_is_compute_plus_communication (test_moe_comm_time.MoECommunicationTests) ... ok
+test_source_has_no_phase_hardcoded_bandwidth (test_moe_comm_time.MoECommunicationTests) ... ok
+test_cli_parses_both_new_flags (test_node_layout_profiles.NodeLayoutProfileTests) ... ok
+test_defaults_and_inferred_node_count (test_node_layout_profiles.NodeLayoutProfileTests) ... ok
+test_invalid_capacity_and_values (test_node_layout_profiles.NodeLayoutProfileTests) ... ok
+test_mixed_pp_edges_use_separate_prediction_tables (test_node_layout_profiles.NodeLayoutProfileTests) ... ok
+test_mixed_tp_edges_use_separate_prediction_tables (test_node_layout_profiles.NodeLayoutProfileTests) ... ok
+test_profile_rows_select_actual_tp_occupancy_and_pp_edge (test_node_layout_profiles.NodeLayoutProfileTests) ... ok
+test_simai_cache_isolated_by_layout_and_topology_checked (test_node_layout_profiles.NodeLayoutProfileTests) ... ok
+test_single_shape_keeps_existing_prediction_names (test_node_layout_profiles.NodeLayoutProfileTests) ... ok
+test_attention_total_uses_memory_filtered_shapes (test_profiling_progress.ProgressTests) ... ok
+test_failed_ray_result_does_not_advance_progress (test_profiling_progress.ProgressTests) ... ok
+test_mlp_total_excludes_unsupported_tp_and_advances_after_profile (test_profiling_progress.ProgressTests) ... ok
+test_ray_reports_completed_tasks_and_preserves_csv_order (test_profiling_progress.ProgressTests) ... ok
+test_csv_requires_all_48_layers_two_components_and_finite_positive_compute (test_qwen_aicb_profiles_validation.QwenAICBProfileTests) ... ok
+test_decode_exact_points_and_interpolation_ignore_request_history (test_qwen_aicb_profiles_validation.QwenAICBProfileTests) ... ok
+test_decode_interpolation_rejects_mixed_moe_timing_scopes (test_qwen_aicb_profiles_validation.QwenAICBProfileTests) ... ok
+test_metadata_source_version_scope_precision_payload_and_invocation_are_checked (test_qwen_aicb_profiles_validation.QwenAICBProfileTests) ... ok
+test_moe_time_scope_sets_ep_communication_flag_and_rejects_unknown_scope (test_qwen_aicb_profiles_validation.QwenAICBProfileTests) ... ok
+test_out_of_range_never_uses_nearest_point_and_batch_pp_are_rejected (test_qwen_aicb_profiles_validation.QwenAICBProfileTests) ... ok
+test_prefill_context_out_of_range_is_rejected (test_qwen_aicb_profiles_validation.QwenAICBProfileTests) ... ok
+test_prefill_interpolates_context_then_chunk_size (test_qwen_aicb_profiles_validation.QwenAICBProfileTests) ... ok
+test_moe_communication_rejects_invalid_selected_timing_and_out_of_range (test_qwen_aicb_profiles_validation.RuntimeProfileTests) ... ok
+test_moe_communication_uses_phase_modes_interpolates_and_validates_padded_profiles (test_qwen_aicb_profiles_validation.RuntimeProfileTests) ... ok
+test_request_perimeter_adds_io_once_and_separate_iteration_gaps (test_qwen_aicb_profiles_validation.RuntimeProfileTests) ... ok
+test_request_perimeter_rejects_negative_io_gap_and_context (test_qwen_aicb_profiles_validation.RuntimeProfileTests) ... ok
+test_worker_boundary_rejects_invalid_times_and_unmeasured_range (test_qwen_aicb_profiles_validation.RuntimeProfileTests) ... ok
+test_worker_boundary_validates_schema_scope_configuration_and_phase_interpolates (test_qwen_aicb_profiles_validation.RuntimeProfileTests) ... ok
+test_cpu_overhead_disabled_is_zero_and_enabled_without_profile_errors (test_qwen_aicb_wiring.QwenAICBWiringTests) ... ok
+test_cpu_overhead_uses_only_measured_perimeter_in_milliseconds (test_qwen_aicb_wiring.QwenAICBWiringTests) ... ok
+test_moe_csv_retains_external_router_and_accepts_filtered_zero (test_qwen_aicb_wiring.QwenAICBWiringTests) ... ok
+test_moe_profile_with_embedded_ep_communication_skips_communication_estimate (test_qwen_aicb_wiring.QwenAICBWiringTests) ... ok
+test_prefill_gdn_norms_are_subtracted_once_while_full_attention_norms_remain (test_qwen_aicb_wiring.QwenAICBWiringTests) ... ok
+test_qwen_loader_calls_profile_store_with_context_and_bypasses_global_cache (test_qwen_aicb_wiring.QwenAICBWiringTests) ... ok
+test_qwen_mlp_component_is_zero_without_loading_profiles (test_qwen_aicb_wiring.QwenAICBWiringTests) ... ok
+test_qwen_moe_communication_uses_runtime_measurement_and_converts_ms_to_seconds (test_qwen_aicb_wiring.QwenAICBWiringTests) ... ok
+test_default_eight_gpu_inference_layout (test_replica_placement.ReplicaPlacementTests) ... ok
+test_insufficient_gpu_capacity_is_rejected (test_replica_placement.ReplicaPlacementTests) ... ok
+test_rank_and_pipeline_stage_bounds_are_checked (test_replica_placement.ReplicaPlacementTests) ... ok
+test_topology_dimensions_must_be_positive_integers (test_replica_placement.ReplicaPlacementTests) ... ok
+test_tp4_pp2_three_gpus_per_node_detects_nonuniform_tp_placement (test_replica_placement.ReplicaPlacementTests) ... ok
+test_two_nodes_four_gpus_tp2_pp4_pipeline_edges (test_replica_placement.ReplicaPlacementTests) ... ok
+test_two_nodes_four_gpus_tp8_pp1_cross_node_tensor_parallel (test_replica_placement.ReplicaPlacementTests) ... ok
+test_two_nodes_two_gpus_tp2_pp2 (test_replica_placement.ReplicaPlacementTests) ... ok
+test_prediction_cache_key_includes_training_hash_and_inputs (test_send_recv_profiling.PredictorTargetTests) ... ok
+test_random_forest_training_uses_mean_target_and_reuses_training_cache (test_send_recv_profiling.PredictorTargetTests) ... /home/turbo_ops/changle/Files/analysis/qwen80b_alignment_20261016/source/SimAI/vidur-alibabacloud/vidur/execution_time_predictor/sklearn_execution_time_predictor.py:451: ResourceWarning: unclosed file <_io.BufferedWriter name='/tmp/tmprictzzrb/send_recv_f66ddf43.pkl'>
+  pickle.dump(model, open(cache_file, "wb"), protocol=pickle.HIGHEST_PROTOCOL)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/turbo_ops/changle/Files/analysis/qwen80b_alignment_20261016/source/SimAI/vidur-alibabacloud/vidur/execution_time_predictor/sklearn_execution_time_predictor.py:537: ResourceWarning: unclosed file <_io.BufferedWriter name='/tmp/tmprictzzrb/send_recv_275c6e81_predictions.pkl'>
+  pickle.dump(
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/turbo_ops/changle/Files/analysis/qwen80b_alignment_20261016/source/SimAI/vidur-alibabacloud/vidur/execution_time_predictor/sklearn_execution_time_predictor.py:451: ResourceWarning: unclosed file <_io.BufferedWriter name='/tmp/tmprictzzrb/send_recv_5ce89be1.pkl'>
+  pickle.dump(model, open(cache_file, "wb"), protocol=pickle.HIGHEST_PROTOCOL)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/turbo_ops/changle/Files/analysis/qwen80b_alignment_20261016/source/SimAI/vidur-alibabacloud/vidur/execution_time_predictor/sklearn_execution_time_predictor.py:537: ResourceWarning: unclosed file <_io.BufferedWriter name='/tmp/tmprictzzrb/send_recv_618ede62_predictions.pkl'>
+  pickle.dump(
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/turbo_ops/changle/Files/analysis/qwen80b_alignment_20261016/source/SimAI/vidur-alibabacloud/vidur/execution_time_predictor/sklearn_execution_time_predictor.py:440: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/tmprictzzrb/send_recv_5ce89be1.pkl'>
+  model = pickle.load(open(cache_file, "rb"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/home/turbo_ops/changle/Files/analysis/qwen80b_alignment_20261016/source/SimAI/vidur-alibabacloud/vidur/execution_time_predictor/sklearn_execution_time_predictor.py:556: ResourceWarning: unclosed file <_io.BufferedReader name='/tmp/tmprictzzrb/send_recv_618ede62_predictions.pkl'>
+  predictions = pickle.load(open(cache_file, "rb"))
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_send_recv_training_uses_mean_target (test_send_recv_profiling.PredictorTargetTests) ... ok
+test_training_hash_includes_target_column (test_send_recv_profiling.PredictorTargetTests) ... ok
+test_custom_round_count_reaches_profile_loop (test_send_recv_profiling.ProfilingRoundTests) ... ok
+test_default_send_recv_profile_runs_sixty_rounds_and_reports_mean (test_send_recv_profiling.ProfilingRoundTests) ... ok
+test_round_defaults_and_overrides (test_send_recv_profiling.ProfilingRoundTests) ... ok
+test_contract_uses_collective_default_and_reports_mean_aggregation (test_send_recv_profiling.VllmContractTests) ... ok
+
+----------------------------------------------------------------------
+Ran 67 tests in 0.173s
+
+OK

@@ -1,0 +1,24 @@
+[
+  {
+    "results": [
+      {
+        "dp_rank": 0,
+        "tokens": 256,
+        "layers": 48,
+        "total_ms": 46.690272092819214,
+        "path": "/home/turbo_ops/changle/Files/analysis/qwen80b_alignment_20261016/native_moe_replay/dp0_p256.json"
+      }
+    ]
+  },
+  {
+    "results": [
+      {
+        "dp_rank": 0,
+        "tokens": 512,
+        "layers": 48,
+        "total_ms": 50.637471824884415,
+        "path": "/home/turbo_ops/changle/Files/analysis/qwen80b_alignment_20261016/native_moe_replay/dp0_p512.json"
+      }
+    ]
+  }
+]

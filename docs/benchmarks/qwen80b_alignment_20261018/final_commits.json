@@ -1,0 +1,33 @@
+{
+  "aicb": {
+    "head": "db9353e6e924422baa02962aaceacdbde24e8309",
+    "branch": "codex/qwen80b-runtime-profile-20261016",
+    "files": [
+      "docs/qwen3_next_projection_profiles.md",
+      "tests/test_qwen3_next_attention.py",
+      "tests/test_qwen3_next_moe.py",
+      "tests/test_qwen3_next_projection_integration.py",
+      "utils/utils.py",
+      "workload_generator/Vidur_workload_generator.py",
+      "workload_generator/mocked_model/inference/AiobQwen3Next.py",
+      "workload_generator/mocked_model/inference/MockedQwen3Next.py",
+      "workload_generator/mocked_model/inference/qwen3_next_attention.py",
+      "workload_generator/mocked_model/inference/qwen3_next_moe.py",
+      "workload_generator/mocked_model/inference/qwen3_next_projections.py"
+    ]
+  },
+  "simai": {
+    "head": "e4a84a4e33e014c4ac0ad2c05ee5691238869c13",
+    "branch": "codex/qwen80b-aicb-alignment-20261016",
+    "files": [
+      "aicb",
+      "vidur-alibabacloud/tests/test_qwen_aicb_profiles_validation.py",
+      "vidur-alibabacloud/tests/test_qwen_aicb_wiring.py",
+      "vidur-alibabacloud/vidur/config/config.py",
+      "vidur-alibabacloud/vidur/entities/execution_time.py",
+      "vidur-alibabacloud/vidur/entities/qwen_aicb_profiles.py",
+      "vidur-alibabacloud/vidur/execution_time_predictor/base_execution_time_predictor.py",
+      "vidur-alibabacloud/vidur/execution_time_predictor/sklearn_execution_time_predictor.py"
+    ]
+  }
+}

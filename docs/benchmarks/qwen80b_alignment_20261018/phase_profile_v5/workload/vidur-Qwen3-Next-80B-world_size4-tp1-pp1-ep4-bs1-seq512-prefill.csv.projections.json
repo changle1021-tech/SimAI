@@ -1,0 +1,38 @@
+{
+  "projection_profile_version": 3,
+  "scope": "qwen3_next_components",
+  "gdn_time_scope": "compiled_chain_with_input_and_post_norm",
+  "moe_time_scope": "compute_and_ep_comm",
+  "moe_compute_profile_sha256": "33bb0cab8252bf528ada169a45d4ba7514903d342d099f533e120174a100bbec",
+  "precision": "bf16",
+  "timing_scope": "eager_stream_region_seconds",
+  "cache_flush_bytes": 134217728,
+  "source_sha256": "1954a2ce424d7e8d2748057d0f27dd33d9e31a69574de55c3e225de1b03df52f",
+  "shapes": {
+    "hidden_size": 2048,
+    "gdn_key_size": 2048,
+    "gdn_value_size": 4096,
+    "gdn_qkvz_size": 12288,
+    "gdn_ba_size": 64,
+    "attention_query_size": 4096,
+    "attention_kv_size": 512,
+    "attention_query_heads": 16,
+    "attention_kv_heads": 2,
+    "attention_qkv_size": 9216,
+    "attention_output_gate": true
+  },
+  "invocation": {
+    "model_name": "Qwen3-Next-80B",
+    "world_size": 4,
+    "tensor_model_parallel_size": 1,
+    "pipeline_model_parallel": 1,
+    "expert_model_parallel_size": 4,
+    "micro_batch": 1,
+    "seq_length": 512,
+    "phase": "prefill",
+    "context_length": 0,
+    "profile_seed": 42,
+    "block_size": null
+  },
+  "profile_sha256": "f26b9c2712a8d93f03f6b64f50463ead03b4eeb7eaf8000a2ab33a06cda8d319"
+}

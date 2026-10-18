@@ -1,0 +1,532 @@
+[
+  {
+    "component": "empty",
+    "external_events_us": [
+      3.0400000978261232,
+      3.008000086992979,
+      3.0400000978261232
+    ],
+    "amortized_warm": {
+      "median_us": 0.10074999954667874,
+      "samples_us": [
+        0.2119999990100041,
+        0.1140000022132881,
+        0.10199999815085903,
+        0.10749999637482688,
+        0.10849999671336263,
+        0.10749999637482688,
+        0.09649999992689118,
+        0.09899999713525176,
+        0.10399999882793054,
+        0.09699999645818025,
+        0.09899999713525176,
+        0.097999996796716,
+        0.10550000297371298,
+        0.09649999992689118,
+        0.09549999958835542,
+        0.09999999747378752,
+        0.10949999705189839,
+        0.09750000026542693,
+        0.09549999958835542,
+        0.10150000161956996
+      ],
+      "baseline_us": 0.0
+    },
+    "amortized_cold": {
+      "median_us": -0.002250075340270996,
+      "samples_us": [
+        0.31599774956703186,
+        -0.002000480890274048,
+        -0.012498348951339722,
+        -0.0035017728805541992,
+        -0.04000216722488403,
+        -0.0024996697902679443,
+        0.007499009370803833,
+        -0.06899982690811157,
+        -0.01449882984161377,
+        -0.03249943256378174,
+        -0.000998377799987793,
+        0.00650063157081604,
+        0.0015012919902801514,
+        0.013999640941619873,
+        0.01600012183189392,
+        0.0060014426708221436,
+        -0.01000240445137024,
+        -0.021498650312423706,
+        -0.05599856376647949,
+        0.023499131202697754
+      ],
+      "baseline_us": 42.08524897694588
+    },
+    "profiled_kernels": {
+      "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<unsigned char>, std::array<char*, 1ul> >(int, at::native::FillFunctor<unsigned char>, std::array<char*, 1ul>)": {
+        "count": 12,
+        "total_us": 496.8910000000001
+      }
+    }
+  },
+  {
+    "component": "add_2048",
+    "external_events_us": [
+      5.95200015231967,
+      5.696000065654516,
+      5.760000087320805
+    ],
+    "amortized_warm": {
+      "median_us": 1.3355000410228968,
+      "samples_us": [
+        1.755499979481101,
+        1.3589999871328473,
+        1.3470000121742487,
+        1.3289999915286899,
+        1.338499947451055,
+        1.3325000181794167,
+        1.3325000181794167,
+        1.3394999550655484,
+        1.3325000181794167,
+        1.3249999610707164,
+        1.3365000486373901,
+        1.3330000219866633,
+        1.3315000105649233,
+        1.3370000524446368,
+        1.3375000562518835,
+        1.3345000334084034,
+        1.3299999991431832,
+        1.346500008367002,
+        1.3274999801069498,
+        1.3419999741017818
+      ],
+      "baseline_us": 0.0
+    },
+    "amortized_cold": {
+      "median_us": 1.6430001705884933,
+      "samples_us": [
+        2.0899996161460876,
+        1.719001680612564,
+        1.6864985227584839,
+        1.5974976122379303,
+        1.6180016100406647,
+        1.6440004110336304,
+        1.6189999878406525,
+        1.70150026679039,
+        1.703999936580658,
+        1.5970021486282349,
+        1.6034990549087524,
+        1.6885027289390564,
+        1.7234981060028076,
+        1.6275011003017426,
+        1.6899965703487396,
+        1.6379989683628082,
+        1.5924982726573944,
+        1.6710013151168823,
+        1.6289986670017242,
+        1.6419999301433563
+      ],
+      "baseline_us": 42.17999987304211
+    },
+    "profiled_kernels": {
+      "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<unsigned char>, std::array<char*, 1ul> >(int, at::native::FillFunctor<unsigned char>, std::array<char*, 1ul>)": {
+        "count": 12,
+        "total_us": 496.9289999999992
+      },
+      "void at::native::vectorized_elementwise_kernel<8, at::native::CUDAFunctor_add<c10::BFloat16>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<c10::BFloat16>, std::array<char*, 3ul>)": {
+        "count": 12,
+        "total_us": 16.86299999999983
+      }
+    }
+  },
+  {
+    "component": "gdn_qkvz",
+    "external_events_us": [
+      30.031999573111534,
+      30.047999694943428,
+      30.112000182271004
+    ],
+    "amortized_warm": {
+      "median_us": 19.296749494969845,
+      "samples_us": [
+        20.12600004673004,
+        19.277000799775124,
+        19.31600086390972,
+        19.336499273777008,
+        19.30849999189377,
+        19.266000017523766,
+        19.32300068438053,
+        19.327500835061073,
+        19.30749975144863,
+        19.308000802993774,
+        19.284000620245934,
+        19.29749920964241,
+        19.275499507784843,
+        19.277000799775124,
+        19.253499805927277,
+        19.26399953663349,
+        19.24999989569187,
+        19.29599978029728,
+        19.29599978029728,
+        19.31150071322918
+      ],
+      "baseline_us": 0.0
+    },
+    "amortized_cold": {
+      "median_us": 24.742748588323593,
+      "samples_us": [
+        25.411996990442276,
+        24.949494749307632,
+        24.69100058078766,
+        24.574004113674164,
+        24.617999792099,
+        24.798501282930374,
+        24.64199811220169,
+        24.79500323534012,
+        24.88499879837036,
+        24.630997329950333,
+        24.681497365236282,
+        24.720001965761185,
+        24.87250417470932,
+        24.562999606132507,
+        24.508003145456314,
+        24.926498532295227,
+        24.842504411935806,
+        24.860002100467682,
+        24.679001420736313,
+        24.765495210886
+      ],
+      "baseline_us": 42.15975105762482
+    },
+    "profiled_kernels": {
+      "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<unsigned char>, std::array<char*, 1ul> >(int, at::native::FillFunctor<unsigned char>, std::array<char*, 1ul>)": {
+        "count": 12,
+        "total_us": 488.0659999999996
+      },
+      "nvjet_tst_64x8_64x16_4x1_v_bz_TNT": {
+        "count": 12,
+        "total_us": 309.4399999999996
+      }
+    }
+  },
+  {
+    "component": "conv_decode",
+    "external_events_us": [
+      7.695999927818775,
+      7.7279999386519185,
+      7.648000027984382
+    ],
+    "amortized_warm": {
+      "median_us": 2.118250005878508,
+      "samples_us": [
+        2.576499944552779,
+        2.1520000882446766,
+        2.1180000621825457,
+        2.117499941959977,
+        2.125500002875924,
+        2.1150000393390656,
+        2.1184999495744705,
+        2.1150000393390656,
+        2.119499957188964,
+        2.1104998886585236,
+        2.1214999724179506,
+        2.1184999495744705,
+        2.1120000164955854,
+        2.117499941959977,
+        2.1184999495744705,
+        2.111499896273017,
+        2.1154999267309904,
+        2.1200000774115324,
+        2.1184999495744705,
+        2.1180000621825457
+      ],
+      "baseline_us": 0.0
+    },
+    "amortized_cold": {
+      "median_us": 3.365248441696167,
+      "samples_us": [
+        3.8580000400543213,
+        3.35799902677536,
+        3.358498215675354,
+        3.37199866771698,
+        3.4580007195472717,
+        3.3189989626407623,
+        3.3439993858337402,
+        3.398500382900238,
+        3.3195018768310547,
+        3.412999212741852,
+        3.4650005400180817,
+        3.3259987831115723,
+        3.421500325202942,
+        3.326497972011566,
+        3.352999687194824,
+        3.564000129699707,
+        3.348998725414276,
+        3.4294985234737396,
+        3.3455006778240204,
+        3.3995024859905243
+      ],
+      "baseline_us": 42.19450056552887
+    },
+    "profiled_kernels": {
+      "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<unsigned char>, std::array<char*, 1ul> >(int, at::native::FillFunctor<unsigned char>, std::array<char*, 1ul>)": {
+        "count": 12,
+        "total_us": 499.00800000000027
+      },
+      "_causal_conv1d_update_kernel": {
+        "count": 12,
+        "total_us": 36.44999999999959
+      }
+    }
+  },
+  {
+    "component": "gdn_core_decode",
+    "external_events_us": [
+      10.080000385642052,
+      10.111999697983265,
+      10.239999741315842
+    ],
+    "amortized_warm": {
+      "median_us": 4.674250027164817,
+      "samples_us": [
+        5.203499924391508,
+        4.700500052422285,
+        4.685500171035528,
+        4.677500110119581,
+        4.672499839216471,
+        4.668999928981066,
+        4.681000020354986,
+        4.685500171035528,
+        4.6664997935295105,
+        4.680499900132418,
+        4.6664997935295105,
+        4.668999928981066,
+        4.679500125348568,
+        4.6664997935295105,
+        4.670499823987484,
+        4.6755000948905945,
+        4.666999913752079,
+        4.664999898523092,
+        4.672999959439039,
+        4.752499982714653
+      ],
+      "baseline_us": 0.0
+    },
+    "amortized_cold": {
+      "median_us": 6.08149915933609,
+      "samples_us": [
+        6.552502512931824,
+        6.122998893260956,
+        6.083998829126358,
+        6.016500294208527,
+        6.078999489545822,
+        5.901999771595001,
+        6.147999316453934,
+        5.977999418973923,
+        6.150998175144196,
+        6.078001111745834,
+        6.123501807451248,
+        6.169997155666351,
+        6.045002490282059,
+        5.917999893426895,
+        6.1039999127388,
+        6.033997982740402,
+        6.129000335931778,
+        6.076499819755554,
+        6.117500364780426,
+        6.056003272533417
+      ],
+      "baseline_us": 42.186250910162926
+    },
+    "profiled_kernels": {
+      "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<unsigned char>, std::array<char*, 1ul> >(int, at::native::FillFunctor<unsigned char>, std::array<char*, 1ul>)": {
+        "count": 12,
+        "total_us": 495.9669999999992
+      },
+      "fused_recurrent_gated_delta_rule_fwd_kernel": {
+        "count": 12,
+        "total_us": 69.63200000000097
+      }
+    }
+  },
+  {
+    "component": "shared_expert",
+    "external_events_us": [
+      26.04799997061491,
+      25.50400048494339,
+      25.456000119447708
+    ],
+    "amortized_warm": {
+      "median_us": 17.68925040960312,
+      "samples_us": [
+        21.88899926841259,
+        17.889000475406647,
+        17.65199936926365,
+        17.689000815153122,
+        17.680000513792038,
+        17.716500908136368,
+        17.71399937570095,
+        17.689500004053116,
+        17.71249994635582,
+        17.716500908136368,
+        17.712000757455826,
+        17.712999135255814,
+        17.6790002733469,
+        17.697999253869057,
+        17.64650084078312,
+        17.63550005853176,
+        17.629999667406082,
+        17.62250065803528,
+        17.65649951994419,
+        17.631499096751213
+      ],
+      "baseline_us": 0.0
+    },
+    "amortized_cold": {
+      "median_us": 20.913751795887947,
+      "samples_us": [
+        23.603498935699463,
+        21.337497979402542,
+        20.96250280737877,
+        20.928502082824707,
+        20.899001508951187,
+        20.95549926161766,
+        21.085001528263092,
+        20.981498062610626,
+        20.73049545288086,
+        21.007999777793884,
+        20.998001098632812,
+        20.965497940778732,
+        20.75599879026413,
+        20.825501531362534,
+        20.857002586126328,
+        20.72950452566147,
+        20.75999602675438,
+        20.817499607801437,
+        20.853504538536072,
+        20.781002938747406
+      ],
+      "baseline_us": 42.17374883592129
+    },
+    "profiled_kernels": {
+      "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<unsigned char>, std::array<char*, 1ul> >(int, at::native::FillFunctor<unsigned char>, std::array<char*, 1ul>)": {
+        "count": 12,
+        "total_us": 490.24000000000046
+      },
+      "nvjet_tst_64x8_64x16_4x1_v_bz_TNT": {
+        "count": 24,
+        "total_us": 117.37600000000134
+      },
+      "void vllm::act_and_mul_kernel<c10::BFloat16, &(c10::BFloat16 vllm::silu_kernel<c10::BFloat16>(c10::BFloat16 const&)), true>(c10::BFloat16*, c10::BFloat16 const*, int)": {
+        "count": 12,
+        "total_us": 14.721999999999753
+      },
+      "void dot_kernel<float, 128, 0, cublasDotParams<cublasGemvTensorStridedBatched<__nv_bfloat16 const>, cublasGemvTensorStridedBatched<float> > >(cublasDotParams<cublasGemvTensorStridedBatched<__nv_bfloat16 const>, cublasGemvTensorStridedBatched<float> >)": {
+        "count": 12,
+        "total_us": 20.67300000000023
+      },
+      "void reduce_1Block_kernel<float, 128, 7, cublasGemvTensorStridedBatched<float>, cublasGemvTensorStridedBatched<__nv_bfloat16 const>, cublasGemvTensorStridedBatched<__nv_bfloat16> >(float const*, float, cublasGemvTensorStridedBatched<float>, int, float const*, float, cublasGemvTensorStridedBatched<__nv_bfloat16 const>, cublasGemvTensorStridedBatched<__nv_bfloat16>, cublasPointerMode_t, cublasLtEpilogue_t, cublasGemvTensorStridedBatched<biasType<cublasGemvTensorStridedBatched<__nv_bfloat16>::value_type, float>::type const>)": {
+        "count": 12,
+        "total_us": 26.33500000000049
+      },
+      "void at::native::vectorized_elementwise_kernel<8, at::native::sigmoid_kernel_cuda(at::TensorIteratorBase&)::{lambda()#2}::operator()() const::{lambda()#4}::operator()() const::{lambda(c10::BFloat16)#1}, std::array<char*, 2ul> >(int, at::native::sigmoid_kernel_cuda(at::TensorIteratorBase&)::{lambda()#2}::operator()() const::{lambda()#4}::operator()() const::{lambda(c10::BFloat16)#1}, std::array<char*, 2ul>)": {
+        "count": 12,
+        "total_us": 17.823000000000093
+      },
+      "void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<c10::BFloat16, c10::BFloat16, c10::BFloat16, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BinaryFunctor<c10::BFloat16, c10::BFloat16, c10::BFloat16, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<c10::BFloat16, c10::BFloat16, c10::BFloat16, at::native::binary_internal::MulFunctor<float> > >(at::TensorIteratorBase&, at::native::BinaryFunctor<c10::BFloat16, c10::BFloat16, c10::BFloat16, at::native::binary_internal::MulFunctor<float> > const&)::{lambda(int)#1})": {
+        "count": 12,
+        "total_us": 25.440000000000282
+      }
+    }
+  },
+  {
+    "component": "routed_experts",
+    "external_events_us": [
+      56.912001222372055,
+      57.21599981188774,
+      56.48000165820122
+    ],
+    "amortized_warm": {
+      "median_us": 45.224498957395554,
+      "samples_us": [
+        48.161499202251434,
+        45.47850042581558,
+        45.180000364780426,
+        45.032501220703125,
+        45.0965017080307,
+        45.35549879074097,
+        45.34649848937988,
+        45.47850042581558,
+        45.07150128483772,
+        45.36249861121178,
+        45.189499855041504,
+        44.99499872326851,
+        45.23349925875664,
+        45.23799940943718,
+        45.46549916267395,
+        45.16949877142906,
+        45.13100162148476,
+        45.21549865603447,
+        45.152999460697174,
+        45.26849836111069
+      ],
+      "baseline_us": 0.0
+    },
+    "amortized_cold": {
+      "median_us": 51.23725347220898,
+      "samples_us": [
+        53.976502269506454,
+        51.44349858164787,
+        51.19450017809868,
+        51.19849741458893,
+        51.20199918746948,
+        51.09149590134621,
+        51.49050056934357,
+        51.29949748516083,
+        51.072005182504654,
+        51.24650523066521,
+        51.1774979531765,
+        51.19450017809868,
+        51.22800171375275,
+        51.280003041028976,
+        51.30450427532196,
+        51.27449706196785,
+        51.33200064301491,
+        51.25799775123596,
+        51.18400231003761,
+        51.07450112700462
+      ],
+      "baseline_us": 42.17175021767616
+    },
+    "profiled_kernels": {
+      "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<unsigned char>, std::array<char*, 1ul> >(int, at::native::FillFunctor<unsigned char>, std::array<char*, 1ul>)": {
+        "count": 12,
+        "total_us": 487.80700000000115
+      },
+      "void vllm::moe::moe_align_block_size_kernel<int>(int const*, int*, int*, int*, int, int, int, int, unsigned long, int*, int)": {
+        "count": 12,
+        "total_us": 47.904000000000906
+      },
+      "void vllm::moe::count_and_sort_expert_tokens_kernel<int>(int const*, int*, int*, unsigned long, int)": {
+        "count": 12,
+        "total_us": 14.914000000000215
+      },
+      "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}, std::array<char*, 2ul>, 4, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1> >(int, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}, std::array<char*, 2ul>, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1>)": {
+        "count": 12,
+        "total_us": 27.360999999999876
+      },
+      "void at::native::index_elementwise_kernel<128, 4, at::native::gpu_index_kernel<at::native::index_kernel_impl<at::native::OpaqueType<4> >(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>)::{lambda(char*, char const*, long)#1}>(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>, at::native::index_kernel_impl<at::native::OpaqueType<4> >(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>)::{lambda(char*, char const*, long)#1} const&, bool)::{lambda(int)#1}>(long, at::native::gpu_index_kernel<at::native::index_kernel_impl<at::native::OpaqueType<4> >(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>)::{lambda(char*, char const*, long)#1}>(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>, at::native::index_kernel_impl<at::native::OpaqueType<4> >(at::TensorIteratorBase&, c10::ArrayRef<long>, c10::ArrayRef<long>)::{lambda(char*, char const*, long)#1} const&, bool)::{lambda(int)#1})": {
+        "count": 12,
+        "total_us": 40.289000000001124
+      },
+      "fused_moe_kernel": {
+        "count": 24,
+        "total_us": 407.96699999999964
+      },
+      "void vllm::act_and_mul_kernel<c10::BFloat16, &(c10::BFloat16 vllm::silu_kernel<c10::BFloat16>(c10::BFloat16 const&)), true>(c10::BFloat16*, c10::BFloat16 const*, int)": {
+        "count": 12,
+        "total_us": 17.440000000000055
+      },
+      "void at::native::reduce_kernel<128, 4, at::native::ReduceOp<c10::BFloat16, at::native::func_wrapper_t<c10::BFloat16, at::native::sum_functor<c10::BFloat16, float, c10::BFloat16>::operator()(at::TensorIterator&)::{lambda(float, float)#1}>, unsigned int, c10::BFloat16, 4, 4> >(at::native::ReduceOp<c10::BFloat16, at::native::func_wrapper_t<c10::BFloat16, at::native::sum_functor<c10::BFloat16, float, c10::BFloat16>::operator()(at::TensorIterator&)::{lambda(float, float)#1}>, unsigned int, c10::BFloat16, 4, 4>)": {
+        "count": 12,
+        "total_us": 59.38999999999987
+      }
+    }
+  }
+]
