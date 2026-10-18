@@ -1,4 +1,5 @@
 from vidur.entities.base_entity import BaseEntity
+from vidur.entities.qwen_aicb_profiles import QwenAICBProfiles, RuntimeBoundaryProfile, RuntimeMoECommunication
 from vidur.config import (
     BaseExecutionTimePredictorConfig,
     BaseReplicaSchedulerConfig,
@@ -545,6 +546,9 @@ class ExecutionTime(BaseEntity):
     # def _get_mlp_layer_execution_time_from_dpsk_and_aiob(self) -> float:
     # def _get_mlp_layer_execution_time_from_aicb(self) -> float:
     def _get_mlp_layer_execution_time_from_aicb(self, layer_id) -> float:
+        if self._replica_config.model_name == "qwen3-next-80B":
+            # Its shared and routed experts are both in the MoE component.
+            return 0.0
         if self._aicb_data is None:
             self._aicb_data = self._load_aicb_data()
         
@@ -588,7 +592,8 @@ class ExecutionTime(BaseEntity):
         # Unit: Byte / 单位Byte
         moe_comm_size = layer_data.get('comm_size', 0.0) 
 
-        moe_comm_time = self._get_moe_comm_time(moe_comm_size)
+        moe_comm_time = (0.0 if layer_data.get("includes_ep_comm",0.0)
+                         else self._get_moe_comm_time(moe_comm_size))
         moe_time = moe_comp_time + moe_comm_time
         return moe_time if moe_time > 0 else 1e-6
 
@@ -602,6 +607,15 @@ class ExecutionTime(BaseEntity):
         return self._replica_config.expert_model_parallel_size > gpus_per_node
 
     def _get_moe_comm_time(self, moe_comm_size: float) -> float:
+        if getattr(self._replica_config, "model_name", None) == "qwen3-next-80B":
+            _, _, tp, pp, ws, ep, bs, seq, phase = self._get_aicb_params()
+            if ep == 1:
+                return 0.0
+            path = self._config.aicb_moe_comm_profile
+            if not path:
+                raise ValueError("Qwen AG/RS timing requires --execution_time_predictor_config_aicb_moe_comm_profile")
+            tokens = seq if phase == "prefill" else bs
+            return RuntimeMoECommunication(path).estimate(phase,tokens,ws,tp,pp,ep)*1e-3
         # Link is chosen by topology (cross-node -> RDMA, intra-node -> NVLink),
         # not by prefill/decode. A fixed per-layer latency models launch/sync cost.
         # 按拓扑选择链路：跨机用 RDMA，机内用 NVLink；与 prefill/decode 无关。
@@ -890,6 +904,14 @@ class ExecutionTime(BaseEntity):
 
         # Get current parameters / 获取当前参数
         model_name, _, tp, pp, ws, ep, bs, seq, phase = self._get_aicb_params()
+        if model_name == "Qwen3-Next-80B":
+            # Use the measured disk grid, never history-dependent legacy caches.
+            profiles = QwenAICBProfiles(_AICB_ROOT, self._config.aicb_profile_dir)
+            self._aicb_data = profiles.load(
+                ws, tp, pp, ep, bs, seq, phase,
+                getattr(self._replica_config, "context_len", 0))
+            return self._aicb_data
+
         
         # === Step 1+2: Try global cache (exact match or interpolation) ===
         # === 步骤1+2: 尝试从全局缓存获取 (精确匹配 或 插值) ===
@@ -1208,6 +1230,20 @@ class ExecutionTime(BaseEntity):
             )
 
     def _get_cpu_overhead(self) -> float:
+        if (self._config.backend == "aicb"
+                and self._replica_config.model_name == "qwen3-next-80B"):
+            if self._config.skip_cpu_overhead_modeling:
+                return 0.0
+            path = self._config.aicb_cpu_overhead_profile
+            if not path:
+                raise ValueError("Qwen CPU modeling requires --random_forrest_execution_time_predictor_config_aicb_cpu_overhead_profile")
+            _, _, tp, pp, ws, ep, bs, seq, phase = self._get_aicb_params()
+            if bs != 1:
+                raise ValueError("Qwen worker perimeter is measured for batch1")
+            tokens = seq if phase == "prefill" else bs
+            return RuntimeBoundaryProfile(path).estimate(
+                phase, tokens, ws, tp, pp, ep,
+                context=getattr(self._replica_config, "context_len", 0))
         return (
             self._schedule_time
             + self._sampler_e2e_time

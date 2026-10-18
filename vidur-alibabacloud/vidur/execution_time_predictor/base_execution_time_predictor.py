@@ -213,6 +213,12 @@ class BaseExecutionTimePredictor(ABC):
                 replica_config.decode_last_seq = decode_last_seq
                 logger.debug(f"[AICB first-last interpolation] decode current seq={seq}, last iter seq={decode_last_seq}")
             
+            replica_config.context_len = 0
+            if replica_config.model_name == "qwen3-next-80B" and replica_config.phase == "prefill":
+                prefills = [r for r in batch.requests if not r._is_prefill_complete]
+                if len(prefills) != 1:
+                    raise ValueError("Validated Qwen profiles require one prefill request")
+                replica_config.context_len = prefills[0].num_processed_prefill_tokens
             replica_config.batch_size = bs
             replica_config.seq_len = seq
             

@@ -770,6 +770,18 @@ class BaseExecutionTimePredictorConfig(BasePolyConfig):
         default="../astra-sim-alibabacloud/inputs/config/SimAI.conf",
         metadata={"help": "Path to the simai config file."},
     )
+    aicb_profile_dir: Optional[str] = field(
+        default=None,
+        metadata={"help": "Directory of measured, validated Qwen AICB component profiles."},
+    )
+    aicb_moe_comm_profile: Optional[str] = field(
+        default=None,
+        metadata={"help": "Four-rank Qwen AG/RS microbenchmark JSON for the target deployment."},
+    )
+    aicb_cpu_overhead_profile: Optional[str] = field(
+        default=None,
+        metadata={"help": "Measured Qwen worker perimeter profile; required when CPU modeling is enabled."},
+    )
     aicb_force_bs1: bool = field(
         default=False,
         metadata={"help": "AICB fallback switch: force bs=1 for CSV generation. "

@@ -885,6 +885,15 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
         if self._config.skip_cpu_overhead_modeling:
             return {}
 
+        if self._replica_config.model_name == "qwen3-next-80B":
+            if not self._config.aicb_cpu_overhead_profile:
+                raise ValueError("Qwen CPU modeling requires a measured worker perimeter profile")
+            # ExecutionTime applies the net perimeter once. Inclusive CPU
+            # function wall times contain GPU waits and cannot be summed here.
+            return {name: {(size,): 0.0 for size in range(1, self._config.prediction_max_batch_size + 1)}
+                    for name in ("schedule", "sampler_e2e", "prepare_inputs_e2e",
+                                 "process_model_outputs", "ray_comm_time")}
+
         # Store CPU overhead predictions / 存储CPU开销预测结果
         predictions = {}
 
