@@ -1238,11 +1238,10 @@ class ExecutionTime(BaseEntity):
             if not path:
                 raise ValueError("Qwen CPU modeling requires --random_forrest_execution_time_predictor_config_aicb_cpu_overhead_profile")
             _, _, tp, pp, ws, ep, bs, seq, phase = self._get_aicb_params()
-            if bs != 1:
-                raise ValueError("Qwen worker perimeter is measured for batch1")
             tokens = seq if phase == "prefill" else bs
             return RuntimeBoundaryProfile(path).estimate(
                 phase, tokens, ws, tp, pp, ep,
+                bs=bs,
                 context=getattr(self._replica_config, "context_len", 0))
         return (
             self._schedule_time

@@ -216,9 +216,12 @@ class BaseExecutionTimePredictor(ABC):
             replica_config.context_len = 0
             if replica_config.model_name == "qwen3-next-80B" and replica_config.phase == "prefill":
                 prefills = [r for r in batch.requests if not r._is_prefill_complete]
-                if len(prefills) != 1:
-                    raise ValueError("Validated Qwen profiles require one prefill request")
-                replica_config.context_len = prefills[0].num_processed_prefill_tokens
+                bs = len(prefills)
+                contexts = {r.num_processed_prefill_tokens for r in prefills}
+                if len(contexts) > 1:
+                    raise ValueError(
+                        "Qwen AICB prefill batch has mixed context lengths: {}".format(sorted(contexts)))
+                replica_config.context_len = next(iter(contexts), 0)
             replica_config.batch_size = bs
             replica_config.seq_len = seq
             

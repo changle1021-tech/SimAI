@@ -32,10 +32,10 @@ class ProfileFixtures(unittest.TestCase):
 
     def write_profile(self, seq, phase="decode", context=0, value=None,
                       invocation_update=None, metadata_update=None,
-                      payload_update=None, filename=None):
+                      payload_update=None, filename=None, bs=1):
         invocation = dict(model_name="Qwen3-Next-80B", world_size=4,
                           tensor_model_parallel_size=1, pipeline_model_parallel=1,
-                          expert_model_parallel_size=4, micro_batch=1,
+                          expert_model_parallel_size=4, micro_batch=bs,
                           phase=phase, seq_length=seq, context_length=context)
         invocation.update(invocation_update or {})
         value = float(seq + 2 * context) if value is None else value
@@ -47,9 +47,9 @@ class ProfileFixtures(unittest.TestCase):
         if payload_update:
             payload = payload_update(payload)
         if filename is None:
-            filename = ("vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq{}-{}-{}.csv"
-                        .format(seq, context, phase) if phase == "prefill" else
-                        "vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs1-seq{}-{}.csv".format(seq, phase))
+            filename = ("vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs{}-seq{}-{}-{}.csv"
+                        .format(bs, seq, context, phase) if phase == "prefill" else
+                        "vidur-Qwen3-Next-80B-world_size4-tp1-pp1-ep4-bs{}-seq{}-{}.csv".format(bs, seq, phase))
         path = self.directory / filename
         path.write_bytes(payload)
         metadata = dict(projection_profile_version=3, scope="qwen3_next_components",
@@ -145,17 +145,28 @@ class QwenAICBProfileTests(ProfileFixtures):
         with self.assertRaisesRegex(ValueError, "different MoE timing scopes"):
             QwenAICBProfiles(self.root).load(4, 1, 1, 4, 1, 15, "decode")
 
-    def test_out_of_range_never_uses_nearest_point_and_batch_pp_are_rejected(self):
+    def test_out_of_range_never_uses_nearest_point_and_pp_is_rejected(self):
         self.write_profile(10)
         self.write_profile(20)
         profiles = QwenAICBProfiles(self.root)
         for query in (9, 21):
             with self.subTest(query=query), self.assertRaisesRegex(ValueError, "outside measured range"):
                 profiles.load(4, 1, 1, 4, 1, query, "decode")
-        with self.assertRaisesRegex(ValueError, "batch1 and PP1"):
+        with self.assertRaisesRegex(ValueError, "require PP1"):
             profiles.load(4, 1, 2, 4, 1, 15, "decode")
-        with self.assertRaisesRegex(ValueError, "batch1 and PP1"):
-            profiles.load(4, 1, 1, 4, 2, 15, "decode")
+
+    def test_batch_size_selects_its_own_profiles_and_never_falls_back_to_batch1(self):
+        self.write_profile(10, value=10, bs=1)
+        self.write_profile(20, value=20, bs=1)
+        with self.assertRaisesRegex(FileNotFoundError, r"ws=4, tp=1, pp=1, ep=4, bs=2.*available batch sizes: \['1'\]"):
+            QwenAICBProfiles(self.root).load(4, 1, 1, 4, 2, 15, "decode")
+
+        self.write_profile(10, value=100, bs=2)
+        self.write_profile(20, value=200, bs=2)
+        profiles = QwenAICBProfiles(self.root)
+        self.assertEqual(profiles.load(4, 1, 1, 4, 2, 10, "decode")[0]["attention"]["comp_time"], 100)
+        self.assertEqual(profiles.load(4, 1, 1, 4, 2, 15, "decode")[0]["attention"]["comp_time"], 150)
+        self.assertEqual(profiles.load(4, 1, 1, 4, 1, 15, "decode")[0]["attention"]["comp_time"], 15)
 
     def test_prefill_context_out_of_range_is_rejected(self):
         for context in (10, 20):
@@ -165,11 +176,11 @@ class QwenAICBProfileTests(ProfileFixtures):
 
 
 class RuntimeProfileTests(ProfileFixtures):
-    def boundary_data(self):
+    def boundary_data(self, batch_size=1):
         return dict(schema="qwen_worker_critical_perimeter_v2",
                     scope="host_iteration_wall_minus_model_gpu",
                     configuration=dict(model="qwen3-next-80B", world_size=4, tp=1,
-                                       pp=1, ep=4, batch_size=1),
+                                       pp=1, ep=4, batch_size=batch_size),
                     phases={"decode": [
                         dict(tokens=1, critical_perimeter_ms=1.5),
                         dict(tokens=3, critical_perimeter_ms=3.5)],
@@ -228,6 +239,12 @@ class RuntimeProfileTests(ProfileFixtures):
                 RuntimeBoundaryProfile(self.write_json(invalid))
         with self.assertRaisesRegex(ValueError, "configuration differs"):
             profile.estimate("decode", 2, 8, 1, 1, 4)
+
+    def test_worker_boundary_selects_matching_batch_size_configuration(self):
+        profile = RuntimeBoundaryProfile(self.write_json(self.boundary_data(batch_size=2)))
+        self.assertEqual(profile.estimate("decode", 2, 4, 1, 1, 4, bs=2), 2.5)
+        with self.assertRaisesRegex(ValueError, "configuration differs"):
+            profile.estimate("decode", 2, 4, 1, 1, 4, bs=1)
 
     def test_worker_boundary_rejects_invalid_times_and_unmeasured_range(self):
         data = self.boundary_data()
