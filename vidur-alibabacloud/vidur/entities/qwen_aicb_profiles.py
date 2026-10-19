@@ -95,8 +95,8 @@ class QwenAICBProfiles:
         return result
 
     def load(self, ws, tp, pp, ep, bs, seq, phase, context=0):
-        if bs != 1 or pp != 1:
-            raise ValueError("Validated Qwen AICB profiles currently require batch1 and PP1")
+        if pp != 1:
+            raise ValueError("Validated Qwen AICB profiles currently require PP1")
         prefix = "vidur-Qwen3-Next-80B-world_size{}-tp{}-pp{}-ep{}-bs{}-seq".format(ws,tp,pp,ep,bs)
         candidates = {}
         for path in self.directory.glob(prefix+"*-"+phase+".csv"):
@@ -112,7 +112,13 @@ class QwenAICBProfiles:
                     raise ValueError("Ambiguous Qwen profiles at {}".format(point))
                 candidates[point] = path
         if not candidates:
-            raise FileNotFoundError("No validated Qwen AICB profiles in {}".format(self.directory))
+            available = sorted({p.name.split("-bs", 1)[1].split("-seq", 1)[0]
+                                for p in self.directory.glob("vidur-Qwen3-Next-80B-world_size*-tp*-pp*-ep*-bs*-seq*-*.csv")
+                                if "-bs" in p.name and "-seq" in p.name})
+            raise FileNotFoundError(
+                "No validated Qwen AICB profile for ws={}, tp={}, pp={}, ep={}, bs={}, phase={} "
+                "in {}; available batch sizes: {}".format(
+                    ws, tp, pp, ep, bs, phase, self.directory, available or "none"))
         expected = dict(model_name="Qwen3-Next-80B", world_size=ws,
                         tensor_model_parallel_size=tp,pipeline_model_parallel=pp,
                         expert_model_parallel_size=ep,micro_batch=bs,phase=phase)
@@ -158,8 +164,8 @@ class RuntimeBoundaryProfile:
         if self.data.get("scope") != schemas[schema]:
             raise ValueError("Worker perimeter profile has incompatible timing boundary")
 
-    def estimate(self, phase, tokens, ws, tp, pp, ep, context=0):
-        expected=dict(model="qwen3-next-80B",world_size=ws,tp=tp,pp=pp,ep=ep,batch_size=1)
+    def estimate(self, phase, tokens, ws, tp, pp, ep, bs=1, context=0):
+        expected=dict(model="qwen3-next-80B",world_size=ws,tp=tp,pp=pp,ep=ep,batch_size=bs)
         if self.data.get("configuration") != expected:
             raise ValueError("Worker perimeter profile configuration differs")
         if phase not in ("prefill", "decode"):
