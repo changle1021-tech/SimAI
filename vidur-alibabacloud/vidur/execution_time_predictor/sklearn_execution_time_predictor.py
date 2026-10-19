@@ -913,38 +913,39 @@ class SklearnExecutionTimePredictor(BaseExecutionTimePredictor):
         for model_name in model_names:
             # Generate simulated values for each model / 为每个模型生成模拟值
             if model_name == "schedule":
-                # Scheduling overhead: base 0.5ms, +0.05ms per batch
-                # 调度开销：基础时间0.5ms，每增加一个batch增加0.05ms
+                # Schedule overhead (vLLM 0.11.2, Qwen3-Next-80B BF16, TP1/DP4/EP4)
+                # fit vs per-rank batch (b = ceil(B/DP)): 0.0797 + 0.009346 * b
+                # 调度开销：vLLM 0.11.2 实测拟合，batch 为 per-rank batch
                 predictions[model_name] = {
-                    (batch_size,): 0.5 + 0.05 * batch_size
+                    (batch_size,): 0.0797 + 0.009346 * batch_size
                     for batch_size in batch_size_range
                 }
             elif model_name == "sampler_e2e":
-                # Sampler e2e overhead: base 1.0ms, +0.1ms per batch
-                # 采样端到端开销：基础时间1.0ms，每增加一个batch增加0.1ms
+                # Sampler e2e overhead (vLLM 0.11.2): 0.4052 + 0.002192 * b
+                # 采样端到端开销：vLLM 0.11.2 实测拟合，batch 为 per-rank batch
                 predictions[model_name] = {
-                    (batch_size,): 1.0 + 0.1 * batch_size
+                    (batch_size,): 0.4052 + 0.002192 * batch_size
                     for batch_size in batch_size_range
                 }
             elif model_name == "prepare_inputs_e2e":
-                # Prepare inputs e2e overhead: base 0.8ms, +0.08ms per batch
-                # 准备输入端到端开销：基础时间0.8ms，每增加一个batch增加0.08ms
+                # Prepare inputs e2e overhead (vLLM 0.11.2): constant 0.0369
+                # 准备输入端到端开销：vLLM 0.11.2 实测，与 batch 无关的常量
                 predictions[model_name] = {
-                    (batch_size,): 0.8 + 0.08 * batch_size
+                    (batch_size,): 0.0369
                     for batch_size in batch_size_range
                 }
             elif model_name == "process_model_outputs":
-                # Process model outputs overhead: base 0.3ms, +0.03ms per batch
-                # 处理模型输出开销：基础时间0.3ms，每增加一个batch增加0.03ms
+                # Process model outputs (vLLM 0.11.2): 0.0558 + 0.002109 * b
+                # 处理模型输出开销：vLLM 0.11.2 实测拟合，batch 为 per-rank batch
                 predictions[model_name] = {
-                    (batch_size,): 0.3 + 0.03 * batch_size
+                    (batch_size,): 0.0558 + 0.002109 * batch_size
                     for batch_size in batch_size_range
                 }
             elif model_name == "ray_comm_time":
-                # Ray comm time: base 0.2ms, +0.02ms per batch
-                # Ray通信时间：基础时间0.2ms，每增加一个batch增加0.02ms
+                # Ray comm time (vLLM 0.11.2): zero residual
+                # Ray通信时间：vLLM 0.11.2 实测为 0
                 predictions[model_name] = {
-                    (batch_size,): 0.2 + 0.02 * batch_size
+                    (batch_size,): 0.0
                     for batch_size in batch_size_range
                 }
 
